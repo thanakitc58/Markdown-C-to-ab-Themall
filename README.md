@@ -2,7 +2,7 @@
 
 เอกสารอ้างอิงแปลงโปรโมชัน **Mer C → Mer AB** (เว็บ / payload)
 
-**ให้เพื่อนดูเป็นหลัก:** `payload_AB_Reference.md` + `MerC_to_AB_ByProfile.md` + `MerC_to_AB_Function_Split.md`  
+**ดูเป็นหลัก:** `payload_AB_Reference.md` + ไฟล์ราย profile (`MerC_to_AB_P001.md` …) + `MerC_to_AB_Function_Split.md`  
 (+ ชื่อบนจอจากไฟล์ To-Be xlsx)
 
 ---
@@ -13,14 +13,21 @@
 |------|------|-----------|
 | 1 | `Copy of The To-Be Promotion Template Structure.xlsx` | **ชื่อจริงบนเว็บ** — ชีต `MerAB - Header` / `MerAB - item Details` |
 | 2 | `payload_AB_Reference.md` | **สัญญา JSON ฝั่ง AB** — key ↔ ชื่อใน To-Be (แถวชีต) |
-| 3 | `MerC_to_AB_ByProfile.md` | ต่างกันทีละ profile (9 ตัว) — Buy/Get, %, time, reference |
-| 4 | `MerC_to_AB_Function_Split.md` | โครงโค้ด — shared → กลุ่ม A/B/C → if ราย profile |
+| 3 | `MerC_to_AB_ByProfile.md` | **index 9 profile** + ตารางเปรียบเทียบ |
+| 4 | `MerC_to_AB_{P001\|P010\|…\|F003}.md` | สเปก C→AB แยกราย profile (ตาราง + สูตร + skeleton JSON) |
+| 5 | `MerC_to_AB_Function_Split.md` | โครงโค้ด — shared → กลุ่ม A/B/C → if ราย profile |
 
 ```
-ชื่อบนเว็บ (To-Be xlsx)  ↔  payload_AB_Reference.md  ↔  ByProfile + Function_Split
+ชื่อบนเว็บ (To-Be xlsx)  ↔  payload_AB_Reference.md  ↔  ไฟล์ราย profile + Function_Split
 ```
 
-> ไฟล์ขึ้นต้น `~$` = lock ของ Excel ไม่ใช่ตัวจริง
+### ราย profile (9 ไฟล์)
+
+| กลุ่ม | ไฟล์ |
+|------|------|
+| A | `MerC_to_AB_P001.md` · `MerC_to_AB_P010.md` · `MerC_to_AB_P011.md` · `MerC_to_AB_P015.md` |
+| B | `MerC_to_AB_D001.md` · `MerC_to_AB_F001.md` |
+| C | `MerC_to_AB_D002.md` · `MerC_to_AB_D003.md` · `MerC_to_AB_F003.md` |
 
 ---
 
@@ -52,8 +59,8 @@
 | งาน | เปิดไฟล์ |
 |-----|----------|
 | เทียบชื่อบนจอ | To-Be xlsx + `payload_AB_Reference.md` |
-| เขียน convert | `payload_AB_Reference` → Function_Split → ByProfile |
-| ไล่ bug ราย profile | ByProfile → ถ้ายังงงค่อยเปิด `Mer-C_Convert_To_STD.txt` |
+| เขียน convert | `payload_AB_Reference` → Function_Split → ไฟล์ราย profile |
+| ไล่ bug ราย profile | `MerC_to_AB_Pxxx.md` → ถ้ายังงงค่อยเปิด `Mer-C_Convert_To_STD.txt` |
 | export กลับ Excel | ExistsInAB + ภาคผนวก A ใน `payload_AB_Reference` |
 
 **Scope ลูกค้า:** 9 profile — P001, P010, P011, P015, D001, F001, D002, D003, F003  

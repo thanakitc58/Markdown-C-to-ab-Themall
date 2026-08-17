@@ -1,7 +1,8 @@
-# C → AB — แยกตาม Profile (9 ตัว)
+# C → AB — Index ตาม Profile (9 ตัว)
 
- converter: **ของร่วมอยู่ไฟล์อื่น** ส่วนไฟล์นี้เจาะว่าแต่ละ profile ต่างกันตรงไหน
+สเปกราย profile แยกไฟล์ละตัว — ใช้เป็นแนวแปลง JSON (`LAYOUT: "AB"`)
 
+<<<<<<< HEAD
 
 | เอกสาร                         | ใช้เมื่อ                                        |
 | ------------------------------ | ----------------------------------------------- |
@@ -10,13 +11,35 @@
 | `payload_AB_Reference.md`      | ชื่อ field ปลายทาง AB (JSON contract)           |
 | **ไฟล์นี้**                    | สเปกราย profile — copy หัวข้อไป ticket ได้      |
 
+=======
+| Profile | กลุ่ม | ไฟล์ |
+|---------|------|------|
+| **P001** | A — Get-only | [`MerC_to_AB_P001.md`](MerC_to_AB_P001.md) |
+| **P010** | A — Get-only | [`MerC_to_AB_P010.md`](MerC_to_AB_P010.md) |
+| **P011** | A — Get-only | [`MerC_to_AB_P011.md`](MerC_to_AB_P011.md) |
+| **P015** | A — Get-only | [`MerC_to_AB_P015.md`](MerC_to_AB_P015.md) |
+| **D001** | B — Buy+Get | [`MerC_to_AB_D001.md`](MerC_to_AB_D001.md) |
+| **F001** | B — Buy+Get | [`MerC_to_AB_F001.md`](MerC_to_AB_F001.md) |
+| **D002** | C (โครง = B) | [`MerC_to_AB_D002.md`](MerC_to_AB_D002.md) |
+| **D003** | C — แยก element | [`MerC_to_AB_D003.md`](MerC_to_AB_D003.md) |
+| **F003** | C — แยก index | [`MerC_to_AB_F003.md`](MerC_to_AB_F003.md) |
 
-**อ่านยังไง:** ทำ Phase 1 shared ก่อน → router กลุ่ม A/B/C → ค่อยเปิดหัวข้อ profile ที่รับผิดชอบ
+**เอกสารร่วม**
+
+| ไฟล์ | ใช้เมื่อ |
+|------|---------|
+| `payload_AB_Reference.md` | ชื่อ field ปลายทาง AB (JSON contract) |
+| `MerC_to_AB_Phase1_Shared.md` | ของร่วมทุก profile (header / skip / lookup) |
+| `MerC_to_AB_Function_Split.md` | โครงโค้ด shared → router กลุ่ม → if ราย profile |
+>>>>>>> 4ace82ab0822b63aeefc41d79f1f2199b588794a
+
+**อ่านยังไง:** ของร่วมก่อน → router กลุ่ม A/B/C → เปิดไฟล์ profile ที่รับผิดชอบ
 
 ---
 
 ## ตารางเปรียบเทียบเร็ว
 
+<<<<<<< HEAD
 
 | Profile  | กลุ่ม | เขียนฝั่ง                     | `get.field8` ราคาขายปกติ | % normalize | `validTime*` | `referenceCode`       | Online EN/TH (ถ้า P4) |
 | -------- | ----- | ----------------------------- | ------------------------ | ----------- | ------------ | --------------------- | --------------------- |
@@ -30,6 +53,19 @@
 | **D003** | C     | buy **หรือ** get คนละ element | ❌                        | เต็ม        | ✅            | ❌                     | ✅                     |
 | **F003** | C     | buy **หรือ** get แยก index    | ❌                        | **ง่าย**    | ✅            | ❌                     | ✅                     |
 
+=======
+| Profile | กลุ่ม | เขียนฝั่ง | `get.field8` | % normalize | `validTime*` | `referenceCode` | Online EN/TH (ถ้า P4) |
+|---------|------|-----------|:------------:|:-----------:|:------------:|:---------------:|:---------------------:|
+| **P001** | A | `get[]` เท่านั้น | ✅ | เต็ม | ✅ | ❌ | ❌ |
+| **P010** | A | `get[]` เท่านั้น | ✅ | เต็ม | ❌ | ✅ | ✅ |
+| **P011** | A | `get[]` เท่านั้น | ✅ | เต็ม | ✅ | ❌ (รับได้แต่ไม่เขียน) | ✅ |
+| **P015** | A | `get[]` เท่านั้น | ✅ | เต็ม | ✅ | ❌ | ❌ |
+| **D001** | B | `buy[]` + `get[]` | ❌ | เต็ม | ✅ | ❌ | ✅ |
+| **F001** | B | `buy[]` + `get[]` | ❌ | **ง่าย** | ✅ | ❌ | ✅ |
+| **D002** | C | `buy[]` + `get[]` (เหมือน B) | ❌ | เต็ม | ✅ | ❌ | ✅ |
+| **D003** | C | buy **หรือ** get คนละ element | ❌ | เต็ม | ✅ | ❌ | ✅ |
+| **F003** | C | buy **หรือ** get แยก index | ❌ | **ง่าย** | ✅ | ❌ | ✅ |
+>>>>>>> 4ace82ab0822b63aeefc41d79f1f2199b588794a
 
 **Normalize เต็ม:** ถ้า `%/100 < 1` ใช้ค่าเดิม; ถ้า `>100` หาร 100; ถ้า `<1` คูณ 100  
 **Normalize ง่าย:** `field22 = % / 100` ตรงๆ
@@ -54,6 +90,7 @@
 
 รายละเอียด: `MerC_to_AB_Phase1_Shared.md` + หมวด 2 ใน `MerC_to_AB_Function_Split.md`
 
+<<<<<<< HEAD
 ---
 
 
@@ -529,3 +566,6 @@ if (mechanicIndicatesGet(ctx.mechanic)) {
 
 
 ชื่อ field ปลายทางทุกคนล็อกกับ `payload_AB_Reference.md` — **อย่าตั้งชื่อใหม่**
+=======
+ชื่อ field ปลายทางล็อกกับ `payload_AB_Reference.md` — อย่าตั้งชื่อใหม่
+>>>>>>> 4ace82ab0822b63aeefc41d79f1f2199b588794a
