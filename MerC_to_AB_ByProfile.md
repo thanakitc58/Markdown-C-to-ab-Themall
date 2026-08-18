@@ -4,15 +4,15 @@
 
 | Profile | กลุ่ม | ไฟล์ |
 |---------|------|------|
-| **P001** | A — Get-only | [`MerC_to_AB_P001.md`](MerC_to_AB_P001.md) |
-| **P010** | A — Get-only | [`MerC_to_AB_P010.md`](MerC_to_AB_P010.md) |
-| **P011** | A — Get-only | [`MerC_to_AB_P011.md`](MerC_to_AB_P011.md) |
-| **P015** | A — Get-only | [`MerC_to_AB_P015.md`](MerC_to_AB_P015.md) |
-| **D001** | B — Buy+Get | [`MerC_to_AB_D001.md`](MerC_to_AB_D001.md) |
-| **F001** | B — Buy+Get | [`MerC_to_AB_F001.md`](MerC_to_AB_F001.md) |
-| **D002** | C (โครง = B) | [`MerC_to_AB_D002.md`](MerC_to_AB_D002.md) |
-| **D003** | C — แยก element | [`MerC_to_AB_D003.md`](MerC_to_AB_D003.md) |
-| **F003** | C — แยก index | [`MerC_to_AB_F003.md`](MerC_to_AB_F003.md) |
+| **P001** | A — Get-only | [`profile/MerC_to_AB_P001.md`](profile/MerC_to_AB_P001.md) |
+| **P010** | A — Get-only | [`profile/MerC_to_AB_P010.md`](profile/MerC_to_AB_P010.md) |
+| **P011** | A — Get-only | [`profile/MerC_to_AB_P011.md`](profile/MerC_to_AB_P011.md) |
+| **P015** | A — Get-only | [`profile/MerC_to_AB_P015.md`](profile/MerC_to_AB_P015.md) |
+| **D001** | B — Buy+Get | [`profile/MerC_to_AB_D001.md`](profile/MerC_to_AB_D001.md) |
+| **F001** | B — Buy+Get | [`profile/MerC_to_AB_F001.md`](profile/MerC_to_AB_F001.md) |
+| **D002** | C (โครง = B) | [`profile/MerC_to_AB_D002.md`](profile/MerC_to_AB_D002.md) |
+| **D003** | C — แยก element | [`profile/MerC_to_AB_D003.md`](profile/MerC_to_AB_D003.md) |
+| **F003** | C — แยก index | [`profile/MerC_to_AB_F003.md`](profile/MerC_to_AB_F003.md) |
 
 **เอกสารร่วม**
 

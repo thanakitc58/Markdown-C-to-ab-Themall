@@ -1,0 +1,122 @@
+{
+  "LAYOUT": "C",
+  "STATUS": "DRAFT",
+  "HEADER": {
+    "group": "SUPERMARKET",
+    "purchasingGroup": "SM1",
+    "promotionName": "M Price Shock Aug 2026",
+    "theme": "A001",
+    "volume": "1",
+    "contractType": "Rebate",
+    "bonusBuyProfile": "P013",
+    "rebateChargeback": "Chargeback",
+    "wbsNumber": "WBS-2026-001",
+    "vendorCode": "V10001",
+    "vendorName": "Vendor Co., Ltd.",
+    "singleMultiple": "Single",
+    "periodFrom": "2026-08-01",
+    "periodTo": "2026-08-31",
+    "timeFrom": "10:00",
+    "timeTo": "22:00",
+    "days": ["mon", "wed", "fri"]
+  },
+  "BONUSBUYS": [],
+  "CONDITIONS": [
+    {
+      "lineNumber": 0,
+      "contractNumber": "C-900",
+      "conditionHeader": {
+        "contractType": "Rebate",
+        "vendor": "V10001",
+        "vendorName": "Vendor Co., Ltd.",
+        "start": "2026-08-01",
+        "end": "2026-08-31",
+        "generalLedgerAccount": "GL-001"
+      },
+      "businessVolumePurchase": [],
+      "businessVolumeSales": [
+        {
+          "contractNumber": "C-900",
+          "material": "MAT-001",
+          "vendor": "V10001"
+        }
+      ],
+      "conditionType": [
+        {
+          "contractNumber": "C-900",
+          "conditionType": "Z001",
+          "conditionRate": "5"
+        }
+      ],
+      "settlementCalendar": [],
+      "combineCheck": [],
+      "allocation": []
+    }
+  ],
+  "MATERIALS": [
+    {
+      "lineNumber": 0,
+      "status": "Active",
+      "numberOfPromotion": "1",
+      "numberOfMaterialGrouping": "1",
+      "numberOfBonusBuy": "1",
+      "merchandiseHierarchy": "01020304",
+      "purchasingGroup": "SM1",
+      "material": "MAT-001",
+      "barcode": "8850123456789",
+      "materialDescription": "สินค้าตัวอย่าง",
+      "materialDescription2": "Sample Product",
+      "vendor": "V10001",
+      "vendorDescription": "Vendor Co., Ltd.",
+      "flowType": "Z001",
+      "packSize": "12",
+      "salesUnit": "EA",
+      "salesTax": "7",
+      "fixGrossProfit": "",
+      "costNormal": "100.00",
+      "costDiscountAmount": "10.00",
+      "costDiscountPercent": "10",
+      "costFreeOfCharge": "",
+      "costDateStart": "2026-08-01",
+      "costDateEnd": "2026-08-31",
+      "costNormal2": "107.00",
+      "costPromotion": "90.00",
+      "salesPriceNormal": "129.00",
+      "salesPricePromotion": "99.00",
+      "bonusBuyProfile": "P013",
+      "mechanic": "Discount",
+      "discountAmount": "30.00",
+      "discountPercentForP015": "5",
+      "discountPercentDeal": "10",
+      "discountPercentPlu": "15",
+      "compensateQuantityInSap": "5.00",
+      "compensatePerSet": "10.00",
+      "compensateField3": "2",
+      "grossProfitNormal": "25",
+      "grossProfitPromotion": "20",
+      "mix": "",
+      "media": "TV",
+      "promotionTag": "Shock Price",
+      "remind": "",
+      "remarks": "ตัวอย่าง remark",
+      "forecastQuantity": "1000",
+      "forecastAmount": "99000",
+      "salesQuantityPerMonthJune": "800",
+      "salesQuantityPerMonthMay": "750",
+      "salesQuantityPerMonthApril": "700",
+      "averageSalesQuantityPerDay": "33",
+      "displayPromotionMPriceCategory": "A",
+      "displayPromotionMPriceCode": "M01",
+      "stores": ["store_13_ka", "store_14_ka"],
+      "forecastStore": [
+        { "storeCode": "fc_store_13_ka", "quantity": "500" },
+        { "storeCode": "fc_store_14_ka", "quantity": "500" }
+      ],
+      "planogramStore": [
+        { "storeCode": "planogram_13_ka", "quantity": "2" },
+        { "storeCode": "planogram_14_ka", "quantity": "1" }
+      ]
+    }
+  ],
+  "SUPPLIERFILE": null
+}
