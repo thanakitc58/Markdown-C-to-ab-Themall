@@ -52,15 +52,69 @@ convertLayoutCToAbPayload(c)
 
 ---
 
+## อ่านก่อนแปลง (ภาษาคน — P011)
+
+**P011 อยู่กลุ่ม A (Get-only)**  
+User กรอกแถวสินค้าใน C ภายใต้ `MATERIALS`  
+ตอนแปลงเป็น AB แถวนั้นกลายเป็น 1 ก้อนใน `BONUSBUYS` ที่มีแค่ฝั่ง **ได้ของ / ได้ส่วนลด (`get`)**  
+**ไม่มีฝั่งซื้อ (`buy` ว่าง `[]`)** เพราะโปรไฟล์นี้ไม่บังคับ “ซื้อกี่ชิ้นก่อน” แบบ Buy+Get
+
+### สิ่งที่ต้องจำก่อนเขียนโค้ด
+
+1. **ของที่ส่งตรงเกือบหมด:** `STATUS`, `CONDITIONS`, และหลายฟิลด์ใน `HEADER`  
+2. **ของที่ต้องประกอบใหม่:** ทุกแถว `MATERIALS` → 1 (หรือมากกว่า) ก้อน `BONUSBUYS` ด้านล่างนี้  
+3. **ส่วนลดฝั่ง get เลือกได้แค่แบบเดียว:** มีราคาจัดรายการ (P) หรือ ส่วนลดบาท (R) หรือ ส่วนลด% — **ห้ามส่งสองแบบพร้อมกัน**
+
+**ราคาขายปกติ (`field8`)**  
+อยู่ฝั่ง **`get`** ได้ (กลุ่ม A)  
+ตัวอย่าง: C มี `salesPriceNormal: 1199` → AB `get[0].field8 = 1199`
+
+**ส่วนลด %** ใช้แบบเต็ม: ถ้ากรอก `10` ถือว่าเป็น 10% อยู่แล้ว; ถ้ากรอก `1668` แปลว่าคนใส่ทศนิยมผิดสเกล → หาร 100 ได้ `16.68`
+
+**เวลา Valid** ใส่ใน `bonusBuyHeader` · ถ้าว่างให้เป็นทั้งวัน `00:00:00`–`23:59:59`
+
+**Reference code** — P011 **ไม่ส่ง** (ห้ามมี key นี้ใน output)
+
+**Online EN/TH** — P011 ไม่ใส่
+
+### ตัวอย่างภาพรวม (สมมติ 1 แถวสินค้า)
+
+```
+C.MATERIALS[0] = {
+  material: "1000473882",
+  mechanic: "Get Discount",
+  salesPriceNormal: 1199,
+  salesPricePromotion: 999,   // มีราคาจัดรายการ
+  discountAmount: 50,         // มีบาทด้วย แต่ไม่ใช้ เพราะมีราคาจัดรายการแล้ว
+  salesUnit: "EA"
+}
+```
+
+แปลงแล้วฝั่ง AB (ย่อ) — กลุ่ม A มีแค่ get:
+
+```
+BONUSBUYS[0].buy = []
+BONUSBUYS[0].get[0].field8 = 1199          // ราคาปกติอยู่ฝั่ง get
+BONUSBUYS[0].get[0].fieldP = 999           // ส่วนลดแบบราคาจัดรายการ
+// ไม่มี fieldR เพราะเลือก P แล้ว
+BONUSBUYS[0].get[0].unit = "EA"
+```
+
+ตารางด้านล่างเป็นรายฟิลด์ — อ่านคอลัมน์ **อ่านยังไง** เป็นภาษาคนว่า C เป็นแบบนี้แล้ว AB ได้อะไร
+
+---
 ## 1) Skip rules (ก่อนแปลง)
 
-| เงื่อนไขใน C | ผล |
-|--------------|-----|
-| `MATERIALS[*].status` = `Reject` | ข้ามแถว |
-| `MATERIALS[*].convertStatus` = `Done` | ไม่แปลงซ้ำ |
-| `MATERIALS[*].mechanic` = `B1G1 (On Pack)` หรือ `B2G1 (On Pack)` | ข้ามทั้งกลุ่ม |
-| `bonusBuyProfile` ≠ `P011` | ไม่เข้า router นี้ |
-| profile ไม่อยู่ใน 9 ตัวลูกค้า | reject |
+คิดง่ายๆ: **ยังไม่แปลง** จนกว่าแถวจะผ่านประตูนี้  
+แถวที่ไม่ผ่าน = ไม่สร้าง `BONUSBUYS` จากแถวนั้น
+
+| เงื่อนไขใน C | ผล | อ่านยังไง (มีตัวอย่าง) |
+|--------------|-----|-------------------------|
+| `status` = `Reject` | ข้ามแถว | คนกด reject แถวนี้แล้ว · ตัวอย่าง: แถวที่ 2 เป็น Reject → แถว 2 ไม่เข้า AB แต่แถว 1,3 ยังแปลงได้ |
+| `convertStatus` = `Done` | ไม่แปลงซ้ำ | แถวนี้แปลงไปรอบก่อนแล้ว · อย่าสร้าง BONUSBUY ซ้ำ |
+| `mechanic` = `B1G1 (On Pack)` หรือ `B2G1 (On Pack)` | ข้ามทั้งกลุ่ม | โปรติดแพ็ก ไม่เข้า flow นี้ · ทั้งชุดโปรที่ผูกกันข้ามไป |
+| `bonusBuyProfile` ไม่ใช่ `P011` | ไม่เข้าไฟล์นี้ | แถวเป็น P001 แต่คุณเปิดสเปก P011 → ส่งไป router อื่น ไม่ใช่บั๊ก |
+| โปรไฟล์นอก 9 ตัวลูกค้า | reject ทั้งก้อน | รองรับแค่ P001/P010/P011/P015/D001/F001/D002/D003/F003 |
 
 ---
 
@@ -82,29 +136,29 @@ convertLayoutCToAbPayload(c)
 
 ## 3) HEADER (`MerAB - Header`)
 
-ใช้ `mapHeaderShared` — **ไม่ใส่ if ราย profile ใน util นี้**  
-รายละเอียด util: `MerC_to_AB_Header_Shared.md`
+HEADER คือหัวโปรทั้งใบ — **ใช้ util ร่วม** (`mapHeaderShared`) ไม่ต้องแยก if P011  
+ด้านล่างคือ “userอกอะไร → ส่งอะไร / ต้องแก้ไหม”
 
-| จาก C (JSON) | → AB `HEADER` | ชื่อใน To-Be | การทำ | สูตร / เงื่อนไข |
-|--------------|---------------|--------------|-------|------------------|
-| `HEADER.group` | `group` | กลุ่มงาน / Group | **copy** | ส่งตรง |
-| `HEADER.promotionName` | `promotionName` | Promotion Name | **copy** | ส่งตรง |
-| `HEADER.purchasingGroup` | `purchasingGroup` | Purchasing Group | **copy** / lookup | รหัส → ชื่อเต็ม (optional) |
-| `HEADER.theme` | `theme` | Theme | **copy** / lookup | รหัส 4 ตัว → ชื่อเต็ม (optional) |
-| `HEADER.bonusBuyProfile` | `bonusBuyProfile` | Bonus Buy Profile | **calc** | `shortCode` → `"P011"` |
-| `HEADER.rebateChargeback` | `rebateChargeback` | Rebate Chargeback | **calc** | `normalizeRebate` — ตัดตัวแรก; ไม่ใช่ Z2 และตัวแรก ≠ `A` → เติม `0` |
-| `HEADER.contractType` | `contractType` | Contract Type | **calc** | `normalizeContractType` — ขึ้นต้น `Z2` ถึงใส่ |
-| `HEADER.wbsNumber` / `wbsNo` | `wbsNumber` | WBS No. | **copy** | สำรอง `wbsNo` |
-| `HEADER.vendorCode` | `vendorCode` | Vendor | **calc** | `vendorOrNobp` — ว่าง → `"NOBP"` |
-| `HEADER.vendorName` | `vendorName` | Vendor (ชื่อ) | **copy** | ส่งตรง |
-| `HEADER.periodFrom` | `periodFrom` | จัดรายการ … Start | **copy** | คง `YYYY-MM-DD` ตาม backend payload |
-| `HEADER.periodTo` | `periodTo` | จัดรายการ … End | **copy** | คง `YYYY-MM-DD` ตาม backend payload |
-| `HEADER.days` | `days` | วันจัดรายการ | **copy** | เช่น `["All"]` |
-| `HEADER.singleMultiple` | `singleMultiple` | Single / Multiple | **copy** | ส่งตรง |
-| `HEADER.volume` / `vol` | `volume` | — | **copy** | UI/เอกสาร |
-| `HEADER.status` | — | — | **omit** | backend payload sample ไม่มี |
-| `HEADER.timeFrom` | `timeFrom` | — | **copy** | คงไว้ใน `HEADER` และใช้สร้าง `bonusBuyHeader.validTimeFrom` ตามกติกา profile |
-| `HEADER.timeTo` | `timeTo` | — | **copy** | คงไว้ใน `HEADER` และใช้สร้าง `bonusBuyHeader.validTimeTo` ตามกติกา profile |
+| จาก C | → AB | การทำ | อ่านยังไง |
+|-------|------|-------|-----------|
+| `group` | `group` | **copy** | ส่งชื่อกลุ่มงานตามที่กรอก |
+| `promotionName` | `promotionName` | **copy** | ส่งชื่อโปรตามที่กรอก |
+| `purchasingGroup` | `purchasingGroup` | **copy** / lookup | ส่งรหัส/ชื่อตามที่กรอก · ถ้ามีตาราง lookup จะขยายเป็นชื่อเต็มได้ |
+| `theme` | `theme` | **copy** / lookup | เหมือน purchasingGroup |
+| `bonusBuyProfile` | `bonusBuyProfile` | **calc** | อยากได้รหัสสั้น · ตัวอย่าง: `"D001 - Same group"` → `"P011"` |
+| `rebateChargeback` | `rebateChargeback` | **calc** | ตัดตัวอักษรแรกของค่าที่กรอกทิ้ง · ถ้าผลลัพธ์ไม่ขึ้นต้น `Z2` และตัวแรกไม่ใช่ `A` ให้เติม `0` นำหน้า · ตัวอย่าง: ต้นทาง `"X0ABC"` → ตัด `X` เหลือ `"0ABC"` · ถ้าว่างก็ว่าง |
+| `contractType` | `contractType` | **calc** | ใส่เมื่อค่าขึ้นต้นด้วย `"Z2"` (เช่น `"Z202"`) · ถ้าไม่ใช่สัญญาแบบนี้ → ส่งว่าง `""` |
+| `wbsNumber` / `wbsNo` | `wbsNumber` | **copy** | ส่งเลข WBS · ชื่อฟิลด์ C อาจเป็น `wbsNo` ก็ได้ |
+| `vendorCode` | `vendorCode` | **calc** | **ถ้าว่าง ให้ใส่ `NOBP`** · ตัวอย่าง: `""` → `"NOBP"` · `"OIS05"` → `"OIS05"` |
+| `vendorName` | `vendorName` | **copy** | ส่งชื่อ vendor ตามที่กรอก |
+| `periodFrom` / `periodTo` | เหมือนกัน | **copy** | วันที่รูปแบบ `YYYY-MM-DD` (ตาม payload หลังบ้าน) |
+| `days` | `days` | **copy** | เช่น `["All"]` = จัดทุกวัน |
+| `singleMultiple` | `singleMultiple` | **copy** | `"Single"` หรือ `"Multiple"` ตามที่เลือก |
+| `volume` / `vol` | `volume` | **copy** | ส่งตรง · ชื่อสั้น `vol` ก็ map เป็น `volume` |
+| `status` | — | **omit** | ฝั่ง AB HEADER ไม่รับฟิลด์นี้ → ไม่ส่ง |
+| `timeFrom` / `timeTo` | เก็บใน HEADER | **copy** | เก็บไว้ที่หัวใบ และเอาไปใส่เวลา Valid ใน BONUSBUY (§5) ถ้าโปรไฟล์นั้นใช้ |
+
+รายละเอียด util เพิ่ม: `MerC_to_AB_Header_Shared.md`
 
 ---
 
@@ -128,89 +182,84 @@ convertLayoutCToAbPayload(c)
 
 ---
 
-## 5) `bonusBuyHeader` (r31–r53)
+## 5) `bonusBuyHeader` — หัวของแต่ละก้อน BONUSBUY
 
-| จาก C (JSON) | → AB (JSON) | ชื่อใน To-Be | req | การทำ | เงื่อนไข P011 |
-|--------------|-------------|--------------|-----|-------|----------------|
-| `MATERIALS[*].numberOfBonusBuy` / `noof_bonus_buy` | `bonusBuyNumber` | Bonus buy No. | M | **copy** | default `"1"` |
-| `MATERIALS[*].bonusBuyProfile` / `bonus_buy_profile` | `bonusBuyProfile` | Bonus Buy Profile | — | **calc** | `"P011"` |
-| `MATERIALS[*].mechanic` | `mechanic` | Mechanic | — | **copy** | + ใช้ lookup qty §10 |
-| `HEADER.timeFrom` | `validTimeFrom` | Valid Time from | — | **calc** | **ใส่** — ว่าง → `00:00:00` |
-| `HEADER.timeTo` | `validTimeTo` | Valid Time to | — | **calc** | **ใส่** — ว่าง → `23:59:59` |
-| `HEADER.wbsNumber` / `wbsNo` | `wbsNumber` | WBS No. | — | **ctx** | copy จาก header |
-| `HEADER.promotionArea` **หรือ** `MATERIALS[*].promotionArea` | `promotionArea` | Promotion Area | — | **copy** | fallback: header ก่อน แล้ว material |
-| `HEADER.onlineDescriptionEnglish` **หรือ** `MATERIALS[*].onlineDescriptionEnglish` | `onlineDescriptionEnglish` | Online Description EN | — | **copy** | **เฉพาะ** `promotionArea = "P4"` |
-| `HEADER.onlineDescriptionThai` **หรือ** `MATERIALS[*].onlineDescriptionThai` | `onlineDescriptionThai` | Online Description TH | — | **copy** | **เฉพาะ** `promotionArea = "P4"` |
-| `HEADER.referenceCode` / `MATERIALS[*].referenceCode` | `referenceCode` | Reference code | — | **omit** | ต้นทางมีได้ แต่ P011 **ไม่เขียน** |
-| — | `promotionNumber` | Promotion No. | — | **auto** | |
-| — | `description` | Description | — | **auto** | prefix + ชื่อโปร (TBD macro) |
-| — | `purchasingGroup` | Purchasing Group | — | **auto** | |
-| — | `limitNumber` | Limit No. | — | **omit** | ไม่ใช้รอบนี้ |
-| — | `product` | Product | — | **auto** | |
-| — | `priceTag` | Price Tag | — | **omit** | |
-| — | `referenceBonusBuy` | Ref. Bonus buy | — | **omit** | |
-| — | `legacyPromotionNumber` | Legacy Promotion No. | — | **omit** | |
-| — | `allowDiscountAfterGetExtraMPoint` | Allow discount after… | — | **omit** | |
-| — | `notAcceptAnyDiscountCoupon` | Not accept coupon | — | **omit** | |
-| — | `notAcceptAnyDiscountCard` | Not accept card | — | **omit** | |
-| — | `notAllowForEmployee` | Not allow employee | — | **omit** | |
-| — | `department` | Department | — | **auto** | |
+นี่คือหัวของ **1 โปรย่อย** หลังแตกจากแถว MATERIALS  
+(คนละชั้นกับ HEADER ทั้งใบ)
+
+| จาก C | → AB | ชื่อบนจอ | req | การทำ | อ่านยังไง |
+|-------|------|----------|-----|-------|-----------|
+| `numberOfBonusBuy` | `bonusBuyNumber` | Bonus buy No. | M | **copy** | เลขลำดับก้อน · ไม่กรอก → ใส่ `"1"` |
+| `bonusBuyProfile` | `bonusBuyProfile` | Bonus Buy Profile | — | **calc** | ตัดให้เหลือรหัสสั้น `"P011"` เท่านั้น |
+| `mechanic` | `mechanic` | Mechanic | — | **copy** | ส่งข้อความ mechanic ตามที่เลือกในฟอร์ม · ข้อความนี้เอาไปเปิดตาราง Mechanic เพื่อรู้ว่าซื้อกี่ชิ้น / ได้กี่ชิ้น (กลุ่ม A ใช้แค่จำนวนฝั่งได้) |
+| `HEADER.timeFrom` | `validTimeFrom` | Valid Time from | — | **calc** | **ต้องมีใน AB** · เอาจาก `HEADER.timeFrom` · ถ้าว่างให้เป็น `"00:00:00"` (เริ่มวัน) · มีค่าเช่น `"08:30"` ก็ส่งค่านั้น |
+| `HEADER.timeTo` | `validTimeTo` | Valid Time to | — | **calc** | **ต้องมีใน AB** · เอาจาก `HEADER.timeTo` · ถ้าว่างให้เป็น `"23:59:59"` (จบวัน) |
+| `HEADER.wbsNumber` | `wbsNumber` | WBS No. | — | **ctx** | ยืมเลข WBS จากหัวใบมาใส่ทุกก้อน |
+| `promotionArea` (HEADER ก่อน แล้วค่อย MATERIALS) | `promotionArea` | Promotion Area | — | **copy** | บอกพื้นที่โปร · ค่า `P4` = ออนไลน์ → ถึงจะใส่คำอธิบาย online |
+| online EN | `onlineDescriptionEnglish` | Online EN | — | **omit** | **P011 ไม่ใช้ online description** → ไม่ส่ง key นี้ |
+| online TH | `onlineDescriptionThai` | Online TH | — | **omit** | **P011 ไม่ใช้ online description** → ไม่ส่ง key นี้ |
+| `referenceCode` | `referenceCode` | Reference | — | **omit** | **P011 ไม่ส่ง** · แม้ C มีค่า ก็ตัดทิ้ง |
+| — | `promotionNumber` / `description` / `purchasingGroup` / `product` / `department` | (หลายช่อง) | — | **auto** | **ไม่ต้อง map** · ระบบ AB ใส่เอง |
+| — | `limitNumber`, `priceTag`, flags ต่างๆ | — | — | **omit** | รอบนี้ไม่ใช้ → **อย่าใส่ key** ใน JSON |
 
 ---
 
-## 6) `buy[]` (r54–r69)
+## 6) `buy[]` — ฝั่งซื้อ
 
-P011 เป็น **Get-only** → `buy = []` เสมอ  
-field ใน buy ทั้งหมด = **ไม่ใช้** สำหรับ profile นี้
+**P011 ไม่มีฝั่งซื้อ**  
+ตั้งค่าเป็น array ว่างเสมอ:
 
-| จาก C (JSON) | → AB `buy[0]` | ชื่อใน To-Be | req | การทำ | เงื่อนไข P011 |
-|--------------|---------------|--------------|-----|-------|----------------|
-| — | ทั้งก้อน `buy` | Buy block | — | **empty** | `[]` |
+```json
+"buy": []
+```
 
----
-
-## 7) `get[0]` (r70–r106)
-
-| จาก C (JSON) | → AB `get[0]` | ชื่อใน To-Be | req | การทำ | เงื่อนไข P011 |
-|--------------|---------------|--------------|-----|-------|----------------|
-| `numberOfBonusBuy` / `noof_bonus_buy` | `bonusBuyNumber` | Bonus Buy No. | **M** | **copy** | |
-| มีกลุ่ม? | `field2` | ประเภท MAT / Group | **M** | **calc** | มีกลุ่ม → `"Material Group"` · ไม่มี → `"Material"` |
-| `material` / `materialGroupName` | `field4` | รหัส / ชื่อกลุ่ม | **M** | **calc** | ตาม type |
-| `materialDescription` / `material_des` | `field5` | Description | — | **copy** | optional |
-| `materialDescription2` / `material_en_des` | `sapMasterDescription` | SAP desc | — | **copy** | optional |
-| `costNormal` | `field7` | ราคาทุน | — | **copy** | optional |
-| `salesPriceNormal` / `sales_price_normal` | `field8` | **ราคาขายปกติ** | — | **copy** | **ใส่** (กลุ่ม A) |
-| — | `vat` | VAT | — | **omit** | |
-| — | `grossProfit` | GP% ปกติ | — | **auto** | |
-| `mechanic` | `getQuantity` | Get Qty | **M** | **calc** | lookup Mechanic → get qty |
-| — | `tierNumber` … `tierAmountB` | Tier | — | **omit** | |
-| `costPromotion` / `cost_promotion` | `field17` | ราคาทุนจัดรายการ | — | **copy** | optional |
-| `salesPricePromotion` / `sales_price_promo` | `fieldP` | ราคาจัดรายการ [P] | — | **calc** | `pickDiscount` ลำดับ 1 |
-| — | `vat2` | VAT | — | **omit** | |
-| — | `grossProfit2` | GP% ใหม่ | — | **auto** | |
-| `discountAmount` / `discountAmt` | `fieldR` | ส่วนลดบาท [R] | — | **calc** | `pickDiscount` ลำดับ 2 |
-| `discountPercentPlu` / `discountPercentForP015` / `discountPct` | `field22` | ส่วนลด % [%] | — | **calc** | ลำดับ 3 + `normalizePctFull` |
-| — | `newGrossProfitRate` | New GP Rate | — | **omit** | |
-| `barcode` | `ean` | EAN | — | **copy** | optional |
-| — | `serialNumber` | Serial No. | — | **omit** | |
-| `salesUnit` | `unit` | Unit | **M** | **copy** | |
-| — | `priceUnit` / `unitOfMeasure` | Price unit / UOM | — | **omit** | |
-| — | `basicPoint` … `pointAmount` | Point | — | **omit** | |
-| — | `exclusion` | Exclusion | — | **omit** | |
-| — | `noDiscount` | No discount | — | **auto** | On Top X=0.01% → mark X |
-| `promotionTag` | `promotionTagSizeA4Cut1..6` | Pro Tag | — | **omit** | |
-
-### 7.1 `stores[]`
-
-| จาก C (JSON) | → AB | การทำ | เงื่อนไข |
-|--------------|------|-------|----------|
-| `MATERIALS[*].stores` | `BONUSBUYS[*].stores` | **copy** / แปลงรหัส | เช่น `store_13_ka` → `"13KA"` |
-| ไม่มีค่า | `stores` | **empty** | `[]` |
-
-รหัส plant อ้างอิง: `MerC_to_AB_ExistsInAB_Mapping.md` §5.2
+อย่าเอา material / ราคา ไปยัดใน buy
 
 ---
 
+> **กลุ่ม A:** มีแค่ฝั่ง get · สร้าง `get: [ {...} ]` ความยาว 1 ต่อแถว MATERIALS
+
+## 7) `get[0]` — ฝั่งได้ (ได้อะไร / กี่ชิ้น / ส่วนลดแบบไหน)
+
+ฝั่งนี้บอกว่าเมื่อเข้าเงื่อนไขแล้ว **ได้อะไร** และ **ส่วนลดเป็นแบบไหน**
+
+### กติาส่วนลด (สำคัญมาก)
+
+ดูใน MATERIALS ตามลำดับนี้ — **เจออันแรกแล้วหยุด**:
+
+1. มี `salesPricePromotion` (ราคาจัดรายการ) → ใส่แค่ `fieldP`  
+2. ไม่มีข้อ 1 แต่มี `discountAmount` (ส่วนลดบาท) → ใส่แค่ `fieldR`  
+3. ไม่มีข้อ 1–2 แต่มี % → ใส่แค่ `field22` หลังปรับสเกลแล้ว  
+4. ไม่มีเลย → ไม่ใส่ทั้งสามช่อง
+
+**ผิด:** ส่ง `fieldP` กับ `fieldR` พร้อมกัน  
+**ถูก:** มีราคาจัดรายการ 999 และมีส่วนลดบาท 50 ในฟอร์ม → AB ได้แค่ `fieldP: 999`
+
+| จาก C | → AB `get[0]` | ชื่อบนจอ | การทำ | อ่านยังไง |
+|-------|---------------|----------|-------|-----------|
+| `numberOfBonusBuy` | `bonusBuyNumber` | Bonus Buy No. | **copy** | เลขเดียวกับหัวก้อน |
+| มีกลุ่มไหม? | `field2` | ประเภท | **calc** | เหมือนฝั่ง buy: `"Material"` หรือ `"Material Group"` |
+| `material` / ชื่อกลุ่ม | `field4` | รหัส / ชื่อกลุ่ม | **calc** | รหัสสินค้า หรือชื่อกลุ่มตามประเภท |
+| คำอธิบายสินค้า | `field5` / `sapMasterDescription` | Description | **copy** | มีก็ส่ง |
+| `costNormal` | `field7` | ราคาทุน | **copy** | มีก็ส่ง |
+| `salesPriceNormal` | `field8` | ราคาขายปกติ | **copy** | **ใส่ได้** · C `salesPriceNormal: 1199` → `get[0].field8 = 1199` |
+| `mechanic` | `getQuantity` | Get Qty | **calc** | เปิดตาราง Mechanic เอา **get qty** · ตัวอย่างได้ 1 ชิ้น → `getQuantity = 1` |
+| `costPromotion` | `field17` | ราคาทุนจัดรายการ | **copy** | มีก็ส่ง · ไม่เกี่ยวกับการเลือก P/R/% |
+| `salesPricePromotion` | `fieldP` | ราคาจัดรายการ [P] | **calc** | ลำดับ 1 ของส่วนลด · ตัวอย่าง `999` → `fieldP: 999` แล้ว **ไม่ส่ง** R/% |
+| `discountAmount` | `fieldR` | ส่วนลดบาท [R] | **calc** | ลำดับ 2 · ใช้เมื่อ **ไม่มี** ราคาจัดรายการ · ตัวอย่าง `50` → `fieldR: 50` |
+| ช่อง % (`discountPercentPlu` / `discountPercentForP015` / `discountPct`) | `field22` | ส่วนลด % | **calc** | ลำดับ 3 · ใช้เมื่อไม่มี P และ R · ตัวอย่าง: กรอก `1668` → ส่ง `16.68` · กรอก `10` → ส่ง `10` |
+| `barcode` | `ean` | EAN | **copy** | มีก็ส่ง |
+| `salesUnit` | `unit` | Unit | **copy** | หน่วยขาย · ชื่อ key ฝั่ง get เป็น `unit` (ไม่ใช่ `salesUnit`) เช่น `"EA"` |
+| vat / GP / tier / point / Pro Tag | — | — | **omit** หรือ **auto** | ไม่ map จาก C รอบนี้ · auto = ระบบคิดเอง |
+
+### 7.1 `stores[]` — สาขาที่ร่วมรายการ
+
+| จาก C | → AB | อ่านยังไง |
+|-------|------|-----------|
+| `MATERIALS[*].stores` | `stores` | แปลงรหัสสาขาให้อ่านง่าย · ตัวอย่าง `store_13_ka` → `"13KA"` · ได้ array เช่น `["13KA","14KB"]` |
+| ไม่มีสาขา | `stores` | ใส่ `[]` |
+
+---
 
 ## 8) `CONDITIONS[]`
 
@@ -266,27 +315,55 @@ Compensate / Settlement / Payment ใน Mer C → อยู่ใน CONDITIONS
   field4 = material
 ```
 
-### 10.3 `pickDiscount` — เลือกช่องเดียว
+### 10.3 เลือกส่วนลด (`pickDiscount`) — อ่านเป็นขั้นตอน
 
-| ลำดับ | จาก C | → AB `get[0]` | เงื่อนไข |
-|------|--------|---------------|----------|
-| 1 | `salesPricePromotion` / `sales_price_promo` | `fieldP` | มีค่า → ใช้อันนี้อย่างเดียว |
-| 2 | `discountAmount` / `discountAmt` | `fieldR` | เมื่อไม่มีข้อ 1 |
-| 3 | `discountPercentPlu` / `discountPercentForP015` / `discountPct` | `field22` | เมื่อไม่มี 1 และ 2 · ใช้ `normalizePctFull` |
-
-### 10.4 `normalizePctFull`
+อย่าคิดว่าต้องส่งครบทุกช่องส่วนลด  
+**ส่งช่องเดียว** ตามลำดับ:
 
 ```
-ถ้า (% / 100) < 1  → ใช้ค่าเดิม     (10 → 10)
-ถ้า % > 100        → % / 100       (1668 → 16.68)
-ถ้า % < 1          → % * 100       (0.15 → 15)
+ถ้ามีราคาจัดรายการ (salesPricePromotion)
+    → ใส่ get.fieldP = ราคานั้น
+    → ไม่ใส่ fieldR และ field22
+
+ไม่งั้น ถ้ามีส่วนลดบาท (discountAmount)
+    → ใส่ get.fieldR = จำนวนบาท
+    → ไม่ใส่ fieldP และ field22
+
+ไม่งั้น ถ้ามี %
+    → ปรับสเกล % ก่อน แล้วใส่ get.field22
+    → ไม่ใส่ fieldP และ fieldR
+
+ไม่งั้น
+    → ไม่มีส่วนลดใน get
 ```
 
-### 10.5 `lookupBuyGetQty(mechanic)`
+ตัวอย่างจากชีวิตจริง:
+- กรอกโปรราคา 999 และกรอกบาท 50 พร้อมกันในฟอร์ม → AB เหลือแค่ `fieldP: 999`
+- กรอกแค่บาท 50 → AB ได้ `fieldR: 50`
+- กรอกแค่ % → AB ได้ `field22` หลังปรับสเกล
 
-→ `get.getQuantity` จากชีต Mechanic  
-(กลุ่ม A ไม่เขียน buy qty)
+### 10.4 ปรับสเกล % แบบเต็ม (`normalizePctFull`) — ใช้ใน P011
 
+บางคนกรอก `10` (หมาย 10%) บางคนกรอก `1668` (พลาดสเกล)
+
+```
+ถ้าคิดว่าเป็น % อยู่แล้ว (เช่น 10)     → คงไว้ 10
+ถ้าใหญ่ผิดปกติ (>100 เช่น 1668)     → หาร 100 ได้ 16.68
+ถ้าเป็นทศนิยมเล็ก (<1 เช่น 0.15)     → คูณ 100 ได้ 15
+```
+
+ตรวจกับ fixture: `7-D001-pct-normalize` ใช้แนว `1668 → 16.68`
+
+### 10.5 จำนวนชิ้นจาก Mechanic (`lookupBuyGetQty`)
+
+User เลือกข้อความ mechanic ในฟอร์ม เช่น `"1A Get 1B (A)"`  
+ระบบไปเปิด **ตาราง Mechanic** หาแถวชื่อตรงกัน แล้วอ่าน:
+- **buy qty** → ใส่ `buy[0].field9` (จำนวนชิ้นขั้นต่ำฝั่งซื้อ)
+- **get qty** → ใส่ `get[0].getQuantity` (จำนวนที่ได้)
+
+ถ้าตารางยังไม่มีแถวนั้น → ใช้ `1` กับ `1` ชั่วคราว (fixture หลายไฟล์ทำแบบนี้)
+
+หมายเหตุ: mechanic แบบ On Pack ถูกข้ามตั้งแต่ Skip rules แล้ว จะไม่มาถึงขั้นนี้
 
 ### 10.6 Alias ชื่อฟิลด์ C (normalizeC)
 
