@@ -2,6 +2,8 @@
 
 สเปกราย profile แยกไฟล์ละตัว — ใช้เป็นแนวแปลง JSON (`LAYOUT: "AB"`) โดย **ยึด `layout-ab-payload.example.json` เป็น payload หลังบ้านหลัก**
 
+ทุกไฟล์ใน `profile/` เป็นแบบ **Full** (ตารางทีละฟิลด์: จาก C → AB · ชื่อใน To-Be · การทำ · สูตร) เหมือน `MerC_to_AB_D001.md`
+
 | Profile | กลุ่ม | ไฟล์ |
 |---------|------|------|
 | **P001** | A — Get-only | [`profile/MerC_to_AB_P001.md`](profile/MerC_to_AB_P001.md) |
@@ -61,8 +63,8 @@
 
 ทำครั้งเดียวใน shared แล้วทุก profile ใช้:
 
-- Header: วันที่ `DD.MM.YYYY`, vendor ว่าง→`NOBP`, rebate ตัดอักษร, contractType เฉพาะ `Z2…`
-- แถว: `field2` = MAT / MGPNew, `field4` = material หรือ group name
+- Header: วันที่ `YYYY-MM-DD` ตาม payload, vendor ว่าง→`NOBP`, rebate ตัดอักษร, contractType เฉพาะ `Z2…`, มี `timeFrom`/`timeTo` ใน HEADER
+- แถว: `field2` = `"Material"` / `"Material Group"`, `field4` = material หรือ group name
 - Mechanic → `buyQty` / `getQty`
 - ส่วนลด `pickDiscount` ตามลำดับด้านบน
 - `stores[]`, `card/tender/…` = เว้น `[]` ได้
