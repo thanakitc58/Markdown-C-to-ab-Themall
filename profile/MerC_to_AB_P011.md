@@ -4,121 +4,183 @@
 |--|--|
 | **กลุ่ม** | A — Get-only |
 | **Macro** | `P011_Header` + `Gen_P011` |
-| **โครง** | `buy: []` · `get: [1]` |
-| **ต่างจาก P001** | ใส่ Online เมื่อ P4 · รับ reference ได้แต่**ไม่เขียน**ลง AB |
-| **ชื่อฟิลด์ AB** | `payload_AB_Reference.md` |
-| **ของร่วม** | `MerC_to_AB_Phase1_Shared.md` · `MerC_to_AB_Function_Split.md` |
+| **โครง** | `buy: []` · `get: [1]` ต่อ 1 แถว `MATERIALS[*]` |
+| **ต่างจาก P001** | มี `validTime*` และ online ถ้า `P4` แต่ **ไม่เขียน** `referenceCode` |
+| **payload หลังบ้านหลัก** | `layout-ab-payload.example.json` |
+| **ชื่อฟิลด์ AB อธิบายเพิ่ม** | `payload_AB_Reference.md` |
+| **ของร่วม** | `MerC_to_AB_Phase1_Shared.md` · `MerC_to_AB_Header_Shared.md` · `MerC_to_AB_Function_Split.md` |
+
+ยึด payload หลังบ้านเป็นหลัก: `HEADER.period*` แบบ `YYYY-MM-DD`, `HEADER.time*` อยู่ใน header, และ `field2` ใช้ `"Material"` / `"Material Group"`.
+
+---
+
+## 0) Pipeline P011
+
+```text
+normalizeC -> mapHeaderShared -> filter P011 -> buildGroupA -> copy CONDITIONS -> MATERIALS=[]
+```
 
 ---
 
 ## 1) กฎเฉพาะ profile
 
-| หัวข้อ | ค่า |
-|--------|-----|
+| หัวข้อ | ค่า P011 |
+|--------|----------|
 | เขียนฝั่ง | `get[]` เท่านั้น |
-| `get.field8` (ราคาขายปกติ) | **ใส่** |
+| `buy[]` | `[]` |
+| `get.field8` | **ใส่** |
 | Normalize % | **เต็ม** |
-| `validTimeFrom` / `validTimeTo` | **ใส่** |
-| `referenceCode` | รับจากต้นทางได้ แต่ **ไม่เขียน** ลง output |
-| Online EN/TH | ใส่เมื่อ `promotionArea = "P4"` |
+| `bonusBuyHeader.validTimeFrom/To` | **ใส่** |
+| `bonusBuyHeader.referenceCode` | **omit** แม้ต้นทางมี |
+| `bonusBuyHeader.onlineDescriptionEnglish/Thai` | ใส่เมื่อ `promotionArea = "P4"` |
 
 ---
 
-## 2) ตาราง C → AB (แถว Bonus Buy)
+## 2) HEADER
 
-ต้นทาง = path ใน JSON `LAYOUT: "C"` (ดู `layout-c-payload.example.json`)  
-ปลายทาง = path ใน JSON `LAYOUT: "AB"` ภายใต้ `BONUSBUYS[*]`
-
-| จาก C (JSON) | → AB (JSON) | สูตร / เงื่อนไข |
-|--------------|-------------|----------------|
-| `HEADER.bonusBuyProfile` / `MATERIALS[*].bonusBuyProfile` | `bonusBuyHeader.bonusBuyProfile` | `"P011"` |
-| `MATERIALS[*].mechanic` | `bonusBuyHeader.mechanic` | ส่งตรง |
-| `HEADER.timeFrom` / `HEADER.timeTo` | `bonusBuyHeader.validTimeFrom` / `validTimeTo` | **ใส่** |
-| `HEADER.referenceCode` / `MATERIALS[*].referenceCode` | — | **ไม่ map** ลง `referenceCode` |
-| `HEADER.onlineDescriptionEnglish` / `HEADER.onlineDescriptionThai` | `bonusBuyHeader.onlineDescriptionEnglish` / `Thai` | เฉพาะ `HEADER.promotionArea = "P4"` |
-| `HEADER.wbsNumber` | `bonusBuyHeader.wbsNumber` | ส่งตรง (สำรอง `HEADER.wbsNo`) |
-| `MATERIALS[*].numberOfMaterialGrouping` / `MATERIALS[*].materialGroupName` | `get.field2` | MGPNew / MAT |
-| `MATERIALS[*].material` / `MATERIALS[*].materialGroupName` | `get.field4` | ตาม `field2` |
-| `MATERIALS[*].salesPriceNormal` | `get.field8` | **ใส่** |
-| `MATERIALS[*].mechanic` | `get.getQuantity` | lookup Mechanic |
-| `MATERIALS[*].salesUnit` | `get.unit` | ส่งตรง |
-| `MATERIALS[*].salesPricePromotion` | `get.fieldP` | ถ้ามีค่านี้ ใช้ช่องนี้ **อย่างเดียว** |
-| `MATERIALS[*].discountAmount` | `get.fieldR` | ใช้เมื่อ **ไม่มี** `salesPricePromotion` |
-| `MATERIALS[*].discountPercentPlu` / `discountPercentForP015` / `discountPct` | `get.field22` | ใช้เมื่อไม่มีโปรและไม่มีบาท · normalize เต็ม |
-| — | `buy` | `[]` |
+| key | การทำ P011 |
+|-----|------------|
+| `group`, `purchasingGroup`, `promotionName`, `theme`, `volume`, `singleMultiple`, `vendorName`, `days` | copy |
+| `bonusBuyProfile` | `"P011"` |
+| `rebateChargeback`, `contractType`, `vendorCode` | shared normalize |
+| `wbsNumber` | copy |
+| `periodFrom`, `periodTo` | copy เป็น `YYYY-MM-DD` |
+| `timeFrom`, `timeTo` | copy ไว้ใน `HEADER` |
+| `status` | omit |
 
 ---
 
-## 3) สูตรที่ใช้
+## 3) `BONUSBUYS[*]`
 
-### ลำดับส่วนลด
+| AB block | P011 |
+|----------|------|
+| `lineNumber`, `bonusBuyNumber` | copy / optional |
+| `bonusBuyHeader` | ใช้ |
+| `buy[]` | `[]` |
+| `get[]` | `[1]` |
+| `card[]`, `tender[]`, `installment[]`, `posTerminal[]`, `premium[]`, `coupon[]`, `limitControl[]` | `[]` |
+| `stores[]` | copy / `[]` |
 
-| ลำดับ | จาก C (JSON) | → AB (JSON) |
-|------|----------------|-------------|
-| 1 | `MATERIALS[*].salesPricePromotion` | `get.fieldP` |
-| 2 | `MATERIALS[*].discountAmount` | `get.fieldR` |
-| 3 | `MATERIALS[*].discountPercentPlu` / `discountPercentForP015` / `discountPct` | `get.field22` (normalize เต็ม) |
+### 3.1 `bonusBuyHeader`
 
-### Normalize % แบบเต็ม
+| key | การทำ P011 |
+|-----|------------|
+| `promotionNumber`, `description`, `purchasingGroup`, `product`, `department` | auto / optional |
+| `bonusBuyNumber` | copy |
+| `bonusBuyProfile` | `"P011"` |
+| `mechanic` | copy |
+| `validTimeFrom`, `validTimeTo` | ใช้จาก `HEADER.timeFrom/timeTo` |
+| `promotionArea`, `wbsNumber` | copy |
+| `referenceCode` | omit |
+| `onlineDescriptionEnglish`, `onlineDescriptionThai` | ใส่เมื่อ `promotionArea = "P4"` |
+| `limitNumber`, `priceTag`, `referenceBonusBuy`, `legacyPromotionNumber`, `allowDiscountAfterGetExtraMPoint`, `notAcceptAnyDiscountCoupon`, `notAcceptAnyDiscountCard`, `notAllowForEmployee` | omit |
 
+---
+
+## 4) `get[0]` ครบทุก field
+
+| key | จาก C | การทำ P011 |
+|-----|--------|------------|
+| `bonusBuyNumber` | `numberOfBonusBuy` | copy |
+| `field2` | material/group | `"Material"` หรือ `"Material Group"` |
+| `char` | — | omit |
+| `field4` | `material` / `materialGroupName` | calc |
+| `field5` | `materialDescription` | copy |
+| `sapMasterDescription` | `materialDescription2` | copy |
+| `field7` | `costNormal` | copy |
+| `field8` | `salesPriceNormal` | **ใส่** |
+| `vat` | `vat` | copy / omit |
+| `grossProfit` | — | auto |
+| `getQuantity` | `mechanic` | lookup qty |
+| `tierNumber`, `recursive`, `progressive`, `tierQuantityA`, `tierAmountB` | — | omit |
+| `field17` | `costPromotion` | copy |
+| `fieldP` | `salesPricePromotion` | ส่วนลดลำดับ 1 |
+| `vat2` | — | omit |
+| `grossProfit2` | — | auto |
+| `fieldR` | `discountAmount` | ส่วนลดลำดับ 2 |
+| `field22` | discount percent aliases | ส่วนลดลำดับ 3 + normalize เต็ม |
+| `newGrossProfitRate` | — | omit |
+| `ean` | `barcode` | copy |
+| `serialNumber` | — | omit |
+| `unit` | `salesUnit` | copy |
+| `priceUnit`, `unitOfMeasure` | — | omit |
+| `basicPoint`, `extraPoint`, `pointAmount`, `exclusion` | — | omit |
+| `noDiscount` | — | auto |
+| `promotionTagSizeA4Cut1/2/4/6` | — | omit |
+
+---
+
+## 5) `CONDITIONS[]` / `MATERIALS[]` / `SUPPLIERFILE`
+
+- `CONDITIONS[]` = shared `copy + compact`
+- `MATERIALS[]` ฝั่ง AB = `[]`
+- `SUPPLIERFILE` = `null` ถ้าต้องคง shape ตาม sample
+
+---
+
+## 6) สูตรร่วม
+
+1. `salesPricePromotion` → `fieldP`
+2. `discountAmount` → `fieldR`
+3. `discountPercentPlu` / `discountPercentForP015` / `discountPct` → `field22`
+
+Normalize % แบบเต็ม:
+
+```text
+ถ้า (% / 100) < 1  -> ใช้ค่าเดิม
+ถ้า % > 100        -> % / 100
+ถ้า % < 1          -> % * 100
 ```
-ถ้า (% / 100) < 1  → ใช้ค่าเดิม
-ถ้า % > 100        → % / 100
-ถ้า % < 1          → % * 100
-```
-
-### Header ร่วม
-
-| จาก C (JSON) | → AB `HEADER` | สูตร |
-|--------------|----------------|------|
-| `HEADER.periodFrom` / `HEADER.periodTo` | `HEADER.periodFrom` / `periodTo` | `YYYY-MM-DD` → `DD.MM.YYYY` |
-| `HEADER.vendorCode` ว่าง | `HEADER.vendorCode` | `"NOBP"` |
-| `HEADER.rebateChargeback` | `HEADER.rebateChargeback` | ตัดอักษรแรก / เติม `0` ตามกฎ |
-| `HEADER.contractType` | `HEADER.contractType` | ขึ้นต้น `Z2` ถึงใส่ |
 
 ---
 
-## 4) Skeleton JSON (`BONUSBUYS[]` element)
+## 7) Skeleton JSON
 
 ```json
 {
+  "bonusBuyNumber": "1",
   "bonusBuyHeader": {
     "bonusBuyNumber": "1",
     "bonusBuyProfile": "P011",
-    "validTimeFrom": "00:00:00",
-    "validTimeTo": "23:59:59",
-    "onlineDescriptionEnglish": "…",
-    "onlineDescriptionThai": "…",
-    "wbsNumber": "…"
+    "mechanic": "Discount",
+    "validTimeFrom": "08:30",
+    "validTimeTo": "22:00",
+    "promotionArea": "P4",
+    "wbsNumber": "WBS-2026-002",
+    "onlineDescriptionEnglish": "Online EN",
+    "onlineDescriptionThai": "Online TH"
   },
   "buy": [],
   "get": [
     {
       "bonusBuyNumber": "1",
-      "field2": "MAT - Material",
-      "field4": "123456",
-      "field8": 990,
-      "getQuantity": 1,
-      "unit": "EA",
-      "fieldP": 891
+      "field2": "Material",
+      "field4": "MAT-100",
+      "field8": "129.00",
+      "getQuantity": "1",
+      "fieldP": "99.00",
+      "unit": "EA"
     }
   ],
-  "stores": [],
   "card": [],
   "tender": [],
   "installment": [],
   "posTerminal": [],
   "premium": [],
   "coupon": [],
-  "limitControl": []
+  "limitControl": [],
+  "stores": []
 }
 ```
 
 ---
 
-## 5) Checklist
+## 8) Checklist
 
-- [ ] มี `validTime*`
-- [ ] มี online ถ้า P4
-- [ ] **ไม่มี** `referenceCode` ใน output
-- [ ] get-only + มี `field8`
+- [ ] `HEADER.period*` เป็น `YYYY-MM-DD`
+- [ ] `HEADER.time*` อยู่ใน header
+- [ ] `bonusBuyHeader.validTime*` มีค่า
+- [ ] online description ใส่เฉพาะ `P4`
+- [ ] ไม่มี `referenceCode` ใน output
+- [ ] `buy = []`
+- [ ] `get.field8` มีค่า

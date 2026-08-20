@@ -5,13 +5,16 @@
 | **กลุ่ม** | B — Buy + Get แถวเดียว |
 | **Macro** | `D001_Header` + `Gen_D001` |
 | **โครง** | `buy: [1]` · `get: [1]` ต่อ 1 แถว `MATERIALS[*]` |
-| **ชื่อฟิลด์ AB** | `payload_AB_Reference.md` |
+| **payload หลังบ้านหลัก** | `layout-ab-payload.example.json` |
+| **ชื่อฟิลด์ AB อธิบายเพิ่ม** | `payload_AB_Reference.md` |
 | **ของร่วม** | `MerC_to_AB_Phase1_Shared.md` · `MerC_to_AB_Header_Shared.md` · `MerC_to_AB_Function_Split.md` |
 | **fixture / ใบคีย์** | `tungconvert/D001/` · `tungconvert/D001/KEYING-SHEET-D001.md` |
 
 **อ่านยังไง:** ไฟล์นี้เป็น **สเปกครบทุก key ใน AB payload** สำหรับ D001 — แต่ละแถวบอกว่า map จาก C อย่างไร / ห้ามใส่ / เว้นว่าง / Auto  
 ต้นทาง = JSON `LAYOUT: "C"` (ดู `layout-c-payload.example.json`)  
 ปลายทาง = JSON `LAYOUT: "AB"`
+
+**กติกา source of truth:** ถ้า key/shape ในไฟล์นี้ขัดกับ `layout-ab-payload.example.json` ให้ **ยึด payload หลังบ้านก่อน** แล้วใช้ไฟล์นี้เป็นคู่มือ logic ราย profile
 
 **สัญลักษณ์คอลัมน์ การทำ (D001)**
 
@@ -91,14 +94,14 @@ convertLayoutCToAbPayload(c)
 | `HEADER.wbsNumber` / `wbsNo` | `wbsNumber` | WBS No. | **copy** | สำรอง `wbsNo` |
 | `HEADER.vendorCode` | `vendorCode` | Vendor | **calc** | `vendorOrNobp` — ว่าง → `"NOBP"` |
 | `HEADER.vendorName` | `vendorName` | Vendor (ชื่อ) | **copy** | ส่งตรง |
-| `HEADER.periodFrom` | `periodFrom` | จัดรายการ … Start | **calc** | `isoToSapDate` — `YYYY-MM-DD` → `DD.MM.YYYY` |
-| `HEADER.periodTo` | `periodTo` | จัดรายการ … End | **calc** | เหมือน periodFrom |
+| `HEADER.periodFrom` | `periodFrom` | จัดรายการ … Start | **copy** | คง `YYYY-MM-DD` ตาม backend payload |
+| `HEADER.periodTo` | `periodTo` | จัดรายการ … End | **copy** | คง `YYYY-MM-DD` ตาม backend payload |
 | `HEADER.days` | `days` | วันจัดรายการ | **copy** | เช่น `["All"]` |
 | `HEADER.singleMultiple` | `singleMultiple` | Single / Multiple | **copy** | ส่งตรง |
 | `HEADER.volume` / `vol` | `volume` | — | **copy** | UI/เอกสาร |
-| `HEADER.status` | `status` | — | **calc** | `capitalizeStatus` — `draft` → `Draft` |
-| `HEADER.timeFrom` | — | — | **omit** ใน HEADER | ไป `bonusBuyHeader.validTimeFrom` §5 |
-| `HEADER.timeTo` | — | — | **omit** ใน HEADER | ไป `bonusBuyHeader.validTimeTo` §5 |
+| `HEADER.status` | — | — | **omit** | backend payload sample ไม่มี |
+| `HEADER.timeFrom` | `timeFrom` | — | **copy** | คงไว้ใน `HEADER` และใช้สร้าง `bonusBuyHeader.validTimeFrom` |
+| `HEADER.timeTo` | `timeTo` | — | **copy** | คงไว้ใน `HEADER` และใช้สร้าง `bonusBuyHeader.validTimeTo` |
 
 ---
 
@@ -157,7 +160,7 @@ convertLayoutCToAbPayload(c)
 | จาก C (JSON) | → AB `buy[0]` | ชื่อใน To-Be | req | การทำ | เงื่อนไข D001 |
 |--------------|---------------|--------------|-----|-------|----------------|
 | `numberOfBonusBuy` / `noof_bonus_buy` | `bonusBuyNumber` | Bonus Buy No. | — | **copy** | |
-| มี `materialGroupName` / `materialGroup` / `numberOfMaterialGrouping`? | `field2` | ประเภท MAT / Group | — | **calc** | มีกลุ่ม → `"MGPNew - New Material Group"` · ไม่มี → `"MAT - Material"` |
+| มี `materialGroupName` / `materialGroup` / `numberOfMaterialGrouping`? | `field2` | ประเภท MAT / Group | — | **calc** | มีกลุ่ม → `"Material Group"` · ไม่มี → `"Material"` |
 | `material` (MAT) / `materialGroupName` (MGP) | `field4` | รหัส / ชื่อกลุ่ม | — | **calc** | ตาม type |
 | `materialDescription` / `material_des` / `material_th_des` | `description` | Description | — | **copy** | optional |
 | `materialDescription2` / `material_en_des` / `material_des_2` | `sapMasterDescription` | Long Thai / SAP desc | — | **copy** | optional |
@@ -261,10 +264,10 @@ Compensate / Settlement / Payment ใน Mer C (col BG–BY) → อยู่ใ
 
 ```
 ถ้ามี materialGroupName หรือ numberOfMaterialGrouping ชี้กลุ่ม:
-  field2 = "MGPNew - New Material Group"
+  field2 = "Material Group"
   field4 = materialGroupName
 ไม่งั้น:
-  field2 = "MAT - Material"
+  field2 = "Material"
   field4 = material
 ```
 
@@ -333,7 +336,7 @@ default fixture ใช้ `1` — **โค้ดจริงต้อง lookup*
   "buy": [
     {
       "bonusBuyNumber": "1",
-      "field2": "MAT - Material",
+      "field2": "Material",
       "field4": "1000473882",
       "description": "โอเลย์ …",
       "field8": "1199",
@@ -345,7 +348,7 @@ default fixture ใช้ `1` — **โค้ดจริงต้อง lookup*
   "get": [
     {
       "bonusBuyNumber": "1",
-      "field2": "MAT - Material",
+      "field2": "Material",
       "field4": "1000473882",
       "getQuantity": 1,
       "unit": "EA",
@@ -374,10 +377,10 @@ default fixture ใช้ `1` — **โค้ดจริงต้อง lookup*
 - [ ] `MATERIALS` ฝั่ง AB = `[]`
 
 ### HEADER
-- [ ] วันที่ `DD.MM.YYYY`
+- [ ] วันที่ใน `HEADER.periodFrom/periodTo` เป็น `YYYY-MM-DD`
 - [ ] `vendorCode` ว่าง → `NOBP`
 - [ ] `rebateChargeback` / `contractType` ตาม shared
-- [ ] **ไม่มี** `timeFrom`/`timeTo` ใน AB `HEADER`
+- [ ] มี `timeFrom`/`timeTo` ใน AB `HEADER`
 
 ### bonusBuyHeader
 - [ ] `bonusBuyProfile` = `D001`

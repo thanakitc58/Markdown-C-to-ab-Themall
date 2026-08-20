@@ -1,8 +1,12 @@
 # AB Payload — Reference ฝั่ง AB (LAYOUT = "AB")
 
-ไฟล์นี้ล็อก **payload ฝั่ง AB** เป็น reference มาตรฐาน (backend contract)
+ไฟล์นี้ล็อก **payload ฝั่ง AB** โดยยึด **payload หลังบ้านตัวอย่าง** เป็นหลัก
+
+**Source of truth ปัจจุบัน:** `layout-ab-payload.example.json`  
+**เอกสารนี้มีหน้าที่:** อธิบายชื่อ key / section / ความหมายเชิง To-Be ให้คนทำ convert อ่านง่ายขึ้น
 
 **อ่านยังไง (สำคัญ):** เพื่อนที่ทำต่อ **ทำงานที่ชื่อ field ใน JSON ล้วนๆ ไม่ต้องแตะ Excel cell**
+- ถ้าเอกสารนี้ขัดกับ `layout-ab-payload.example.json` ให้ **ยึด payload หลังบ้านก่อน**
 - ทุก key ใน payload → ชี้ไปที่ **ชื่อฟิลด์จริงในไฟล์ To-Be** `Copy of The To-Be Promotion Template Structure.xlsx`
   - `HEADER` → ชีต **`MerAB - Header`**
   - `BONUSBUYS` / `CONDITIONS` → ชีต **`MerAB - item Details`** (คอลัมน์ `B/C/D` = ชื่อฟิลด์, `G` = required, `H` = Auto)
@@ -55,19 +59,20 @@
 | `vendorCode` / `vendorName` | Vendor | r15 | Text | Y | ว่าง → `NOBP` |
 | `days[]` | วันจัดรายการ | r16 | Dropdown | N | BBY เป็นตัวบอกว่าต้องเลือกวันไหม |
 | `singleMultiple` | Single / Multiple Promotion | r17 | Dropdown | N | — |
-| `timeFrom` / `timeTo` | *(ไม่มีใน Header)* | — | — | — | อยู่ระดับแถว BBY → `bonusBuyHeader.validTimeFrom/To` |
+| `timeFrom` / `timeTo` | *(ไม่มีใน To-Be Header แต่มีใน backend payload sample)* | — | — | — | backend sample เก็บไว้ทั้งใน `HEADER` และใช้ไปสร้าง `bonusBuyHeader.validTimeFrom/To` ตาม profile |
 | `volume` / `status` | *(ไม่มีใน To-Be)* | — | — | — | ระดับ UI/เอกสาร |
 
 ---
 
 ## 2. BONUSBUYS[] — dictionary (ชีต `MerAB - item Details`)
 
-1 element = 1 Bonus Buy line ประกอบด้วย `bonusBuyHeader` + `buy[]` + `get[]` (+ บล็อกเสริม `card/tender/…/limitControl` + `stores[]`)
+1 element = 1 Bonus Buy line ประกอบด้วย `bonusBuyNumber` + `bonusBuyHeader` + `buy[]` + `get[]` (+ บล็อกเสริม `card/tender/…/limitControl` + `stores[]`)
 
 ### 2.1 `bonusBuyHeader` (Main Header = "Bonus Buy Header", r31–r54)
 
 | payload key | ชื่อใน To-Be | แถว | required | Auto |
 |-------------|--------------|-----|----------|------|
+| `bonusBuyNumber` | Bonus buy No. (root ของ element) | — | Optional | — |
 | `promotionNumber` | Promotion No | r31 | Optional | Y |
 | `bonusBuyNumber` | Bonus buy No. | r32 | Mandatory | N |
 | `description` | Description | r33 | Depends on Formula | Y |

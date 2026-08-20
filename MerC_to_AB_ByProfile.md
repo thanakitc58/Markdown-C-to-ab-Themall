@@ -1,6 +1,6 @@
 # C → AB — Index ตาม Profile (9 ตัว)
 
-สเปกราย profile แยกไฟล์ละตัว — ใช้เป็นแนวแปลง JSON (`LAYOUT: "AB"`)
+สเปกราย profile แยกไฟล์ละตัว — ใช้เป็นแนวแปลง JSON (`LAYOUT: "AB"`) โดย **ยึด `layout-ab-payload.example.json` เป็น payload หลังบ้านหลัก**
 
 | Profile | กลุ่ม | ไฟล์ |
 |---------|------|------|
@@ -18,7 +18,8 @@
 
 | ไฟล์ | ใช้เมื่อ |
 |------|---------|
-| `payload_AB_Reference.md` | ชื่อ field ปลายทาง AB (JSON contract) |
+| `layout-ab-payload.example.json` | payload หลังบ้านตัวอย่าง — source of truth ของ shape/key |
+| `payload_AB_Reference.md` | คำอธิบายชื่อ field ปลายทาง AB เทียบ To-Be |
 | `MerC_to_AB_Phase1_Shared.md` | ของร่วมทุก profile (header / skip / lookup) |
 | `MerC_to_AB_Function_Split.md` | โครงโค้ด shared → router กลุ่ม → if ราย profile |
 | `MerC_to_AB_Header_Shared.md` | util HEADER ร่วม |
@@ -68,4 +69,4 @@
 
 รายละเอียด: `MerC_to_AB_Phase1_Shared.md` + หมวด 2 ใน `MerC_to_AB_Function_Split.md`
 
-ชื่อ field ปลายทางล็อกกับ `payload_AB_Reference.md` — อย่าตั้งชื่อใหม่
+ชื่อ field ปลายทางให้ยึด `layout-ab-payload.example.json` ก่อน แล้วใช้ `payload_AB_Reference.md` ช่วยอธิบายความหมาย — อย่าตั้งชื่อใหม่
