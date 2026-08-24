@@ -22,6 +22,7 @@
 |------|---------|
 | `layout-ab-payload.example.json` | payload หลังบ้านตัวอย่าง — source of truth ของ shape/key |
 | `payload_AB_Reference.md` | คำอธิบายชื่อ field ปลายทาง AB เทียบ To-Be |
+| [`profile/MerC_to_AB_Mechanic_Lookup.md`](profile/MerC_to_AB_Mechanic_Lookup.md) · [`profile/mechanic-lookup.json`](profile/mechanic-lookup.json) | ตาราง Mechanic + JSON สำหรับ lookup buy/get qty |
 | `MerC_to_AB_Phase1_Shared.md` | ของร่วมทุก profile (header / skip / lookup) |
 | `MerC_to_AB_Function_Split.md` | โครงโค้ด shared → router กลุ่ม → if ราย profile |
 | `MerC_to_AB_Header_Shared.md` | util HEADER ร่วม |
