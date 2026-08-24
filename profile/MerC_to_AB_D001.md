@@ -448,38 +448,43 @@ User เลือกข้อความ mechanic ในฟอร์ม เช�
 
 ## 13) Checklist (D001 ครบ)
 
+สถานะเทียบ `convertLayoutCToAbc` ใน `constants/promotion-payload.js` (D001 branch)
+
 ### โครง
-- [ ] `LAYOUT` = `"AB"`
-- [ ] 1 แถว C → 1 `BONUSBUYS` element
-- [ ] มีทั้ง `buy[0]` และ `get[0]`
-- [ ] `MATERIALS` ฝั่ง AB = `[]`
+- [x] `LAYOUT` = `"AB"`
+- [x] 1 แถว C → 1 `BONUSBUYS` element
+- [x] มีทั้ง `buy[0]` และ `get[0]`
+- [x] `MATERIALS` ฝั่ง AB = `[]`
 
 ### HEADER
-- [ ] วันที่ใน `HEADER.periodFrom/periodTo` เป็น `YYYY-MM-DD`
-- [ ] `vendorCode` ว่าง → `NOBP`
-- [ ] `rebateChargeback` / `contractType` ตาม shared
-- [ ] มี `timeFrom`/`timeTo` ใน AB `HEADER`
+- [x] วันที่ใน `HEADER.periodFrom/periodTo` เป็น `YYYY-MM-DD` (copy ตามต้นทาง ไม่แปลงรูปแบบ)
+- [x] `vendorCode` ว่าง → `NOBP`
+- [x] `rebateChargeback` / `contractType` ตาม §3
+- [x] มี `timeFrom`/`timeTo` ใน AB `HEADER`
+- [x] omit `HEADER.status`
 
 ### bonusBuyHeader
-- [ ] `bonusBuyProfile` = `D001`
-- [ ] `validTimeFrom` / `validTimeTo` มีค่า
-- [ ] **ไม่มี** `referenceCode`
-- [ ] online EN/TH เฉพาะ P4
+- [x] `bonusBuyProfile` = `D001`
+- [x] `validTimeFrom` / `validTimeTo` มีค่า (ว่าง → `00:00:00` / `23:59:59`)
+- [x] **ไม่มี** `referenceCode`
+- [x] online EN/TH เฉพาะ P4
 
 ### buy / get
-- [ ] `buy.field9` จาก mechanic
-- [ ] `get.getQuantity` จาก mechanic
-- [ ] `get` **ไม่มี** `field8`
-- [ ] ส่วนลด **ช่องเดียว**: P หรือ R หรือ field22
-- [ ] % ใช้ normalize **เต็ม**
+- [~] `buy.field9` จาก mechanic — **ใส่ค่าแล้ว แต่ lookup ตารางยัง stub เป็น `1`**
+- [~] `get.getQuantity` จาก mechanic — **เหมือน field9 · stub `1`**
+- [x] `get` **ไม่มี** `field8`
+- [x] ส่วนลด **ช่องเดียว**: P หรือ R หรือ field22
+- [x] % ใช้ normalize **เต็ม**
 
 ### Get Mandatory (To-Be)
-- [ ] `bonusBuyNumber`, `field2`, `field4`, `getQuantity`, `unit`
+- [x] `bonusBuyNumber`, `field2`, `field4`, `getQuantity`, `unit`
 
 ### อื่นๆ
-- [ ] `CONDITIONS` copy จาก C
-- [ ] `card/tender/…` = `[]`
-- [ ] skip rules §1 ทำงาน
+- [~] `CONDITIONS` copy จาก C — **ส่งตรงแล้ว · ยังไม่ compact**
+- [x] `card/tender/…` = `[]`
+- [x] skip rules §1 ทำงาน (Reject / Done / On Pack / ไม่ใช่ D001)
+- [ ] reject โปรไฟล์นอก 9 ตัวทั้งก้อน (§1 แถวสุดท้าย)
+- [ ] เทสเทียบ fixture `constants/fixtures/D001/` ครบ 7 เคส
 
 ---
 
@@ -487,11 +492,12 @@ User เลือกข้อความ mechanic ในฟอร์ม เช�
 
 | หัวข้อ | หมายเหตุ |
 |--------|----------|
-| `lookupBuyGetQty` | fixture hardcode `1` |
-| `normalizeRebate` เต็ม | บาง fixture clear เป็น `""` |
+| `lookupBuyGetQty` | โค้ดมี stub คืน `1`/`1` — รอตาราง Mechanic |
+| `CONDITIONS` compact | ตอนนี้ copy ก้อน C ตรงๆ |
+| theme / purchasingGroup lookup | optional · comment ไว้ใน `mapHeaderD001` |
 | `bonusBuyHeader.description` | macro prefix |
-| theme / purchasingGroup lookup | optional |
 | Pro Tag, Tier, Point | out of scope รอบนี้ |
+| reject โปรไฟล์นอก 9 ตัว | ยังไม่ทำ |
 
 ---
 
