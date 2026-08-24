@@ -449,28 +449,42 @@ User เลือกข้อความ mechanic ในฟอร์ม เช�
 
 ## 13) Checklist (D002 ครบ)
 
-### โครง
-- [ ] `LAYOUT` = `"AB"`
-- [ ] `MATERIALS` ฝั่ง AB = `[]`
-- [ ] reuse logic กลุ่ม B / D001 ได้
-- [ ] 1 แถว C → 1 BBY มี buy+get
-- [ ] % normalize เต็ม
-- [ ] มี `validTime*`
-- [ ] ไม่มี `referenceCode`
-- [ ] online เฉพาะ P4
-- [ ] ส่วนลด **ช่องเดียว**: P หรือ R หรือ field22
-- [ ] `get` **ไม่มี** `field8`
-- [ ] Get Mandatory เมื่อมี get: `bonusBuyNumber`, `field2`, `field4`, `getQuantity`, `unit`
+สถานะตามโค้ด `convertLayoutCToAbc` ใน `promotion-payload.js` (entry `if (profile === "D002")` + reuse `buildGroupBNode`)
 
-### HEADER
-- [ ] วันที่ใน `HEADER.periodFrom/periodTo` เป็น `YYYY-MM-DD`
-- [ ] `vendorCode` ว่าง → `NOBP`
-- [ ] มี `timeFrom`/`timeTo` ใน AB `HEADER`
+### โครง — ทำแล้ว
+- [x] `LAYOUT` = `"AB"`
+- [x] `MATERIALS` ฝั่ง AB = `[]`
+- [x] reuse logic กลุ่ม B / D001 ได้ (`buildGroupBNode` + `mapHeaderShared`)
+- [x] 1 แถว C → 1 BBY มี buy+get
+- [x] % normalize เต็ม (`normalizePctFullGroupB`)
+- [x] มี `validTime*` (ว่าง → ทั้งวัน `00:00:00`–`23:59:59`)
+- [x] ไม่มี `referenceCode`
+- [x] online เฉพาะ P4
+- [x] ส่วนลด **ช่องเดียว**: P หรือ R หรือ field22
+- [x] `get` **ไม่มี** `field8`
+- [x] Get Mandatory เมื่อมี get: `bonusBuyNumber`, `field2`, `field4`, `getQuantity`, `unit`
+- [x] `stores[]` map รหัสสาขา (`store_13_ka` → `13KA`)
+- [x] entry แยก `if (profile === "D002")` (stamp `"D002"`)
 
-### อื่นๆ
-- [ ] `CONDITIONS` copy จาก C
-- [ ] `card/tender/…` = `[]`
-- [ ] skip rules §1 ทำงาน
+### HEADER — ทำแล้ว
+- [x] วันที่ใน `HEADER.periodFrom/periodTo` ส่งตรง (คาด `YYYY-MM-DD` จาก C)
+- [x] `vendorCode` ว่าง → `NOBP`
+- [x] มี `timeFrom`/`timeTo` ใน AB `HEADER`
+- [x] `bonusBuyProfile` → รหัสสั้น · `rebateChargeback` / `contractType` map แล้ว
+- [x] omit `HEADER.status`
+
+### อื่นๆ — ทำแล้ว
+- [x] `card/tender/installment/posTerminal/premium/coupon/limitControl` = `[]`
+- [x] skip rules §1 ทำงาน (Reject / Done / On Pack / โปรไฟล์แถวต้องเป็น D002)
+- [x] `CONDITIONS` ติดมากับ `...basePayload` (copy จาก C — ยังไม่ compact)
+
+### ยังไม่ครบ / TBD
+- [ ] `lookupBuyGetQty` จริง — ตอนนี้ stub `1`/`1`
+- [ ] theme / purchasingGroup lookup ชื่อเต็ม
+- [ ] `CONDITIONS` compact แยกขั้น (ตอนนี้แค่ spread)
+- [ ] Golden test ครบทุก key
+- [ ] `bonusBuyHeader.description` (macro prefix)
+- [ ] Pro Tag, Tier, Point — out of scope รอบนี้
 
 ---
 
@@ -479,11 +493,13 @@ User เลือกข้อความ mechanic ในฟอร์ม เช�
 
 | หัวข้อ | หมายเหตุ |
 |--------|----------|
-| `lookupBuyGetQty` | fixture มัก hardcode `1` |
+| `lookupBuyGetQty` | stub ใน `lookupBuyGetQtyGroupB` · fallback `1`/`1` |
 | `normalizeRebate` เต็ม | บางเคส clear เป็น `""` |
 | `bonusBuyHeader.description` | macro prefix |
-| theme / purchasingGroup lookup | optional |
+| theme / purchasingGroup lookup | comment ใน `mapHeaderShared` |
+| CONDITIONS compact | ติด `...basePayload` ยังไม่มีขั้น map |
 | Pro Tag, Tier, Point | out of scope รอบนี้ |
+| Golden test | ยังไม่มี (§15) |
 
 ---
 
