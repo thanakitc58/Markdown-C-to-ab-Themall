@@ -75,7 +75,7 @@ User กรอกแถวสินค้าใน C ภายใต้ `MATERIA
 
 **Reference code** — P011 **ไม่ส่ง** (ห้ามมี key นี้ใน output)
 
-**Online EN/TH** — P011 ไม่ใส่
+**Online EN/TH** ใส่เฉพาะเมื่อพื้นที่โปรเป็น `P4` · นอกนั้นไม่ต้องมี key
 
 ### ตัวอย่างภาพรวม (สมมติ 1 แถวสินค้า)
 
@@ -196,8 +196,8 @@ HEADER คือหัวโปรทั้งใบ — **ใช้ util ร่
 | `HEADER.timeTo` | `validTimeTo` | Valid Time to | — | **calc** | **ต้องมีใน AB** · เอาจาก `HEADER.timeTo` · ถ้าว่างให้เป็น `"23:59:59"` (จบวัน) |
 | `HEADER.wbsNumber` | `wbsNumber` | WBS No. | — | **ctx** | ยืมเลข WBS จากหัวใบมาใส่ทุกก้อน |
 | `promotionArea` (HEADER ก่อน แล้วค่อย MATERIALS) | `promotionArea` | Promotion Area | — | **copy** | บอกพื้นที่โปร · ค่า `P4` = ออนไลน์ → ถึงจะใส่คำอธิบาย online |
-| online EN | `onlineDescriptionEnglish` | Online EN | — | **omit** | **P011 ไม่ใช้ online description** → ไม่ส่ง key นี้ |
-| online TH | `onlineDescriptionThai` | Online TH | — | **omit** | **P011 ไม่ใช้ online description** → ไม่ส่ง key นี้ |
+| online EN | `onlineDescriptionEnglish` | Online EN | — | **copy** | ใส่เมื่อโปรเป็นออนไลน์พื้นที่ **P4** เท่านั้น · ตัวอย่าง: `promotionArea="P4"` และมีข้อความ EN → ส่ง · ถ้าพื้นที่เป็นอย่างอื่น → **ไม่มี key นี้เลย** |
+| online TH | `onlineDescriptionThai` | Online TH | — | **copy** | เหมือน EN แต่เป็นข้อความไทย · นอก P4 ไม่ส่ง |
 | `referenceCode` | `referenceCode` | Reference | — | **omit** | **P011 ไม่ส่ง** · แม้ C มีค่า ก็ตัดทิ้ง |
 | — | `promotionNumber` / `description` / `purchasingGroup` / `product` / `department` | (หลายช่อง) | — | **auto** | **ไม่ต้อง map** · ระบบ AB ใส่เอง |
 | — | `limitNumber`, `priceTag`, flags ต่างๆ | — | — | **omit** | รอบนี้ไม่ใช้ → **อย่าใส่ key** ใน JSON |
@@ -361,7 +361,7 @@ User เลือกข้อความ mechanic ในฟอร์ม เช�
 - **buy qty** → ใส่ `buy[0].field9` (จำนวนชิ้นขั้นต่ำฝั่งซื้อ)
 - **get qty** → ใส่ `get[0].getQuantity` (จำนวนที่ได้)
 
-ถ้าตารางยังไม่มีแถวนั้น → ใช้ `1` กับ `1` ชั่วคราว (fixture หลายไฟล์ทำแบบนี้)
+ตาราง: `constants/mechanic-lookup.json` (ดู `MerC_to_AB_Mechanic_Lookup.md`) · ไม่เจอแถว หรือ qty เป็น `null` → fallback `1`
 
 หมายเหตุ: mechanic แบบ On Pack ถูกข้ามตั้งแต่ Skip rules แล้ว จะไม่มาถึงขั้นนี้
 
@@ -436,31 +436,40 @@ User เลือกข้อความ mechanic ในฟอร์ม เช�
 
 ## 13) Checklist (P011 ครบ)
 
+สถานะเทียบ `convertLayoutCToAbc` ใน `constants/promotion-payload.js` (entry `if (profile === "P011")`)
+
 ### โครง
-- [ ] `LAYOUT` = `"AB"`
-- [ ] 1 แถว C → 1 `BONUSBUYS` element
-- [ ] `buy = []` · มี `get[0]`
-- [ ] `MATERIALS` ฝั่ง AB = `[]`
+- [x] `LAYOUT` = `"AB"`
+- [x] 1 แถว C → 1 `BONUSBUYS` element
+- [x] `buy = []` · มี `get[0]`
+- [x] `MATERIALS` ฝั่ง AB = `[]`
 
 ### HEADER
-- [ ] วันที่ใน `HEADER.periodFrom/periodTo` เป็น `YYYY-MM-DD`
-- [ ] `vendorCode` ว่าง → `NOBP`
-- [ ] มี `timeFrom`/`timeTo` ใน AB `HEADER`
+- [x] วันที่ใน `HEADER.periodFrom/periodTo` เป็น `YYYY-MM-DD`
+- [x] `vendorCode` ว่าง → `NOBP`
+- [x] `rebateChargeback` / `contractType` ตาม §3
+- [x] มี `timeFrom`/`timeTo` ใน AB `HEADER`
+- [x] omit `HEADER.status`
 
 ### bonusBuyHeader / get
-- [ ] `buy = []`
-- [ ] `get.field8` มีค่า
-- [ ] มี `validTime*`
-- [ ] **ไม่มี** `referenceCode` ใน output
-- [ ] online เฉพาะ P4
-- [ ] % normalize เต็ม
-- [ ] ส่วนลด **ช่องเดียว**: P หรือ R หรือ field22
-- [ ] Get Mandatory: `bonusBuyNumber`, `field2`, `field4`, `getQuantity`, `unit`
+- [x] `buy = []`
+- [x] `get.field8` มีค่า
+- [x] มี `validTime*`
+- [x] **ไม่มี** `referenceCode` ใน output
+- [x] online เฉพาะ P4
+- [x] `get.getQuantity` จาก `mechanic-lookup.json` · ไม่เจอ/null → `1`
+- [x] % normalize เต็ม
+- [x] ส่วนลด **ช่องเดียว**: P หรือ R หรือ field22
+- [x] Get Mandatory: `bonusBuyNumber`, `field2`, `field4`, `getQuantity`, `unit`
 
 ### อื่นๆ
-- [ ] `CONDITIONS` copy จาก C
-- [ ] `card/tender/…` = `[]`
-- [ ] skip rules §1 ทำงาน
+- [~] `CONDITIONS` copy จาก C — **ส่งตรงแล้ว · ยังไม่ compact**
+- [x] `card/tender/…` = `[]`
+- [x] skip rules §1 ทำงาน
+- [ ] theme / purchasingGroup lookup ชื่อเต็ม
+- [ ] `bonusBuyHeader.description` (macro prefix)
+- [ ] reject โปรไฟล์นอก 9 ตัวทั้งก้อน
+- [ ] Golden test ครบทุก key
 
 ---
 
@@ -469,11 +478,12 @@ User เลือกข้อความ mechanic ในฟอร์ม เช�
 
 | หัวข้อ | หมายเหตุ |
 |--------|----------|
-| `lookupBuyGetQty` | fixture มัก hardcode `1` |
-| `normalizeRebate` เต็ม | บางเคส clear เป็น `""` |
+| `CONDITIONS` compact | ตอนนี้ copy ก้อน C ตรงๆ |
+| theme / purchasingGroup lookup | optional · comment ใน `mapHeaderShared` |
 | `bonusBuyHeader.description` | macro prefix |
-| theme / purchasingGroup lookup | optional |
 | Pro Tag, Tier, Point | out of scope รอบนี้ |
+| reject โปรไฟล์นอก 9 ตัว | ยังไม่ทำ |
+| Golden test | ยังไม่มี (§15) |
 
 ---
 

@@ -362,7 +362,7 @@ User เลือกข้อความ mechanic ในฟอร์ม เช�
 - **buy qty** → ใส่ `buy[0].field9` (จำนวนชิ้นขั้นต่ำฝั่งซื้อ)
 - **get qty** → ใส่ `get[0].getQuantity` (จำนวนที่ได้)
 
-ถ้าตารางยังไม่มีแถวนั้น → ใช้ `1` กับ `1` ชั่วคราว (fixture หลายไฟล์ทำแบบนี้)
+ตาราง: `constants/mechanic-lookup.json` (ดู `MerC_to_AB_Mechanic_Lookup.md`) · ไม่เจอแถว หรือ qty เป็น `null` → fallback `1`
 
 หมายเหตุ: mechanic แบบ On Pack ถูกข้ามตั้งแต่ Skip rules แล้ว จะไม่มาถึงขั้นนี้
 
@@ -435,31 +435,40 @@ User เลือกข้อความ mechanic ในฟอร์ม เช�
 
 ## 13) Checklist (P015 ครบ)
 
+สถานะเทียบ `convertLayoutCToAbc` ใน `constants/promotion-payload.js` (entry `if (profile === "P015")`)
+
 ### โครง
-- [ ] `LAYOUT` = `"AB"`
-- [ ] 1 แถว C → 1 `BONUSBUYS` element
-- [ ] `buy = []` · มี `get[0]`
-- [ ] `MATERIALS` ฝั่ง AB = `[]`
+- [x] `LAYOUT` = `"AB"`
+- [x] 1 แถว C → 1 `BONUSBUYS` element
+- [x] `buy = []` · มี `get[0]`
+- [x] `MATERIALS` ฝั่ง AB = `[]`
 
 ### HEADER
-- [ ] วันที่ใน `HEADER.periodFrom/periodTo` เป็น `YYYY-MM-DD`
-- [ ] `vendorCode` ว่าง → `NOBP`
-- [ ] มี `timeFrom`/`timeTo` ใน AB `HEADER`
+- [x] วันที่ใน `HEADER.periodFrom/periodTo` เป็น `YYYY-MM-DD`
+- [x] `vendorCode` ว่าง → `NOBP`
+- [x] `rebateChargeback` / `contractType` ตาม §3
+- [x] มี `timeFrom`/`timeTo` ใน AB `HEADER`
+- [x] omit `HEADER.status`
 
 ### bonusBuyHeader / get
-- [ ] `buy = []`
-- [ ] `get.field8` มีค่า
-- [ ] มี `validTime*`
-- [ ] ไม่มี `referenceCode` / online
-- [ ] % จากช่อง P015 ลง `field22`
-- [ ] % normalize เต็ม
-- [ ] ส่วนลด **ช่องเดียว**: P หรือ R หรือ field22
-- [ ] Get Mandatory: `bonusBuyNumber`, `field2`, `field4`, `getQuantity`, `unit`
+- [x] `buy = []`
+- [x] `get.field8` มีค่า
+- [x] มี `validTime*`
+- [x] ไม่มี `referenceCode` / online
+- [x] `get.getQuantity` จาก `mechanic-lookup.json` · ไม่เจอ/null → `1`
+- [x] % จากช่อง P015 ลง `field22` (prefer `discountPercentForP015`)
+- [x] % normalize เต็ม
+- [x] ส่วนลด **ช่องเดียว**: P หรือ R หรือ field22
+- [x] Get Mandatory: `bonusBuyNumber`, `field2`, `field4`, `getQuantity`, `unit`
 
 ### อื่นๆ
-- [ ] `CONDITIONS` copy จาก C
-- [ ] `card/tender/…` = `[]`
-- [ ] skip rules §1 ทำงาน
+- [~] `CONDITIONS` copy จาก C — **ส่งตรงแล้ว · ยังไม่ compact**
+- [x] `card/tender/…` = `[]`
+- [x] skip rules §1 ทำงาน
+- [ ] theme / purchasingGroup lookup ชื่อเต็ม
+- [ ] `bonusBuyHeader.description` (macro prefix)
+- [ ] reject โปรไฟล์นอก 9 ตัวทั้งก้อน
+- [ ] Golden test ครบทุก key
 
 ---
 
@@ -468,11 +477,12 @@ User เลือกข้อความ mechanic ในฟอร์ม เช�
 
 | หัวข้อ | หมายเหตุ |
 |--------|----------|
-| `lookupBuyGetQty` | fixture มัก hardcode `1` |
-| `normalizeRebate` เต็ม | บางเคส clear เป็น `""` |
+| `CONDITIONS` compact | ตอนนี้ copy ก้อน C ตรงๆ |
+| theme / purchasingGroup lookup | optional · comment ใน `mapHeaderShared` |
 | `bonusBuyHeader.description` | macro prefix |
-| theme / purchasingGroup lookup | optional |
 | Pro Tag, Tier, Point | out of scope รอบนี้ |
+| reject โปรไฟล์นอก 9 ตัว | ยังไม่ทำ |
+| Golden test | ยังไม่มี (§15) |
 
 ---
 

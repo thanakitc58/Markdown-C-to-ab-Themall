@@ -369,7 +369,7 @@ User เลือกข้อความ mechanic ในฟอร์ม เช�
 - **buy qty** → ใส่ `buy[0].field9` (จำนวนชิ้นขั้นต่ำฝั่งซื้อ)
 - **get qty** → ใส่ `get[0].getQuantity` (จำนวนที่ได้)
 
-ถ้าตารางยังไม่มีแถวนั้น → ใช้ `1` กับ `1` ชั่วคราว (fixture หลายไฟล์ทำแบบนี้)
+ตาราง: `constants/mechanic-lookup.json` (ดู `MerC_to_AB_Mechanic_Lookup.md`) · ไม่เจอแถว หรือ qty เป็น `null` → fallback `1`
 
 หมายเหตุ: mechanic แบบ On Pack ถูกข้ามตั้งแต่ Skip rules แล้ว จะไม่มาถึงขั้นนี้
 
@@ -462,6 +462,7 @@ User เลือกข้อความ mechanic ในฟอร์ม เช�
 - [x] online เฉพาะ P4
 - [x] ส่วนลด **ช่องเดียว**: P หรือ R หรือ field22
 - [x] `get` **ไม่มี** `field8`
+- [x] `buy.field9` / `get.getQuantity` จาก `mechanic-lookup.json` · ไม่เจอ/null → `1`
 - [x] Get Mandatory เมื่อมี get: `bonusBuyNumber`, `field2`, `field4`, `getQuantity`, `unit`
 - [x] `stores[]` map รหัสสาขา (`store_13_ka` → `13KA`)
 - [x] entry แยก `if (profile === "D002")` (stamp `"D002"`)
@@ -476,15 +477,15 @@ User เลือกข้อความ mechanic ในฟอร์ม เช�
 ### อื่นๆ — ทำแล้ว
 - [x] `card/tender/installment/posTerminal/premium/coupon/limitControl` = `[]`
 - [x] skip rules §1 ทำงาน (Reject / Done / On Pack / โปรไฟล์แถวต้องเป็น D002)
-- [x] `CONDITIONS` ติดมากับ `...basePayload` (copy จาก C — ยังไม่ compact)
+- [~] `CONDITIONS` ติดมากับ `...basePayload` (copy จาก C — ยังไม่ compact)
 
 ### ยังไม่ครบ / TBD
-- [ ] `lookupBuyGetQty` จริง — ตอนนี้ stub `1`/`1`
 - [ ] theme / purchasingGroup lookup ชื่อเต็ม
 - [ ] `CONDITIONS` compact แยกขั้น (ตอนนี้แค่ spread)
 - [ ] Golden test ครบทุก key
 - [ ] `bonusBuyHeader.description` (macro prefix)
 - [ ] Pro Tag, Tier, Point — out of scope รอบนี้
+- [ ] reject โปรไฟล์นอก 9 ตัวทั้งก้อน
 
 ---
 
@@ -493,12 +494,11 @@ User เลือกข้อความ mechanic ในฟอร์ม เช�
 
 | หัวข้อ | หมายเหตุ |
 |--------|----------|
-| `lookupBuyGetQty` | stub ใน `lookupBuyGetQtyGroupB` · fallback `1`/`1` |
-| `normalizeRebate` เต็ม | บางเคส clear เป็น `""` |
-| `bonusBuyHeader.description` | macro prefix |
+| `CONDITIONS` compact | ติด `...basePayload` ยังไม่มีขั้น map |
 | theme / purchasingGroup lookup | comment ใน `mapHeaderShared` |
-| CONDITIONS compact | ติด `...basePayload` ยังไม่มีขั้น map |
+| `bonusBuyHeader.description` | macro prefix |
 | Pro Tag, Tier, Point | out of scope รอบนี้ |
+| reject โปรไฟล์นอก 9 ตัว | ยังไม่ทำ |
 | Golden test | ยังไม่มี (§15) |
 
 ---
