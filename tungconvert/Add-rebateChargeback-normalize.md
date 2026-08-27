@@ -1,4 +1,4 @@
-# Bug / แจ้งเพื่อน — `rebateChargeback` หายหลัง convert
+# เพิ่มเติม — `rebateChargeback` หายหลัง convert
 
 | | |
 |--|--|
@@ -8,7 +8,6 @@
 
 ---
 
-## สรุปสั้นๆ ให้เพื่อน
 
 ตอนเลือก **Reason = X (สร้าง Contract พร้อม BBY)** + **Contract Type = Z200** แล้ว convert:
 
@@ -59,41 +58,66 @@
 
 ---
 
+## Dropdown Reason ครบใน Mer C (คอลัมน์ BQ)
+
+จาก template จริง มี **5 ค่า** (ไม่ใช่แค่ X):
+
+| รหัสนำ | ข้อความเต็มใน dropdown |
+|--------|-------------------------|
+| **A** | `A - สร้าง Contract หลังจบรายการ Promotion/Combine BBY/Fix Amount` |
+| **X** | `X - สร้าง Contract พร้อม BBY` |
+| **1** | `1 - Merchandise/Sectional Marketing/Outright (รับผิดชอบค่าใช้จ่าย)` |
+| **2** | `2 - ราคาทุนพิเศษ/ส่วนลดทุน/ส่วนลด DEMO` |
+| **3** | `3 - GWP/Premium/PO FOC/Free Item/BBY DC For Planning ไม่มีการเรียกเก็บ` |
+
+สูตรใน Mer C (BQ) มัก auto ให้:
+- Contract Type = `Z301 - Fix Amount…` → Reason **A**
+- Contract Type ขึ้นต้น `Z2` → Reason **X**
+- เงื่อนไขอื่น (เช่น FOC) → อาจได้ **1 / 2 / 3** (ดูสูตรเต็มในชีต)
+
+บนเว็บคนเลือกเองใน Condition Header / Charge Back Reason ได้ครบชุดนี้
+
+---
+
 ## กติกาที่ถูก (จาก macro `set_RebateReason_n_ContractType`)
 
-อ่านจาก `Mer-C_Convert_To_STD.txt`:
+อ่านจาก `Mer-C_Convert_To_STD.txt` — **ไม่ hardcode แค่ X** ใช้ `Left(1)` ของ Reason:
 
 ```
 ถ้า Contract Type ขึ้นต้น "Z2":
   contractType  = ค่าเต็ม (เช่น Z200)
-  rebateChargeback = ตัวอักษรแรกของ Reason   → "X"
+  rebateChargeback = ตัวอักษรแรกของ Reason
+    → "A" | "X" | "1" | "2" | "3"
 
 ถ้า Contract Type ไม่ใช่ Z2:
   contractType  = ""
   ถ้าตัวแรกของ Reason ≠ "A":
-    rebateChargeback = "0" + ตัวอักษรแรก     → เช่น "0X"
+    rebateChargeback = "0" + ตัวอักษรแรก
+      → "0X" | "01" | "02" | "03"
   ไม่งั้น:
-    rebateChargeback = "A"
+    rebateChargeback = "A"     ← กรณีพิเศษ ไม่เติม 0
 ```
 
 **สำคัญ:** macro ใช้แบบ **เอา Left(1)** ของ Reason  
 ไม่ใช่ตัดตัวแรกทิ้งแล้วเหลือส่วนที่เหลือ
 
-บนเว็บค่าใน C มักเหลือแค่ `"X"` อยู่แล้ว  
-ถ้าโค้ดทำ `slice(1)` / ตัดตัวแรกทิ้ง → ได้ `""` ← ตรงกับบั๊กที่เจอ
+บนเว็บค่าใน C มักเหลือแค่ `"X"` / `"A"` / `"1"` อยู่แล้ว  
+ถ้าโค้ดทำ `slice(1)` / ตัดตัวแรกทิ้ง → ได้ `""` ← ตรงกับบั๊กที่เจอ (เคส X)
 
 ---
 
 ## สาเหตุที่น่าจะเป็น
 
 `normalizeRebate` ใน shared header **ตัดตัวอักษรแรกทิ้ง** จากค่าที่มีความยาว 1 แล้ว (`"X"`)  
-เลยว่างทั้งก้อน
+เลยว่างทั้งก้อน — จะพังเหมือนกันถ้าเป็น `"A"` / `"1"` / `"2"` / `"3"`
 
 ควรเป็นประมาณ:
 
 - ถ้าว่าง → ว่าง
-- ถ้ามี Contract แบบ Z2 → ใช้ตัวอักษรแรกของ reason/rebate (= `"X"` ถ้าค่าเป็น `"X"` หรือ `"X - สร้าง…"`)
-- ถ้าไม่ใช่ Z2 และตัวแรก ≠ `A` → เติม `0` นำหน้า (`"0X"`)
+- เอา `code = Left(1)` ของ reason (รองรับทั้งข้อความยาวและรหัสสั้น)
+- ถ้ามี Contract แบบ Z2 → `rebateChargeback = code`
+- ถ้าไม่ใช่ Z2 และ `code !== "A"` → `rebateChargeback = "0" + code`
+- ถ้าไม่ใช่ Z2 และ `code === "A"` → `"A"`
 
 อย่า `substring(1)` บนสตริงที่เหลือรหัสตัวเดียวแล้ว
 
@@ -104,6 +128,7 @@
 | ไฟล์ | หัวข้อ |
 |------|--------|
 | `Mer-C_Convert_To_STD.txt` | `set_RebateReason_n_ContractType` (~บรรทัด 400) |
+| Mer C Template คอลัมน์ BQ | dropdown Reason 5 ค่า + สูตร auto |
 | `MerC_to_AB_Header_Shared.md` | `normalizeRebate` |
 | `MerC_to_AB_Phase1_Shared.md` | Charge Back / Reason → `rebateChargeback` |
 | `profile/MerC_to_AB_*.md` §3 | HEADER map ร่วมทุกโปรไฟล์ |
@@ -120,13 +145,20 @@
    - [ ] `CONDITIONS` ยังมี reason / contract type
    - [ ] `BONUSBUYS` ไม่พัง
 
-เคสเสริม (ถ้ามีเวลา):
+เคสเสริม (ครบชุด Reason):
 
-| Reason | Contract Type | `rebateChargeback` ที่ควรได้ |
-|--------|---------------|------------------------------|
-| `X…` | `Z200` | `"X"` |
-| `A…` | (ว่าง / ไม่ใช่ Z2) | `"A"` |
-| `X…` | (ว่าง / ไม่ใช่ Z2) | `"0X"` |
+| Reason (รหัสนำ) | Contract Type | `rebateChargeback` ที่ควรได้ |
+|-----------------|---------------|------------------------------|
+| `X…` | `Z200` / `Z2…` | `"X"` |
+| `A…` | `Z2…` | `"A"` |
+| `1…` | `Z2…` | `"1"` |
+| `2…` | `Z2…` | `"2"` |
+| `3…` | `Z2…` | `"3"` |
+| `A…` | ว่าง / ไม่ใช่ Z2 | `"A"` |
+| `X…` | ว่าง / ไม่ใช่ Z2 | `"0X"` |
+| `1…` | ว่าง / ไม่ใช่ Z2 | `"01"` |
+| `2…` | ว่าง / ไม่ใช่ Z2 | `"02"` |
+| `3…` | ว่าง / ไม่ใช่ Z2 | `"03"` |
 
 ---
 
@@ -142,6 +174,7 @@
 
 > เจอบั๊ก shared header: เลือก Reason `X` + Contract Type `Z200` แล้ว convert  
 > C มี `rebateChargeback: "X"` แต่ AB ได้ `""`  
-> CONDITIONS ยังมี `cond_hdr_reason: "X"` อยู่ — น่าจะพังที่ `normalizeRebate` ตัดตัวแรกทิ้งทั้งที่ค่าเหลือตัวเดียว  
-> ตาม macro ต้องได้ `"X"` (Z2 แล้วเอา Left(1) ของ reason)  
-> รายละเอียดอยู่ใน `tungconvert/BUG-rebateChargeback-normalize.md`
+> CONDITIONS ยังมี `cond_hdr_reason: "X"` — น่าจะพังที่ `normalizeRebate` ตัดตัวแรกทิ้งทั้งที่ค่าเหลือตัวเดียว  
+> ตาม macro ต้อง Left(1) ของ Reason · Mer C มี dropdown ครบ 5 ตัว: **A / X / 1 / 2 / 3**  
+> (Z2 → ใช้รหัสนั้น · ไม่ใช่ Z2 และ ≠A → เติม 0 เช่น 0X, 01, 02, 03 · A คงเป็น A)  
+> รายละเอียด: `tungconvert/Add-rebateChargeback-normalize.md`
