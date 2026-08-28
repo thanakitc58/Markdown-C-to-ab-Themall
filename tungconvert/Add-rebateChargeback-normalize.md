@@ -1,53 +1,48 @@
-# เพิ่มเติม — `rebateChargeback` หายหลัง convert
+# Handoff — Contract + HEADER (convert C→AB)
 
 | | |
 |--|--|
-| **วันที่พบ** | 2026-08-27 |
-| **เคสที่เทส** | F001 · Reason `X - สร้าง Contract พร้อม BBY` · Contract Type `Z200` |
-| **สถานะ** | BBY + CONDITIONS ผ่าน · **HEADER.rebateChargeback เพี้ยน** |
+| **อัปเดต** | 2026-08-28 |
+| **สถานะ BBY** | 9 profile หลักทำแล้ว (D001/P011 เทสผ่าน) |
+| **งานค้างในไฟล์นี้** | (1) `rebateChargeback` normalize · (2) `Fill_Contract` gen `CONDITIONS` |
 
 ---
 
+## Checklist งานที่ต้อง implement
 
-ตอนเลือก **Reason = X (สร้าง Contract พร้อม BBY)** + **Contract Type = Z200** แล้ว convert:
+- [ ] **1. แก้ `normalizeRebate`** — Reason `X` + Z200 → `HEADER.rebateChargeback` = `"X"` ไม่ใช่ `""`
+- [ ] **2. Implement `Fill_Contract`** — gen `CONDITIONS[]` จากแถว Mer C + HEADER (ไม่พึ่ง copy Condition block อย่างเดียว)
+- [ ] **3. Map Compensate** — `comp_qty_in_sap` / `comp_set` / `comp_%` → `cond_type_condition_rate` (+ condition type ตาม macro)
+- [ ] **4. เทสซ้ำ** — เคส D001 + Reason X + Compensate ด้านล่าง
 
-- `BONUSBUYS` ถูก (F001 / B3G1 ฯลฯ)
-- `CONDITIONS` copy จาก Condition Header ถูก — ยังมี `cond_hdr_reason: "X"`
-- แต่ **`HEADER.rebateChargeback` ใน AB กลายเป็น `""`** ทั้งที่ C เป็น `"X"`
-
-ขอช่วยไล่ `normalizeRebate` (shared header) ให้ตรง macro
+**ไม่ต้องทำ (macro ไม่ส่ง AB):** `pack_size`, `disc_deal`, `forecast_*`, `gp_*`, `disp_mprice_*` → `MATERIALS: []` ใน AB ถูกแล้ว
 
 ---
 
-## Expected vs Actual
+# งาน 1 — `rebateChargeback` หายหลัง convert
 
-| ฟิลด์ AB | Expected (ตาม macro) | Actual (เว็บตอนนี้) |
-|----------|----------------------|---------------------|
+## อาการ
+
+ตอนเลือก **Reason = X** + **Contract Type = Z200** แล้ว convert:
+
+| ฟิลด์ AB | Expected | Actual (เว็บตอนนี้) |
+|----------|----------|---------------------|
 | `HEADER.contractType` | `"Z200"` | `"Z200"` ✅ |
 | `HEADER.rebateChargeback` | `"X"` | `""` ❌ |
 | `CONDITIONS[0].conditionHeader.cond_hdr_reason` | `"X"` | `"X"` ✅ |
 
-### C (ก่อนแปลง — ส่วนที่เกี่ยว)
+`BONUSBUYS` ไม่พัง — ปัญหาอยู่ shared header เท่านั้น
+
+### C (ก่อนแปลง)
 
 ```json
 "HEADER": {
   "contractType": "Z200",
-  "rebateChargeback": "X",
-  "bonusBuyProfile": "F001"
+  "rebateChargeback": "X"
 }
 ```
 
-```json
-"CONDITIONS": [{
-  "conditionHeader": {
-    "cond_hdr_reason": "X",
-    "cond_hdr_contract_type": "Z200",
-    "cond_hdr_vendor": "OIS05"
-  }
-}]
-```
-
-### AB (หลังแปลง — จุดพัง)
+### AB (หลังแปลง — ผิด)
 
 ```json
 "HEADER": {
@@ -60,8 +55,6 @@
 
 ## Dropdown Reason ครบใน Mer C (คอลัมน์ BQ)
 
-จาก template จริง มี **5 ค่า** (ไม่ใช่แค่ X):
-
 | รหัสนำ | ข้อความเต็มใน dropdown |
 |--------|-------------------------|
 | **A** | `A - สร้าง Contract หลังจบรายการ Promotion/Combine BBY/Fix Amount` |
@@ -70,82 +63,41 @@
 | **2** | `2 - ราคาทุนพิเศษ/ส่วนลดทุน/ส่วนลด DEMO` |
 | **3** | `3 - GWP/Premium/PO FOC/Free Item/BBY DC For Planning ไม่มีการเรียกเก็บ` |
 
-สูตรใน Mer C (BQ) มัก auto ให้:
-- Contract Type = `Z301 - Fix Amount…` → Reason **A**
+สูตร Mer C (BQ) มัก auto:
+- Contract Type = `Z301…` → Reason **A**
 - Contract Type ขึ้นต้น `Z2` → Reason **X**
-- เงื่อนไขอื่น (เช่น FOC) → อาจได้ **1 / 2 / 3** (ดูสูตรเต็มในชีต)
-
-บนเว็บคนเลือกเองใน Condition Header / Charge Back Reason ได้ครบชุดนี้
 
 ---
 
-## กติกาที่ถูก (จาก macro `set_RebateReason_n_ContractType`)
+## กติกาที่ถูก (macro `set_RebateReason_n_ContractType`)
 
-อ่านจาก `Mer-C_Convert_To_STD.txt` — **ไม่ hardcode แค่ X** ใช้ `Left(1)` ของ Reason:
+อ่านจาก `Mer-C_Convert_To_STD.txt` (~บรรทัด 400) — ใช้ **`Left(1)`** ของ Reason:
 
 ```
 ถ้า Contract Type ขึ้นต้น "Z2":
-  contractType  = ค่าเต็ม (เช่น Z200)
-  rebateChargeback = ตัวอักษรแรกของ Reason
-    → "A" | "X" | "1" | "2" | "3"
+  contractType     = ค่าเต็ม (เช่น Z200)
+  rebateChargeback = ตัวอักษรแรกของ Reason → "A" | "X" | "1" | "2" | "3"
 
 ถ้า Contract Type ไม่ใช่ Z2:
-  contractType  = ""
+  contractType = ""
   ถ้าตัวแรกของ Reason ≠ "A":
-    rebateChargeback = "0" + ตัวอักษรแรก
-      → "0X" | "01" | "02" | "03"
+    rebateChargeback = "0" + ตัวอักษรแรก → "0X" | "01" | "02" | "03"
   ไม่งั้น:
-    rebateChargeback = "A"     ← กรณีพิเศษ ไม่เติม 0
+    rebateChargeback = "A"
 ```
 
-**สำคัญ:** macro ใช้แบบ **เอา Left(1)** ของ Reason  
-ไม่ใช่ตัดตัวแรกทิ้งแล้วเหลือส่วนที่เหลือ
+**สาเหตุบั๊ก:** โค้ด `normalizeRebate` น่าจะ `slice(1)` / ตัดตัวแรกทิ้ง → `"X"` เหลือ `""`
 
-บนเว็บค่าใน C มักเหลือแค่ `"X"` / `"A"` / `"1"` อยู่แล้ว  
-ถ้าโค้ดทำ `slice(1)` / ตัดตัวแรกทิ้ง → ได้ `""` ← ตรงกับบั๊กที่เจอ (เคส X)
+**Fix แนวทาง:**
 
----
+- ว่าง → ว่าง
+- `code = Left(1)` ของ reason (รองรับข้อความยาวและรหัสสั้น)
+- Z2 → `rebateChargeback = code`
+- ไม่ใช่ Z2 และ `code !== "A"` → `"0" + code`
+- ไม่ใช่ Z2 และ `code === "A"` → `"A"`
+- **ห้าม** `substring(1)` บนสตริงที่เหลือรหัสตัวเดียว
 
-## สาเหตุที่น่าจะเป็น
-
-`normalizeRebate` ใน shared header **ตัดตัวอักษรแรกทิ้ง** จากค่าที่มีความยาว 1 แล้ว (`"X"`)  
-เลยว่างทั้งก้อน — จะพังเหมือนกันถ้าเป็น `"A"` / `"1"` / `"2"` / `"3"`
-
-ควรเป็นประมาณ:
-
-- ถ้าว่าง → ว่าง
-- เอา `code = Left(1)` ของ reason (รองรับทั้งข้อความยาวและรหัสสั้น)
-- ถ้ามี Contract แบบ Z2 → `rebateChargeback = code`
-- ถ้าไม่ใช่ Z2 และ `code !== "A"` → `rebateChargeback = "0" + code`
-- ถ้าไม่ใช่ Z2 และ `code === "A"` → `"A"`
-
-อย่า `substring(1)` บนสตริงที่เหลือรหัสตัวเดียวแล้ว
-
----
-
-## ไฟล์อ้างอิงในสเปก
-
-| ไฟล์ | หัวข้อ |
-|------|--------|
-| `Mer-C_Convert_To_STD.txt` | `set_RebateReason_n_ContractType` (~บรรทัด 400) |
-| Mer C Template คอลัมน์ BQ | dropdown Reason 5 ค่า + สูตร auto |
-| `MerC_to_AB_Header_Shared.md` | `normalizeRebate` |
-| `MerC_to_AB_Phase1_Shared.md` | Charge Back / Reason → `rebateChargeback` |
-| `profile/MerC_to_AB_*.md` §3 | HEADER map ร่วมทุกโปรไฟล์ |
-
----
-
-## วิธีเทสซ้ำหลังแก้
-
-1. Condition Header: Reason = `X - สร้าง Contract พร้อม BBY` · Contract Type = `Z200`
-2. Convert (โปรไฟล์อะไรก็ได้ เช่น F001)
-3. เช็ค AB:
-   - [ ] `HEADER.rebateChargeback` = `"X"`
-   - [ ] `HEADER.contractType` = `"Z200"`
-   - [ ] `CONDITIONS` ยังมี reason / contract type
-   - [ ] `BONUSBUYS` ไม่พัง
-
-เคสเสริม (ครบชุด Reason):
+### ตารางเทส Reason
 
 | Reason (รหัสนำ) | Contract Type | `rebateChargeback` ที่ควรได้ |
 |-----------------|---------------|------------------------------|
@@ -162,19 +114,188 @@
 
 ---
 
-## สิ่งที่ไม่ต้องแก้จากเคสนี้
+# งาน 2 — `Fill_Contract` gen `CONDITIONS[]`
 
-- โครง F001 buy+get / mechanic qty — ผ่านแล้ว
-- copy `CONDITIONS` จาก Condition Header — ผ่านแล้ว
-- การแยก BBY ตามโปรไฟล์ — ไม่เกี่ยวกับบั๊กนี้
+## สถานะตอนนี้ vs ที่ต้องเป็น
+
+| | ตอนนี้ (เว็บ) | ต้องเป็น (ตาม macro) |
+|--|---------------|----------------------|
+| `CONDITIONS` | **copy ตรง** จาก Condition block ที่กรอกบนฟอร์ม | **gen** จาก HEADER + แถว `MATERIALS` |
+| Compensate ใน MATERIALS | **ไม่อ่an** | ไป `conditionType[].cond_type_condition_rate` |
+| Charge Back col 69–77 | ไม่อ่an (ถ้ากรอกแค่ในแถวสินค้า) | ไป `conditionHeader`, `businessVolume*`, `conditionType` |
+| ลูกค้ากรอก | 2 ที่ (แถวสินค้า + Condition block) | แถว Mer C (+ HEADER) พอ |
+
+Macro: `Fill_Contract` ใน `Mer-C_Convert_To_STD.txt` (~บรรทัด 4625)
 
 ---
 
-## ข้อความสั้นๆ คัดลอกไปแชทได้
+## แหล่งข้อมูล C ที่ต้องอ่an
 
-> เจอบั๊ก shared header: เลือก Reason `X` + Contract Type `Z200` แล้ว convert  
-> C มี `rebateChargeback: "X"` แต่ AB ได้ `""`  
-> CONDITIONS ยังมี `cond_hdr_reason: "X"` — น่าจะพังที่ `normalizeRebate` ตัดตัวแรกทิ้งทั้งที่ค่าเหลือตัวเดียว  
-> ตาม macro ต้อง Left(1) ของ Reason · Mer C มี dropdown ครบ 5 ตัว: **A / X / 1 / 2 / 3**  
-> (Z2 → ใช้รหัสนั้น · ไม่ใช่ Z2 และ ≠A → เติม 0 เช่น 0X, 01, 02, 03 · A คงเป็น A)  
-> รายละเอียด: `tungconvert/Add-rebateChargeback-normalize.md`
+### จาก HEADER
+
+| C field | → AB |
+|---------|-----|
+| `rebateChargeback` / Reason | `conditionHeader.cond_hdr_reason` |
+| `contractType` | `conditionHeader.cond_hdr_contract_type` |
+| `periodFrom` / `periodTo` | `cond_hdr_start` / `cond_hdr_end` (format `DD.MM.YYYY`) |
+| `promotionName`, `purchasingGroup` | `cond_hdr_header_text` (ตาม macro) |
+| `vendorCode`, `vendorName` | `cond_hdr_vendor` / `cond_hdr_vendor_name` |
+
+### จาก MATERIALS[] (แถวสินค้า)
+
+| Mer C col | C JSON key | → AB |
+|-----------|------------|-----|
+| 59 | `compensate_quantity_in_sap` / `comp_qty_in_sap` | `cond_type_condition_rate` (ลำดับ 1) |
+| 60 | `compensate_baht_per_set` / `comp_set` | `cond_type_condition_rate` (ลำดับ 2) |
+| 61 | `compensate_percent` / `comp_f3` | rate แบบ % + condition type `ZR01` |
+| 69 | Charge Back / Reason | reason (ซ้ำ HEADER ได้) |
+| 70 | Contract Type | contract type |
+| 76 | Condition Table | `cond_type_condition_table` |
+| 77 | Field Combination | `bv_*_field_combination` |
+| 72–75 | Settlement, Payment… | `conditionHeader` ที่เกี่ยว |
+| `material`, `sales_unit` | | `conditionType` material / unit |
+| `vendor` | | `bv_sales_vendor` ฯลฯ |
+
+---
+
+## กติกา Compensate → `condition_rate` (จาก macro)
+
+ลำดับเลือก rate (~บรรทัด 4908–4931):
+
+```
+1. มี ฿/Qty In SAP (col 59) และ Contract Type ≠ Z222
+   → Condition_Rate = ค่า Qty
+   → condition type: "ZR05 - Charge Amount(PeQty)" (หรือ "1" ใน payload สั้น)
+
+2. ไม่มี Qty แต่มี ฿/Set (col 60)
+   → Condition_Rate = ค่า Set
+
+3. มี Compensate % (col 61)
+   → condition type: "ZR01 - Charge Back %"
+   → rate = % (macro มี normalize % เพิ่ม)
+```
+
+**หมายเหตุ:** ถ้ามีทั้ง Qty และ Set — macro ใช้ **Qty ก่อน**
+
+---
+
+## เคสเทสจริงที่พบ (D001 + Contract X + Compensate)
+
+### C — MATERIALS
+
+```json
+"comp_qty_in_sap": 8,
+"comp_set": 16,
+"bonus_buy_profile": "D001",
+"mechanic": "2For"
+```
+
+### C — CONDITIONS (กรอก Condition block เอง — workaround)
+
+```json
+"conditionType": [{
+  "cond_type_condition_table": "V 163",
+  "cond_type_condition_type": "1",
+  "cond_type_condition_rate": 1,
+  "cond_type_unit_2": "EA",
+  "cond_type_contract_no": "1"
+}]
+```
+
+### AB ตอนนี้
+
+- `CONDITIONS` = copy ตรงจาก Condition block → `condition_rate: 1` ✅ (copy)
+- **`comp_qty_in_sap: 8` / `comp_set: 16` ไม่ถูก map** ❌
+
+### AB หลัง implement Fill_Contract (expected)
+
+```json
+"conditionType": [{
+  "cond_type_condition_table": "V 163",
+  "cond_type_condition_type": "1",
+  "cond_type_condition_rate": 8,
+  "cond_type_unit_2": "EA",
+  "cond_type_contract_no": "1"
+}]
+```
+
+(ใช้ **8** จาก Qty เพราะ macro เลือก Qty ก่อน Set)
+
+`BONUSBUYS` เคสนี้ถูกแล้ว — ไม่ต้องแก้:
+
+- `buy.field9: 2`, `get.getQuantity: 2`
+- `buy.field8: "99"`, `get.fieldP: "100"`
+- ไม่มี `get.field8`
+
+---
+
+## พฤติกรรมหลัง implement (สรุป)
+
+1. ลูกค้ากรอก Compensate + Charge Back ที่**แถวสินค้า** (และ/หรือ HEADER)
+2. Convert gen `CONDITIONS[]` อัตโนมัติ
+3. ถ้ามี Condition block กรอกไว้แล้ว — ตกลงทีมว่า **gen ทับ** หรือ **merge** (แนะนำ: gen จาก Mer C เป็นหลัก ตาม macro)
+4. ไม่มี contract (ไม่มี Z2 / ไม่มี compensate) → `CONDITIONS: []`
+
+---
+
+## วิธีเทสหลังแก้ครบ (งาน 1 + 2)
+
+### เทส rebateChargeback
+
+1. HEADER: Reason = X · Contract Type = Z200
+2. Convert (profile ใดก็ได้)
+3. เช็ค:
+   - [ ] `HEADER.rebateChargeback` = `"X"`
+   - [ ] `HEADER.contractType` = `"Z200"`
+   - [ ] `BONUSBUYS` ไม่พัง
+
+### เทส Fill_Contract + Compensate
+
+1. HEADER: Reason X · Z200
+2. MATERIALS: `comp_qty_in_sap: 8` · `comp_set: 16` · ไม่กรอก Condition block (หรือกรอกแล้วดูว่า gen ทับถูกไหม)
+3. Convert D001 + 2For
+4. เช็ค:
+   - [ ] `CONDITIONS[0].conditionType[0].cond_type_condition_rate` = **8** (ไม่ใช่ 1 หรือ 16)
+   - [ ] `cond_hdr_reason` = `"X"` · `cond_hdr_contract_type` = `"Z200"`
+   - [ ] วันที่ valid from/to ตรง period
+   - [ ] `BONUSBUYS` ยังถูก
+
+### เทส Compensate แบบ Set อย่างเดียว
+
+1. `comp_qty_in_sap` ว่าง · `comp_set: 16`
+2. Expected rate = **16**
+
+### เทส Compensate แบบ %
+
+1. `compensate_percent` มีค่า · Qty/Set ว่าง
+2. Expected condition type แบบ % (ZR01) + rate ตาม macro normalize
+
+---
+
+## ไฟล์อ้างอิง
+
+| ไฟล์ | หัวข้อ |
+|------|--------|
+| `Mer-C_Convert_To_STD.txt` | `set_RebateReason_n_ContractType` (~400) · `Fill_Contract` (~4625) · Compensate (~4908) |
+| `Mer-C_Field_Mapping_Guide.md` | §G PromoTag+Compensate · §H Chargeback block |
+| `MerC_to_AB_ExistsInAB_Mapping.md` | §2.3 Compensate / Charge Back col 59–77 |
+| `payload_AB_Reference.md` | §4 CONDITIONS[] dictionary |
+| `payload-keys.ts` | key map `comp_qty_in_sap`, `cond_type_*` |
+| `profile/MerC_to_AB_*.md` §8 | CONDITIONS — อัปเดตจาก "copy only" → gen ตาม macro |
+
+---
+
+## สิ่งที่ผ่านแล้ว — ไม่ต้องแก้
+
+- โครง `BONUSBUYS` ตาม 9 profile (buy/get, qty, ส่วนลด P/R/%)
+- `MATERIALS: []` ฝั่ง AB
+- copy `CONDITIONS` ทำงาน — ใช้เป็น fallback จนกว่า Fill_Contract จะเสร็จ
+- forecast / pack_size / disc_deal / gp — **ไม่ส่ง AB** (macro ไม่ map)
+
+---
+
+## Scope ถัดไป (ไม่อยู่ในไฟล์นี้)
+
+- D003 Coupon `+B(B)` merge get เข้าก้อนก่อน
+- FOC / MEK1 เมื่อ `cost_foc` + date มีค่า
+- P100, P103, F002
