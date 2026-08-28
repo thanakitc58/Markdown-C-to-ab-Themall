@@ -1,21 +1,77 @@
-# Handoff — Contract + HEADER (convert C→AB)
+# Handoff — C→AB convert ครบ (shared + D003/F003)
 
 | | |
 |--|--|
 | **อัปเดต** | 2026-08-28 |
 | **สถานะ BBY** | 9 profile หลักทำแล้ว (D001/P011 เทสผ่าน) |
-| **งานค้างในไฟล์นี้** | (1) `rebateChargeback` normalize · (2) `Fill_Contract` gen `CONDITIONS` |
+| **งานค้าง** | งาน 1–6 ด้านล่าง — ทำครบ = ส่งงาน C→AB ได้ (9 profile) |
 
 ---
 
 ## Checklist งานที่ต้อง implement
 
+### Shared (ทุก profile — เขียนครั้งเดียว)
+
 - [ ] **1. แก้ `normalizeRebate`** — Reason `X` + Z200 → `HEADER.rebateChargeback` = `"X"` ไม่ใช่ `""`
-- [ ] **2. Implement `Fill_Contract`** — gen `CONDITIONS[]` จากแถว Mer C + HEADER (ไม่พึ่ง copy Condition block อย่างเดียว)
+- [ ] **2. Implement `Fill_Contract`** — gen `CONDITIONS[]` จาก HEADER + แถว `MATERIALS` (ไม่พึ่ง copy Condition block อย่างเดียว)
 - [ ] **3. Map Compensate** — `comp_qty_in_sap` / `comp_set` / `comp_%` → `cond_type_condition_rate` (+ condition type ตาม macro)
-- [ ] **4. เทสซ้ำ** — เคส D001 + Reason X + Compensate ด้านล่าง
+
+### Profile-specific / flow แยก
+
+- [ ] **4. D003 Coupon merge** — mechanic `A (Coupon)+B (B)` → ใส่ `get` เข้า **ก้อน BONUSBUYS ก่อนหน้า** (จาก `A (Coupon)+B (A)`) ไม่สร้างก้อนใหม่
+- [ ] **5. F003 (B) merge (ถ้าต้อง parity macro)** — mechanic ลงท้าย `(B)` → merge `get` เข้าก้อน `(A)` ก่อนหน้า (logic คล้าย D003 แต่ mechanic คนละชุด)
+- [ ] **6. FOC / MEK1** — เมื่อ `cost_foc` + `cost_date_*` มีค่าใน MATERIALS → สร้าง output FOC แยก (ไม่ใช่ BONUSBUYS · ทุก profile ใช้ module เดียว)
+
+### เทสรวมหลังทำครบ
+
+- [ ] **7. เทสซ้ำ** — D001 + Reason X + Compensate (งาน 1–3) · D003 Coupon (งาน 4) · FOC (งาน 6)
 
 **ไม่ต้องทำ (macro ไม่ส่ง AB):** `pack_size`, `disc_deal`, `forecast_*`, `gp_*`, `disp_mprice_*` → `MATERIALS: []` ใน AB ถูกแล้ว
+
+**Out of scope ลูกค้า:** P100, P103, F002
+
+---
+
+## แยก profile ไหม?
+
+| งาน | แยก 9 profile? | ทำที่ไหน |
+|-----|----------------|----------|
+| `normalizeRebate` | ❌ shared | `mapHeaderShared()` |
+| `Fill_Contract` / Compensate | ❌ shared | `mapConditionsFromMerC()` |
+| Coupon merge | ⚠️ **D003** (+ F003 ถ้างาน 5) | helper `mergeGetIntoPreviousBonusBuy()` เรียกจาก `buildD003` / `buildF003` |
+| FOC / MEK1 | ❌ shared (trigger จาก MATERIALS) | module แยกจาก BBY JSON |
+| BONUSBUYS | ✅ แยก profile | ทำแล้ว |
+
+---
+
+## โครง AB JSON เมื่อครบทุกงาน
+
+```json
+{
+  "LAYOUT": "AB",
+  "status": "...",
+  "HEADER": {
+    "rebateChargeback": "X",
+    "contractType": "Z200",
+    "...": "..."
+  },
+  "BONUSBUYS": [ "... ตาม profile ..." ],
+  "CONDITIONS": [ "... gen จาก Mer C — งาน 2–3 ..." ],
+  "MATERIALS": []
+}
+```
+
+FOC/MEK1 (งาน 6) = **output แยก** ไม่ใส่ในก้อน `BONUSBUYS` ข้างบน
+
+---
+
+## Done = อะไร?
+
+| หลังทำครบ checklist | ได้ไหม |
+|----------------------|--------|
+| C→AB 9 profile (BBY + Contract) ส่งลูกค้า | ✅ |
+| macro clone 100% ทุก flow | ⚠️ ยกเว้น P100/P103/F002 |
+| ทุกช่อง Mer C ไป AB | ❌ forecast/pack/gp ไม่ไป (macro ก็ไม่ไป) |
 
 ---
 
@@ -276,12 +332,13 @@ Macro: `Fill_Contract` ใน `Mer-C_Convert_To_STD.txt` (~บรรทัด 46
 
 | ไฟล์ | หัวข้อ |
 |------|--------|
-| `Mer-C_Convert_To_STD.txt` | `set_RebateReason_n_ContractType` (~400) · `Fill_Contract` (~4625) · Compensate (~4908) |
+| `Mer-C_Convert_To_STD.txt` | `set_RebateReason_n_ContractType` (~400) · `Fill_Contract` (~4625) · Compensate (~4908) · `Gen_D003` Coupon (~4090) · `Gen_F003` (~4282) |
 | `Mer-C_Field_Mapping_Guide.md` | §G PromoTag+Compensate · §H Chargeback block |
 | `MerC_to_AB_ExistsInAB_Mapping.md` | §2.3 Compensate / Charge Back col 59–77 |
 | `payload_AB_Reference.md` | §4 CONDITIONS[] dictionary |
 | `payload-keys.ts` | key map `comp_qty_in_sap`, `cond_type_*` |
-| `profile/MerC_to_AB_*.md` §8 | CONDITIONS — อัปเดตจาก "copy only" → gen ตาม macro |
+| `profile/MerC_to_AB_D003.md` | Coupon merge · แยก (A)/(B) |
+| `profile/MerC_to_AB_*.md` §8 | CONDITIONS — gen ตาม macro |
 
 ---
 
@@ -294,8 +351,119 @@ Macro: `Fill_Contract` ใน `Mer-C_Convert_To_STD.txt` (~บรรทัด 46
 
 ---
 
-## Scope ถัดไป (ไม่อยู่ในไฟล์นี้)
+# งาน 4 — D003 Coupon merge (`+B(B)` → ก้อนก่อนหน้า)
 
-- D003 Coupon `+B(B)` merge get เข้าก้อนก่อน
-- FOC / MEK1 เมื่อ `cost_foc` + date มีค่า
-- P100, P103, F002
+## สถานะตอนนี้ vs ที่ต้องเป็น
+
+| | ตอนนี้ (เว็บ) | ต้องเป็น (macro `Gen_D003`) |
+|--|---------------|----------------------------|
+| แถว `A (Coupon)+B (A)` | 1 ก้อน BONUSBUYS (buy-only) | 1 ก้อน (buy-only) ✅ |
+| แถว `A (Coupon)+B (B)` | **1 ก้อนใหม่** (get-only) | **merge `get` เข้าก้อนก่อนหน้า** ❌ |
+
+Macro: `Mer-C_Convert_To_STD.txt` ~4090–4127 ใน `Gen_D003`
+
+```
+Mechanic = "A (Coupon)+B (A)"  →  เขียน buy ที่ก้อนปัจจุบัน
+Mechanic = "A (Coupon)+B (B)"  →  เขียน get ที่ Bonus_Buy_Row_Index - 1 (ก้อนก่อนหน้า)
+                                 ไม่สร้าง BONUSBUYS element ใหม่
+```
+
+## Implement แนะนำ
+
+```ts
+// ใน buildD003 / route หลัง map MATERIALS → BONUSBUYS
+function buildD003Rows(materials) {
+  const out = []
+  for (const row of materials) {
+    if (isCouponB(row.mechanic)) {
+      mergeGetIntoPreviousBonusBuy(out, buildGetOnly(row))
+      continue
+    }
+    out.push(buildSplitElement(row)) // (A) buy-only / (B) get-only ตามเดิม
+  }
+  return out
+}
+```
+
+**ไม่ต้อง copy 9 profile** — เรียกจาก `buildD003` เท่านั้น  
+Profile อื่น (D001, P011…) **ไม่มี** Coupon merge
+
+---
+
+## เคสเทส D003 Coupon
+
+### C — 2 แถว MATERIALS
+
+| แถว | mechanic | โครง |
+|-----|----------|------|
+| 1 | `A (Coupon)+B (A)` | buy-only |
+| 2 | `A (Coupon)+B (B)` | get → **merge** |
+
+### AB expected — **1 ก้อน** BONUSBUYS
+
+```json
+"BONUSBUYS": [{
+  "bonusBuyHeader": { "mechanic": "A (Coupon)+B (A)", "bonusBuyProfile": "D003" },
+  "buy": [{ "field4": "...", "field9": 1 }],
+  "get": [{ "field4": "...", "getQuantity": 1, "fieldP": "999" }]
+}]
+```
+
+**ผิด:** ได้ 2 ก้อน (ก้อน 2 มีแค่ get ว่าง buy)
+
+---
+
+# งาน 5 — F003 merge `(B)` (optional parity)
+
+F003 ใช้ mechanic คนละชุด (`1A Get 1B (A)` / `(B)`) แต่ macro **merge get เข้า index ก่อนหน้า** เหมือนกัน (`Gen_F003` ~4307 — เขียน get ที่ `Get_Item_Index` ไม่ใช่ row ใหม่)
+
+| | ตอนนี้ | macro |
+|--|--------|-------|
+| แยก (A)/(B) คนละก้อน | ✅ (รับได้) | merge (B) เข้า (A) |
+
+ถ้าลูกค้าต้องการ parity macro F003 — reuse helper เดียวกับงาน 4 ใน `buildF003`
+
+---
+
+# งาน 6 — FOC / MEK1
+
+## ไม่ใช่ BONUSBUYS · ไม่แยก profile
+
+Trigger เมื่อ MATERIALS มี:
+
+| C field | Mer C col | หมายเหตุ |
+|---------|-----------|----------|
+| `cost_foc` | 46 | มีค่า เช่น `"FOC"` |
+| `cost_date_start` / `cost_date_end` | 47–48 | วันมีผล |
+
+Mer C note: **`"Blank" = Not Create FOC & MEK1`** — ว่าง = ไม่สร้าง
+
+## สิ่งที่ต้องทำ
+
+1. หลัง convert BBY — scan `MATERIALS[]` ว่ามี FOC row ไหม
+2. ถ้ามี → เรียก **`createFocMek1Output()`** (shared module)
+3. Output **แยกจาก** payload AB หลัก (หรือ section แยกตาม backend กำหนด)
+
+**ทุก profile** (D001, P011, …) ใช้ logic เดียวกัน — ขึ้นกับแถวสินค้า ไม่ใช่ `bonusBuyProfile`
+
+## เทส FOC
+
+1. MATERIALS: `cost_foc: "FOC"` · `cost_date_start` / `cost_date_end` มีค่า
+2. Convert (profile ใดก็ได้)
+3. เช็ค:
+   - [ ] มี FOC/MEK1 output ตาม backend spec
+   - [ ] `BONUSBUYS` / `CONDITIONS` ไม่พัง
+4. MATERIALS: `cost_foc` ว่าง → **ไม่สร้าง** FOC
+
+---
+
+## วิธีเทสรวมหลังทำครบ checklist 1–6
+
+| # | เทส | เช็ค |
+|---|-----|------|
+| 1 | HEADER Reason X + Z200 | `rebateChargeback` = `"X"` |
+| 2 | D001 + comp_qty 8 / comp_set 16 | `condition_rate` = **8** |
+| 3 | D003 Coupon 2 แถว (A)+(B) | **1 ก้อน** buy+get |
+| 4 | F003 (B) merge (ถ้าทำงาน 5) | 1 ก้อน buy+get |
+| 5 | MATERIALS + cost_foc | FOC output แยก |
+| 6 | 9 profile smoke (promo 1 เคส) | BBY โครงถูก |
