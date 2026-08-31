@@ -2,9 +2,10 @@
 
 | | |
 |--|--|
-| **อัปเดต** | 2026-08-28 |
-| **สถานะ BBY** | 9 profile หลักทำแล้ว (D001/P011 เทสผ่าน) |
-| **งานค้าง** | งาน 1–6 ด้านล่าง — ทำครบ = ส่งงาน C→AB ได้ (9 profile) |
+| **อัปเดต** | 2026-08-31 |
+| **สถานะ BBY** | 9 profile หลักทำแล้ว (D001 Single/Multiple · P011 เทสผ่าน) |
+| **งานค้าง** | งาน 1–6 + **8–10** (Multiple BBY) ด้านล่าง — ทำครบ = ส่งงาน C→AB ได้ (9 profile) |
+| **Handoff Multiple + CONDITIONS** | [`Dev-handoff-Multiple-CONDITIONS.md`](Dev-handoff-Multiple-CONDITIONS.md) — กติกา HEADER ไม่ trigger · passthrough · เทสจริง |
 
 ---
 
@@ -22,9 +23,15 @@
 - [ ] **5. F003 (B) merge (ถ้าต้อง parity macro)** — mechanic ลงท้าย `(B)` → merge `get` เข้าก้อน `(A)` ก่อนหน้า (logic คล้าย D003 แต่ mechanic คนละชุด)
 - [ ] **6. FOC / MEK1** — เมื่อ `cost_foc` + `cost_date_*` มีค่าใน MATERIALS → สร้าง output FOC แยก (ไม่ใช่ BONUSBUYS · ทุก profile ใช้ module เดียว)
 
+### BBY convert — Multiple promotion (เทสพบ 2026-08-28)
+
+- [ ] **8. Multiple — convert แบบ per-row** — ไม่พึ่ง `HEADER.bonusBuyProfile` อย่างเดียว · แต่ละแถว `MATERIALS` มี profile + **mechanic ของตัวเอง** · route `buildD001` / `buildP011` / … ทีละแถว
+- [ ] **9. `bonusBuyNumber`** — map จาก **`noof_bonus_buy`** (col 29) · ไม่ใช่ `noof_promotion` · ไม่ default `"1"` ทุกก้อน
+- [ ] **10. Dedupe `BONUSBUYS[].stores[]`** (nice-to-have) — ถ้า C ส่งร้านซ้ำ ไม่ copy ซ้ำไป AB
+
 ### เทสรวมหลังทำครบ
 
-- [ ] **7. เทสซ้ำ** — D001 + Reason X + Compensate (งาน 1–3) · D003 Coupon (งาน 4) · FOC (งาน 6)
+- [ ] **7. เทสซ้ำ** — D001 + Reason X + Compensate (งาน 1–3) · D003 Coupon (งาน 4) · FOC (งาน 6) · D001 Multiple 2 โปร (งาน 8–9)
 
 **ไม่ต้องทำ (macro ไม่ส่ง AB):** `pack_size`, `disc_deal`, `forecast_*`, `gp_*`, `disp_mprice_*` → `MATERIALS: []` ใน AB ถูกแล้ว
 
@@ -40,7 +47,8 @@
 | `Fill_Contract` / Compensate | ❌ shared | `mapConditionsFromMerC()` |
 | Coupon merge | ⚠️ **D003** (+ F003 ถ้างาน 5) | helper `mergeGetIntoPreviousBonusBuy()` เรียกจาก `buildD003` / `buildF003` |
 | FOC / MEK1 | ❌ shared (trigger จาก MATERIALS) | module แยกจาก BBY JSON |
-| BONUSBUYS | ✅ แยก profile | ทำแล้ว |
+| BONUSBUYS | ✅ แยก profile | ทำแล้ว (Multiple มีงาน 8–10) |
+| Multiple BBY router / bonusBuyNumber | ❌ shared | convert pipeline / `buildGroupB` |
 
 ---
 
@@ -345,9 +353,163 @@ Macro: `Fill_Contract` ใน `Mer-C_Convert_To_STD.txt` (~บรรทัด 46
 ## สิ่งที่ผ่านแล้ว — ไม่ต้องแก้
 
 - โครง `BONUSBUYS` ตาม 9 profile (buy/get, qty, ส่วนลด P/R/%)
+- D001 **Single** + **Multiple** (เมื่อ `HEADER.bonusBuyProfile` = `"D001"`) — buy/get 2For + fieldP ถูก
 - `MATERIALS: []` ฝั่ง AB
 - copy `CONDITIONS` ทำงาน — ใช้เป็น fallback จนกว่า Fill_Contract จะเสร็จ
 - forecast / pack_size / disc_deal / gp — **ไม่ส่ง AB** (macro ไม่ map)
+
+---
+
+# งาน 8–10 — BBY convert โหมด Multiple (เทสพบ)
+
+> **ใช่ — เป็นงานฝั่ง convert** (router + map แถว MATERIALS → BONUSBUYS) ไม่ใช่กรอกฟอร์ม Mer C
+
+---
+
+## Mer C — โหมด Multiple คืออะไร?
+
+เมื่อ `HEADER.singleMultiple = "Multiple"` ลูกค้ากรอก **หลาย promotion ในใบเดียว** — แต่ละ promotion (เลข `noof_promotion`) มีได้ **หลายแถว** ใน `MATERIALS[]` · รายละเอียด col 27–29 ดู [`Dev-handoff-Multiple-CONDITIONS.md`](Dev-handoff-Multiple-CONDITIONS.md)
+
+**สิ่งที่แยกกันได้ต่อแถว (ไม่ต้องเหมือนกันทั้งใบ):**
+
+| ต่อแถว | C field | ผลตอน convert |
+|--------|---------|----------------|
+| Bonus Buy Profile | `bonus_buy_profile` | route ไป `buildD001` / `buildP011` / … **คนละ profile ได้** |
+| Mechanic | `mechanic` | `bonusBuyHeader.mechanic` + lookup **buyQty/getQty ของแถวนั้น** |
+| สินค้า / ราคา / ส่วนลด | `material`, `sales_price_*`, … | buy/get ของก้อนนั้น |
+| ร้าน | `stores[]` | `BONUSBUYS[i].stores` |
+| Vendor / Contract | `vendor`, Charge Back cols | `CONDITIONS[]` (งาน 2 — มัก 1 contract ต่อ promo) |
+
+**สิ่งที่ใช้ร่วมทั้งใบ (HEADER):** ชื่อโปร · วันที่ · เวลา · WBS · purchasing group · `singleMultiple`
+
+```
+Multiple 1 ใบ
+├── MATERIALS[0]  noof_promotion=1  profile=D001  mechanic=2For
+├── MATERIALS[1]  noof_promotion=2  profile=D001  mechanic=1A Get 1B (A)   ← mechanic ต่างกันได้
+└── MATERIALS[2]  noof_promotion=3  profile=P011  mechanic=Last Chance     ← profile ต่างกันได้
+        ↓ convert (per-row)
+AB.BONUSBUYS[0..2]  — 3 ก้อน · mechanic/qty ตามแถว · ไม่ใช่ mechanic เดียวทั้งใบ
+```
+
+**เทสที่ทำแล้ว:** 2 แถว · profile เดียว (D001) · mechanic เดียว (2For) — เป็น subset ของ Multiple จริง
+
+---
+
+## งาน 8 — Router ต้อง convert แบบ per-row (ไม่ใช่ทั้งใบ profile เดียว)
+
+### อาการ (เทสพบ)
+
+| | `HEADER.bonusBuyProfile` | ผล convert |
+|--|--------------------------|------------|
+| เทส A (ล้ม) | `""` | `BONUSBUYS: []` · `MATERIALS` ยังอยู่ ❌ |
+| เทส B (ผ่าน) | `"D001"` | `BONUSBUYS: 2 ก้อน` · `MATERIALS: []` ✅ |
+
+ทั้งสองเคส: แถว MATERIALS มี `bonus_buy_profile: "D001"` ครบทุแถว · mechanic เดียวกัน (2For)
+
+**Root cause ที่เป็นไปได้:** pipeline ใช้ `HEADER.bonusBuyProfile` เป็น trigger/router ทั้งใบ — ไม่ loop แถวแล้ว route ตาม `row.bonus_buy_profile` + `row.mechanic`
+
+### Expected (โหมด Multiple จริง)
+
+1. **ไม่บังคับ** `HEADER.bonusBuyProfile` ถ้าแต่ละแถวมี profile ครบ
+2. **Loop `MATERIALS[]`** — แถวไหนผ่าน skip rules → สร้าง 1 ก้อน `BONUSBUYS`
+3. **Profile + mechanic อ่านจากแถว** — qty lookup จาก `mechanic-lookup.json` **ต่อแถว**
+4. **Mixed profile ในใบเดียว** — แถว 1 → D001 · แถว 2 → P011 → ได้ 2 ก้อน คนละ builder (ไม่ reject ทั้งใบเพราะ HEADER ว่าง)
+
+### Fix แนวทาง
+
+```ts
+function convertMaterialsToBonusBuys(header, materials) {
+  const out = []
+  for (const row of materials) {
+    if (!shouldConvertRow(row)) continue
+    const profile = shortCode(row.bonusBuyProfile ?? row.bonus_buy_profile)
+    if (!profile) continue
+    const builder = getProfileBuilder(profile) // buildD001, buildP011, …
+    out.push(builder({ header, row }))         // mechanic จาก row.mechanic
+  }
+  return out
+}
+
+// HEADER.bonusBuyProfile — copy ไป AB ได้ แต่ไม่ใช่เงื่อนไขเดียวที่จะ convert
+// ถ้า HEADER ว่าง แต่มีแถวที่ convert ได้ → BONUSBUYS ยังต้องออก
+```
+
+### เทสเพิ่มหลังแก้ (mixed mechanic / mixed profile)
+
+| แถว | profile | mechanic | ตรวจ AB |
+|-----|---------|----------|---------|
+| 1 | D001 | `2For` | field9=2 · getQty=2 |
+| 2 | D001 | `1A Get 1B (A)` | qty ตาม lookup ของ mechanic นี้ (ไม่ใช่ 2For) |
+| 3 | P011 | `Last Chance` | กลุ่ม A — get-only · ไม่มี buy |
+
+HEADER `bonusBuyProfile` ว่าง · `singleMultiple: "Multiple"` → ได้ **3 ก้อน**
+
+---
+
+## งาน 9 — `bonusBuyNumber` ซ้ำทุกก้อนใน Multiple
+
+### อาการ
+
+C มี 2 โปร:
+
+| แถว | `noof_promotion` | `noof_bonus_buy` | AB ที่ได้ | ควรได้ |
+|-----|------------------|------------------|-----------|--------|
+| 0 | 1 | (ไม่มี) | `bonusBuyNumber: "1"` | `"1"` ✅ |
+| 1 | 2 | (ไม่มี) | `bonusBuyNumber: "1"` | `"2"` ❌ |
+
+ทั้ง `bonusBuyHeader`, `buy[0]`, `get[0]` ของก้อน 2 ยังเป็น `"1"`
+
+### กติกา (จาก spec D001)
+
+| จาก C | → AB | หมายเหตุ |
+|-------|------|----------|
+| `noof_bonus_buy` / `numberOfBonusBuy` | `bonusBuyNumber` | copy ตรง · ไม่มี → default `"1"` |
+| `noof_promotion` | — | **ไม่ map** เป็น bonusBuyNumber (เป็นเลขชุดโปร ไม่ใช่เลข BBY) |
+
+### Fix แนะนำ
+
+```ts
+function resolveBonusBuyNumber(row) {
+  return String(row.noof_bonus_buy ?? row.numberOfBonusBuy ?? 1)
+}
+```
+
+ใส่ที่ `bonusBuyHeader.bonusBuyNumber` · `buy[0].bonusBuyNumber` · `get[0].bonusBuyNumber` ให้ตรงกัน
+
+---
+
+## งาน 10 — Dedupe `stores[]` (nice-to-have)
+
+### อาการ
+
+C ส่ง `stores` ซ้ำ 2 รอบ (13KA…67KA × 2) → AB copy ตามทั้งหมด
+
+### Expected
+
+Dedupe ตอน map (เก็บลำดับเดิม) หรือปล่อยตาม C ถ้า SAP รับซ้ำได้ — **confirm กับลูกค้า** ก่อน hard dedupe
+
+---
+
+## เคสเทส Multiple ที่ผ่านแล้ว (reference)
+
+**INPUT สำคัญ:** `HEADER.bonusBuyProfile = "D001"` · 2 แถว · mechanic `2For` · `sales_price_promo: 1000`
+
+**AB ที่ถูก (BBY):**
+
+| ก้อน | buy | get | stores |
+|------|-----|-----|--------|
+| 0 (CHI14) | field9=2 · field8=1199 | getQty=2 · fieldP=1000 | 17 ร้าน (+ ซ้ำจาก C) |
+| 1 (OIS05) | field9=2 · field8=1199 | getQty=2 · fieldP=1000 | 16 ร้าน |
+
+**ยังไม่ผ่an (Contract — งาน 2–3):** `comp_qty_in_sap: 8` · `comp_set: 16` → rate ยัง `1` จาก Condition block มือ
+
+### เช็คหลังแก้ 8–10
+
+1. Multiple · 2 แถว D001 · **HEADER profile ว่าง** → ได้ 2 ก้อน BBY
+2. ก้อน 2 มี `bonusBuyNumber: "2"`
+3. buy/get/qty/fieldP ยังถูกเหมือนเดิม
+4. **Mixed mechanic:** แถว 1 = 2For · แถว 2 = mechanic อื่น → qty ต่างกันตาม lookup แต่ละแถว
+5. **Mixed profile:** แถว D001 + แถว P011 ในใบเดียว → 2 ก้อน · โครง buy/get ตาม profile 各自
 
 ---
 
@@ -467,3 +629,7 @@ Mer C note: **`"Blank" = Not Create FOC & MEK1`** — ว่าง = ไม่�
 | 4 | F003 (B) merge (ถ้าทำงาน 5) | 1 ก้อน buy+get |
 | 5 | MATERIALS + cost_foc | FOC output แยก |
 | 6 | 9 profile smoke (promo 1 เคส) | BBY โครงถูก |
+| 7 | D001 Multiple 2 โปร · HEADER profile ว่าง | BBY 2 ก้อน per-row (งาน 8) |
+| 8 | D001 Multiple · noof_promotion 1+2 | bonusBuyNumber `"1"` + `"2"` (งาน 9) |
+| 9 | Multiple mixed mechanic (2For + mechanic อื่น) | qty ต่อก้อนตาม lookup แถวนั้น |
+| 10 | Multiple mixed profile (D001 + P011) | 2 ก้อน · คนละ builder |
