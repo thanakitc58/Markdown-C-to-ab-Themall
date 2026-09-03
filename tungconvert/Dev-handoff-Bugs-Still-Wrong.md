@@ -5,37 +5,39 @@
 | **อัปเดต** | 2026-09-03 |
 | **สำหรับ** | Dev แก้ต่อจาก A+B |
 | **ยึดหลัก** | Macro `Mer-C_Convert_To_STD.txt` เป็นหลัก · To-Be แยก Manual/Auto |
-| **เอกสารอื่น** | [`Dev-handoff-Remaining-Work.md`](Dev-handoff-Remaining-Work.md) |
+| **ไฟล์สรุปรอบนี้** | **[`Dev-handoff-Fix-Remaining-Now.md`](Dev-handoff-Fix-Remaining-Now.md)** ← logic + JSON ครบในไฟล์เดียว |
 
 ---
 
 ## ข้อความสั้นส่ง Dev
 
-> A+B (group + `bonusBuyNumber`) เคส Multiple ล่าสุด **ผ่านแล้ว — อย่าพัง**
+> **อัปเดต 2026-09-03:** ดูแพ็กเกจแก้พร้อมกันที่ [`Dev-handoff-Fix-Remaining-Now.md`](Dev-handoff-Fix-Remaining-Now.md)
 >
-> ยังผิดที่ต้องแก้:
-> 1. **CONDITIONS** C มี 3 ก้อน → AB เหลือ 1 (หาย)
-> 2. **`HEADER.rebateChargeback`** — อย่าทำลายค่า `"X"` ถ้า C ส่งมา · ไม่ใช่บังคับ set จากทุก CONDITIONS
-> 3. **Compensate** → `condition_rate` ยังไม่อ่านจาก `comp_qty_in_sap` / `comp_set`
-> 4. **`promotionArea`** ได้ `"Skincare"` ผิด — ห้าม map จาก `disp_mprice_category` · ต้องเป็น **`P1`/`P4`** ตาม macro (plant) หรือยังไม่ใส่จนกว่าทำถูก
+> A+B · CONDITIONS count · `promotionArea` P1 · Compensate แถวเดียว **ผ่านแล้ว — อย่าพัง**
 >
-> ด้านล่างมีตัวอย่าง JSON ที่ผิด / ที่ต้องการ ทีละหัวข้อ
+> ยังต้องแก้:
+> 1. **Compensate vendor ซ้ำ** — MSH02 `0.5` แล้ว `1` → AB ได้ `0.5`,`0.5` ❌ (ยืนยัน)
+> 2. **D003** Coupon `(B)` merge เข้า `(A)`
+> 3. **FOC / MEK1** จาก `cost_foc`
+>
+> Multiple ไม่บังคับ `HEADER.rebateChargeback` · CONDITIONS หาย / Skincare promotionArea = แก้แล้วในเทสล่าสุด
 
 ---
 
-## สถานะรวม
+## สถานะรวม (หลัง QA 2026-09-03)
 
 | # | หัวข้อ | สถานะ |
 |---|--------|--------|
-| A+B | Group + `bonusBuyNumber` | ✅ ผ่าน (เคสด้านล่าง) |
-| 1 | CONDITIONS หาย 3→1 | ❌ |
-| 2 | `HEADER.rebateChargeback` | ❌ / กติกาต้องชัด |
-| 3 | Compensate → rate | ❌ |
-| 4 | `promotionArea` ค่าผิด | ❌ |
-| 5 | D003 Coupon merge | ❌ ทีหลัง |
-| 6 | FOC / MEK1 | ❌ ทีหลัง |
+| A+B | Group + `bonusBuyNumber` + mat-group | ✅ ผ่าน |
+| 1 | CONDITIONS หาย 3→1 | ✅ ผ่าน |
+| 2 | `HEADER.rebateChargeback` | ✅ ว่างได้ (Multiple) · เทส `"X"` optional |
+| 3a | Compensate → rate (vendor ไม่ซ้ำ) | ✅ ผ่าน |
+| 3b | Compensate vendor ซ้ำ คนละ rate | ❌ **ยืนยันบั๊ก** |
+| 4 | `promotionArea` | ✅ `P1` (ไม่ใช่ Skincare) |
+| 5 | D003 Coupon merge | ❌ แก้รอบนี้ |
+| 6 | FOC / MEK1 | ❌ แก้รอบนี้ |
 
-**ลำดับแก้:** 1 → 2 → 3 → 4 → (รักษา A+B) → 5 → 6
+**ลำดับแก้รอบนี้:** 3b → 5 → 6 (ดู `Dev-handoff-Fix-Remaining-Now.md`)
 
 ---
 
@@ -450,7 +452,7 @@ BONUSBUYS[].bonusBuyHeader.promotionArea
 
 ---
 
-# 5) D003 Coupon merge ❌ (ทีหลัง)
+# 5) D003 Coupon merge ❌ (แก้พร้อมกันรอบนี้)
 
 ## อาการที่คาด
 
@@ -481,7 +483,7 @@ BONUSBUYS[].bonusBuyHeader.promotionArea
 
 ---
 
-# 6) FOC / MEK1 ❌ (ทีหลัง)
+# 6) FOC / MEK1 ❌ (แก้พร้อมกันรอบนี้)
 
 ## คืออะไร
 
