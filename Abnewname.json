@@ -1,0 +1,211 @@
+{
+  "LAYOUT": "AB",
+  "STATUS": "DRAFT",
+  "HEADER": {
+    "theme": "Big Sale September",
+    "promotionName": "MER AB Multi Promo",
+    "group": "MERCHANDISE A",
+    "purchasingGroup": "M01",
+    "contractType": "ZR01",
+    "bonusBuyProfile": "M001",
+    "rebateChargeback": "Rebate",
+    "singleMultiple": "Multiple",
+    "wbsNumber": "WBS-2026-0912",
+    "volume": "1",
+    "vendorCode": "0000100234",
+    "vendorName": "ABC TRADING CO., LTD.",
+    "periodFrom": "2026-09-10",
+    "periodTo": "2026-09-30",
+    "timeFrom": "00:00:00",
+    "timeTo": "23:59:59",
+    "days": ["All"]
+  },
+
+  "BONUSBUYS": [
+    {
+      "line_number": 0,
+      "bonus_buy_number": "1",
+      "bonusBuyHeader": {
+        "promotion_number": "1",
+        "description": "ซื้อ 2 ชิ้น ลด 20 บาท",
+        "purchasing_group": "M01",
+        "bonus_buy_profile": "M001",
+        "mechanic": "M02",
+        "valid_time_from": "00:00:00",
+        "valid_time_to": "23:59:59",
+        "price_tag": "X",
+        "promotion_area": "A1",
+        "wbs_number": "WBS-2026-0912"
+      },
+      "stores": ["1300", "1400"],
+      "buy": [
+        {
+          "bonus_buy_number": "1",
+          "material_or_group_type": "MAT",
+          "material_or_group_code": "100000123",
+          "description": "นมสด 200 มล.",
+          "normal_cost_price_excluding_vat": "10.50",
+          "normal_sales_price": "14.00",
+          "minimum_quantity": "2",
+          "ean": "8850001000123",
+          "sales_unit": "EA"
+        }
+      ],
+      "get": [
+        {
+          "bonus_buy_number": "1",
+          "material_or_group_type": "MAT",
+          "material_or_group_code": "100000123",
+          "get_quantity": "2",
+          "tier_number": "1",
+          "promotion_price_thb": "24.00",
+          "promotion_cost_price_excluding_vat": "9.80",
+          "ean": "8850001000123",
+          "unit": "EA"
+        }
+      ],
+      "card": [], "tender": [], "installment": [], "posTerminal": [],
+      "premium": [], "coupon": [],
+      "limitControl": [
+        { "bonus_buy_number": "1", "per_bonus_buy": "1", "limit": "10" }
+      ]
+    },
+
+    {
+      "line_number": 1,
+      "bonus_buy_number": "1",
+      "bonusBuyHeader": {},
+      "stores": ["1300", "1400"],
+      "buy": [
+        {
+          "bonus_buy_number": "1",
+          "material_or_group_type": "MAT",
+          "material_or_group_code": "100000456",
+          "description": "นมเปรี้ยว 180 มล.",
+          "normal_cost_price_excluding_vat": "9.00",
+          "normal_sales_price": "12.00",
+          "minimum_quantity": "2",
+          "ean": "8850001000456",
+          "sales_unit": "EA"
+        }
+      ],
+      "get": [], "card": [], "tender": [], "installment": [],
+      "posTerminal": [], "premium": [], "coupon": [], "limitControl": []
+    },
+
+    {
+      "line_number": 2,
+      "bonus_buy_number": "2",
+      "bonusBuyHeader": {
+        "promotion_number": "2",
+        "description": "ซื้อครบ 100 แถมฟรี 1",
+        "purchasing_group": "M02",
+        "bonus_buy_profile": "M002",
+        "mechanic": "M05",
+        "valid_time_from": "00:00:00",
+        "valid_time_to": "23:59:59",
+        "promotion_area": "A2"
+      },
+      "stores": ["1500"],
+      "buy": [
+        {
+          "bonus_buy_number": "2",
+          "material_or_group_type": "MCH",
+          "material_or_group_code": "A01020304",
+          "description": "กลุ่มสินค้าเครื่องดื่ม",
+          "minimum_amount": "100",
+          "sales_unit": "THB"
+        }
+      ],
+      "get": [
+        {
+          "bonus_buy_number": "2",
+          "material_or_group_type": "MAT",
+          "material_or_group_code": "100000789",
+          "get_quantity": "1",
+          "tier_number": "1",
+          "promotion_price_thb": "0.00",
+          "ean": "8850001000789",
+          "unit": "EA"
+        }
+      ],
+      "card": [], "tender": [], "installment": [], "posTerminal": [],
+      "premium": [], "coupon": [], "limitControl": []
+    }
+  ],
+
+  "CONDITIONS": [
+    {
+      "line_number": 0,
+      "contract_number": "C001",
+      "conditionHeader": {
+        "reason": "Promotion Support",
+        "contract_type": "ZR01",
+        "vendor": "0000100234",
+        "vendor_name": "ABC TRADING CO., LTD.",
+        "department_mer": "MER A",
+        "start": "2026-09-10",
+        "end": "2026-09-30",
+        "payment_term": "N30",
+        "settlement_option": "1",
+        "auto_allocation": "X"
+      },
+      "businessVolumePurchase": [
+        {
+          "contract_number": "C001",
+          "set_of_field_combination": "1",
+          "field_combination": "VENDOR/MATERIAL",
+          "inclusive_exclusive": "I",
+          "vendor": "0000100234",
+          "material": "100000123"
+        }
+      ],
+      "businessVolumeSales": [],
+      "conditionType": [
+        {
+          "contract_number": "C001",
+          "condition_table": "A001",
+          "condition_type": "ZR01",
+          "material": "100000123",
+          "valid_from": "2026-09-10",
+          "valid_to": "2026-09-30",
+          "condition_rate": "5.00",
+          "condition_unit": "%",
+          "per": "1",
+          "unit": "EA"
+        }
+      ],
+      "settlementCalendar": [], "combineCheck": [], "allocation": []
+    },
+
+    {
+      "line_number": 2,
+      "contract_number": "C002",
+      "conditionHeader": {
+        "reason": "Promotion Support",
+        "contract_type": "ZR01",
+        "vendor": "0000100234",
+        "vendor_name": "ABC TRADING CO., LTD.",
+        "start": "2026-09-10",
+        "end": "2026-09-30"
+      },
+      "businessVolumePurchase": [], "businessVolumeSales": [],
+      "conditionType": [
+        {
+          "contract_number": "C002",
+          "condition_table": "A001",
+          "condition_type": "ZR01",
+          "material": "100000789",
+          "valid_from": "2026-09-10",
+          "valid_to": "2026-09-30",
+          "condition_rate": "100.00",
+          "condition_unit": "%"
+        }
+      ],
+      "settlementCalendar": [], "combineCheck": [], "allocation": []
+    }
+  ],
+
+  "MATERIALS": [],
+  "MATERIALGROUPINGS": []
+}
