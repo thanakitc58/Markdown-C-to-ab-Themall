@@ -1,0 +1,1495 @@
+{
+    "LAYOUT": "AB",
+    "HEADER": {
+        "group": "MERCHANDISE SUPERMARKET(GROCERY FOOD)",
+        "promotionName": "M Price 09/2026",
+        "purchasingGroup": "C01",
+        "theme": "C011",
+        "bonusBuyProfile": "",
+        "rebateChargeback": "",
+        "contractType": "",
+        "wbsNumber": "AP.26.8883.10.CP.01",
+        "vendorCode": "NOBP",
+        "vendorName": "Vendor not found",
+        "periodFrom": "2026-09-09",
+        "periodTo": "2026-09-30",
+        "days": [
+            "All"
+        ],
+        "singleMultiple": "Multiple",
+        "volume": "",
+        "timeFrom": "",
+        "timeTo": ""
+    },
+    "BONUSBUYS": [
+        {
+            "line_number": 0,
+            "bonus_buy_number": "1",
+            "bonusBuyHeader": {
+                "bonus_buy_number": "1",
+                "bonus_buy_profile": "F001",
+                "mechanic": "B1G1",
+                "valid_time_from": "00:00:00",
+                "valid_time_to": "23:59:59",
+                "wbs_number": "AP.26.8883.10.CP.01",
+                "promotion_area": "P1"
+            },
+            "buy": [
+                {
+                    "bonus_buy_number": "1",
+                    "material_or_group_type": "Material Group",
+                    "material_or_group_code": "MM8D0908D1",
+                    "minimum_quantity": 1,
+                    "description": "แคนเมค มาร์ชเมลโลว์พาวเดอร์อะบลูม#01",
+                    "sap_master_description": "CANMAKE MARSHMALLOW POWDER ABLOOM #01",
+                    "normal_cost_price_excluding_vat": "329.72",
+                    "normal_sales_price": "490",
+                    "ean": "4901008314037",
+                    "sales_unit": "EA"
+                }
+            ],
+            "get": [
+                {
+                    "bonus_buy_number": "1",
+                    "material_or_group_type": "Material Group",
+                    "material_or_group_code": "MM8D0908D1",
+                    "get_quantity": 1,
+                    "material_or_group_description": "แคนเมค มาร์ชเมลโลว์พาวเดอร์อะบลูม#01",
+                    "sap_master_description": "CANMAKE MARSHMALLOW POWDER ABLOOM #01",
+                    "normal_cost_price_excluding_vat": "329.72",
+                    "promotion_cost_price_excluding_vat": "352.8",
+                    "ean": "4901008314037",
+                    "unit": "EA"
+                }
+            ],
+            "stores": [
+                "13KA",
+                "14KA",
+                "15KA",
+                "16KA",
+                "17KA",
+                "30KA",
+                "31KA",
+                "32KA",
+                "33KA",
+                "34KA",
+                "60KA",
+                "61KA",
+                "64KA",
+                "65KA",
+                "66KA",
+                "67KA",
+                "91KA",
+                "92KA"
+            ],
+            "card": [],
+            "tender": [],
+            "installment": [],
+            "posTerminal": [],
+            "premium": [],
+            "coupon": [],
+            "limitControl": []
+        },
+        {
+            "line_number": 3,
+            "bonus_buy_number": "2",
+            "bonusBuyHeader": {
+                "bonus_buy_number": "2",
+                "bonus_buy_profile": "F001",
+                "mechanic": "B1G1",
+                "valid_time_from": "00:00:00",
+                "valid_time_to": "23:59:59",
+                "wbs_number": "AP.26.8883.10.CP.01",
+                "promotion_area": "P1"
+            },
+            "buy": [
+                {
+                    "bonus_buy_number": "2",
+                    "material_or_group_type": "Material Group",
+                    "material_or_group_code": "MM8D0908D2",
+                    "minimum_quantity": 1,
+                    "description": "แคนเมค มาร์ชเมลโลว์พาวเดอร์อะบลูม#01",
+                    "sap_master_description": "CANMAKE MARSHMALLOW POWDER ABLOOM #01",
+                    "normal_cost_price_excluding_vat": "329.72",
+                    "normal_sales_price": "490",
+                    "ean": "4901008314037",
+                    "sales_unit": "EA"
+                }
+            ],
+            "get": [
+                {
+                    "bonus_buy_number": "2",
+                    "material_or_group_type": "Material Group",
+                    "material_or_group_code": "MM8D0908D2",
+                    "get_quantity": 1,
+                    "material_or_group_description": "แคนเมค มาร์ชเมลโลว์พาวเดอร์อะบลูม#01",
+                    "sap_master_description": "CANMAKE MARSHMALLOW POWDER ABLOOM #01",
+                    "normal_cost_price_excluding_vat": "329.72",
+                    "promotion_cost_price_excluding_vat": "352.8",
+                    "ean": "4901008314037",
+                    "unit": "EA"
+                }
+            ],
+            "stores": [
+                "13KA",
+                "14KA",
+                "15KA",
+                "16KA",
+                "17KA",
+                "30KA",
+                "31KA",
+                "32KA",
+                "33KA",
+                "34KA",
+                "60KA",
+                "61KA",
+                "64KA",
+                "65KA",
+                "66KA",
+                "67KA",
+                "91KA",
+                "92KA"
+            ],
+            "card": [],
+            "tender": [],
+            "installment": [],
+            "posTerminal": [],
+            "premium": [],
+            "coupon": [],
+            "limitControl": []
+        },
+        {
+            "line_number": 5,
+            "bonus_buy_number": "3",
+            "bonusBuyHeader": {
+                "bonus_buy_number": "3",
+                "bonus_buy_profile": "F001",
+                "mechanic": "B1G1",
+                "valid_time_from": "00:00:00",
+                "valid_time_to": "23:59:59",
+                "wbs_number": "AP.26.8883.10.CP.01",
+                "promotion_area": "P1"
+            },
+            "buy": [
+                {
+                    "bonus_buy_number": "3",
+                    "material_or_group_type": "Material Group",
+                    "material_or_group_code": "MM8D0908D3",
+                    "minimum_quantity": 1,
+                    "description": "แคนเมค มาร์ชเมลโลว์พาวเดอร์อะบลูม#01",
+                    "sap_master_description": "CANMAKE MARSHMALLOW POWDER ABLOOM #01",
+                    "normal_cost_price_excluding_vat": "329.72",
+                    "normal_sales_price": "490",
+                    "ean": "4901008314037",
+                    "sales_unit": "EA"
+                }
+            ],
+            "get": [
+                {
+                    "bonus_buy_number": "3",
+                    "material_or_group_type": "Material Group",
+                    "material_or_group_code": "MM8D0908D3",
+                    "get_quantity": 1,
+                    "material_or_group_description": "แคนเมค มาร์ชเมลโลว์พาวเดอร์อะบลูม#01",
+                    "sap_master_description": "CANMAKE MARSHMALLOW POWDER ABLOOM #01",
+                    "normal_cost_price_excluding_vat": "329.72",
+                    "promotion_cost_price_excluding_vat": "352.8",
+                    "ean": "4901008314037",
+                    "unit": "EA"
+                }
+            ],
+            "stores": [
+                "13KA",
+                "14KA",
+                "15KA",
+                "16KA",
+                "17KA",
+                "30KA",
+                "31KA",
+                "32KA",
+                "33KA",
+                "34KA",
+                "60KA",
+                "61KA",
+                "64KA",
+                "65KA",
+                "66KA",
+                "67KA",
+                "91KA",
+                "92KA"
+            ],
+            "card": [],
+            "tender": [],
+            "installment": [],
+            "posTerminal": [],
+            "premium": [],
+            "coupon": [],
+            "limitControl": []
+        },
+        {
+            "line_number": 9,
+            "bonus_buy_number": "4",
+            "bonusBuyHeader": {
+                "bonus_buy_number": "4",
+                "bonus_buy_profile": "F001",
+                "mechanic": "B1G1",
+                "valid_time_from": "00:00:00",
+                "valid_time_to": "23:59:59",
+                "wbs_number": "AP.26.8883.10.CP.01",
+                "promotion_area": "P1"
+            },
+            "buy": [
+                {
+                    "bonus_buy_number": "4",
+                    "material_or_group_type": "Material Group",
+                    "material_or_group_code": "MM8D0908D1",
+                    "minimum_quantity": 1,
+                    "description": "แคนเมค มาร์ชเมลโลว์พาวเดอร์อะบลูม#01",
+                    "sap_master_description": "CANMAKE MARSHMALLOW POWDER ABLOOM #01",
+                    "normal_cost_price_excluding_vat": "329.72",
+                    "normal_sales_price": "490",
+                    "ean": "4901008314037",
+                    "sales_unit": "EA"
+                }
+            ],
+            "get": [
+                {
+                    "bonus_buy_number": "4",
+                    "material_or_group_type": "Material Group",
+                    "material_or_group_code": "MM8D0908D1",
+                    "get_quantity": 1,
+                    "material_or_group_description": "แคนเมค มาร์ชเมลโลว์พาวเดอร์อะบลูม#01",
+                    "sap_master_description": "CANMAKE MARSHMALLOW POWDER ABLOOM #01",
+                    "normal_cost_price_excluding_vat": "329.72",
+                    "promotion_cost_price_excluding_vat": "352.8",
+                    "ean": "4901008314037",
+                    "unit": "EA"
+                }
+            ],
+            "stores": [
+                "13KA",
+                "14KA",
+                "15KA",
+                "16KA",
+                "17KA",
+                "30KA",
+                "31KA",
+                "32KA",
+                "33KA",
+                "34KA",
+                "60KA",
+                "61KA",
+                "64KA",
+                "65KA",
+                "66KA",
+                "67KA",
+                "91KA",
+                "92KA"
+            ],
+            "card": [],
+            "tender": [],
+            "installment": [],
+            "posTerminal": [],
+            "premium": [],
+            "coupon": [],
+            "limitControl": []
+        }
+    ],
+    "CONDITIONS": [
+        {
+            "line_number": 0,
+            "contract_number": "1",
+            "conditionHeader": {
+                "start": "09.09.2026",
+                "end": "30.09.2026",
+                "department": "DEP031"
+            },
+            "businessVolumePurchase": [
+                {
+                    "inclusive_exclusive": "Inclusive",
+                    "contract_number": "1"
+                }
+            ],
+            "businessVolumeSales": [
+                {
+                    "inclusive_exclusive": "Inclusive",
+                    "contract_number": "1"
+                }
+            ],
+            "conditionType": [
+                {
+                    "brand_name": "บริษัท เอ็ม. เอส. ฮานาโซโน",
+                    "valid_from": "09.09.2026",
+                    "valid_to": "30.09.2026",
+                    "scale_unit": "EA",
+                    "contract_number": "1"
+                }
+            ],
+            "settlementCalendar": [],
+            "combineCheck": [],
+            "allocation": []
+        },
+        {
+            "line_number": 1,
+            "contract_number": "2",
+            "conditionHeader": {
+                "start": "09.09.2026",
+                "end": "30.09.2026",
+                "department": "DEP031"
+            },
+            "businessVolumePurchase": [
+                {
+                    "inclusive_exclusive": "Inclusive",
+                    "contract_number": "2"
+                }
+            ],
+            "businessVolumeSales": [
+                {
+                    "inclusive_exclusive": "Inclusive",
+                    "contract_number": "2"
+                }
+            ],
+            "conditionType": [
+                {
+                    "brand_name": "บริษัท เอ็ม. เอส. ฮานาโซโน",
+                    "valid_from": "09.09.2026",
+                    "valid_to": "30.09.2026",
+                    "scale_unit": "EA",
+                    "contract_number": "2"
+                }
+            ],
+            "settlementCalendar": [],
+            "combineCheck": [],
+            "allocation": []
+        },
+        {
+            "line_number": 2,
+            "contract_number": "3",
+            "conditionHeader": {
+                "start": "09.09.2026",
+                "end": "30.09.2026",
+                "department": "DEP031"
+            },
+            "businessVolumePurchase": [
+                {
+                    "inclusive_exclusive": "Inclusive",
+                    "contract_number": "3"
+                }
+            ],
+            "businessVolumeSales": [
+                {
+                    "inclusive_exclusive": "Inclusive",
+                    "contract_number": "3"
+                }
+            ],
+            "conditionType": [
+                {
+                    "brand_name": "บริษัท เอ็ม. เอส. ฮานาโซโน",
+                    "valid_from": "09.09.2026",
+                    "valid_to": "30.09.2026",
+                    "scale_unit": "EA",
+                    "contract_number": "3"
+                }
+            ],
+            "settlementCalendar": [],
+            "combineCheck": [],
+            "allocation": []
+        },
+        {
+            "line_number": 3,
+            "contract_number": "4",
+            "conditionHeader": {
+                "start": "09.09.2026",
+                "end": "30.09.2026",
+                "department": "DEP031"
+            },
+            "businessVolumePurchase": [
+                {
+                    "inclusive_exclusive": "Inclusive",
+                    "contract_number": "4"
+                }
+            ],
+            "businessVolumeSales": [
+                {
+                    "inclusive_exclusive": "Inclusive",
+                    "contract_number": "4"
+                }
+            ],
+            "conditionType": [
+                {
+                    "brand_name": "บริษัท เอ็ม. เอส. ฮานาโซโน",
+                    "valid_from": "09.09.2026",
+                    "valid_to": "30.09.2026",
+                    "scale_unit": "EA",
+                    "contract_number": "4"
+                }
+            ],
+            "settlementCalendar": [],
+            "combineCheck": [],
+            "allocation": []
+        },
+        {
+            "line_number": 4,
+            "contract_number": "5",
+            "conditionHeader": {
+                "start": "09.09.2026",
+                "end": "30.09.2026",
+                "department": "DEP031"
+            },
+            "businessVolumePurchase": [
+                {
+                    "inclusive_exclusive": "Inclusive",
+                    "contract_number": "5"
+                }
+            ],
+            "businessVolumeSales": [
+                {
+                    "inclusive_exclusive": "Inclusive",
+                    "contract_number": "5"
+                }
+            ],
+            "conditionType": [
+                {
+                    "brand_name": "บริษัท เอ็ม. เอส. ฮานาโซโน",
+                    "valid_from": "09.09.2026",
+                    "valid_to": "30.09.2026",
+                    "scale_unit": "EA",
+                    "contract_number": "5"
+                }
+            ],
+            "settlementCalendar": [],
+            "combineCheck": [],
+            "allocation": []
+        },
+        {
+            "line_number": 5,
+            "contract_number": "6",
+            "conditionHeader": {
+                "start": "09.09.2026",
+                "end": "30.09.2026",
+                "department": "DEP031"
+            },
+            "businessVolumePurchase": [
+                {
+                    "inclusive_exclusive": "Inclusive",
+                    "contract_number": "6"
+                }
+            ],
+            "businessVolumeSales": [
+                {
+                    "inclusive_exclusive": "Inclusive",
+                    "contract_number": "6"
+                }
+            ],
+            "conditionType": [
+                {
+                    "brand_name": "บริษัท เอ็ม. เอส. ฮานาโซโน",
+                    "valid_from": "09.09.2026",
+                    "valid_to": "30.09.2026",
+                    "scale_unit": "EA",
+                    "contract_number": "6"
+                }
+            ],
+            "settlementCalendar": [],
+            "combineCheck": [],
+            "allocation": []
+        },
+        {
+            "line_number": 6,
+            "contract_number": "7",
+            "conditionHeader": {
+                "start": "09.09.2026",
+                "end": "30.09.2026",
+                "department": "DEP031"
+            },
+            "businessVolumePurchase": [
+                {
+                    "inclusive_exclusive": "Inclusive",
+                    "contract_number": "7"
+                }
+            ],
+            "businessVolumeSales": [
+                {
+                    "inclusive_exclusive": "Inclusive",
+                    "contract_number": "7"
+                }
+            ],
+            "conditionType": [
+                {
+                    "brand_name": "บริษัท เอ็ม. เอส. ฮานาโซโน",
+                    "valid_from": "09.09.2026",
+                    "valid_to": "30.09.2026",
+                    "scale_unit": "EA",
+                    "contract_number": "7"
+                }
+            ],
+            "settlementCalendar": [],
+            "combineCheck": [],
+            "allocation": []
+        },
+        {
+            "line_number": 7,
+            "contract_number": "8",
+            "conditionHeader": {
+                "start": "09.09.2026",
+                "end": "30.09.2026",
+                "department": "DEP031"
+            },
+            "businessVolumePurchase": [
+                {
+                    "inclusive_exclusive": "Inclusive",
+                    "contract_number": "8"
+                }
+            ],
+            "businessVolumeSales": [
+                {
+                    "inclusive_exclusive": "Inclusive",
+                    "contract_number": "8"
+                }
+            ],
+            "conditionType": [
+                {
+                    "brand_name": "บริษัท เอ็ม. เอส. ฮานาโซโน",
+                    "valid_from": "09.09.2026",
+                    "valid_to": "30.09.2026",
+                    "scale_unit": "EA",
+                    "contract_number": "8"
+                }
+            ],
+            "settlementCalendar": [],
+            "combineCheck": [],
+            "allocation": []
+        },
+        {
+            "line_number": 8,
+            "contract_number": "9",
+            "conditionHeader": {
+                "start": "09.09.2026",
+                "end": "30.09.2026",
+                "department": "DEP031"
+            },
+            "businessVolumePurchase": [
+                {
+                    "inclusive_exclusive": "Inclusive",
+                    "contract_number": "9"
+                }
+            ],
+            "businessVolumeSales": [
+                {
+                    "inclusive_exclusive": "Inclusive",
+                    "contract_number": "9"
+                }
+            ],
+            "conditionType": [
+                {
+                    "brand_name": "บริษัท เอ็ม. เอส. ฮานาโซโน",
+                    "valid_from": "09.09.2026",
+                    "valid_to": "30.09.2026",
+                    "scale_unit": "EA",
+                    "contract_number": "9"
+                }
+            ],
+            "settlementCalendar": [],
+            "combineCheck": [],
+            "allocation": []
+        },
+        {
+            "line_number": 9,
+            "contract_number": "10",
+            "conditionHeader": {
+                "start": "09.09.2026",
+                "end": "30.09.2026",
+                "department": "DEP031"
+            },
+            "businessVolumePurchase": [
+                {
+                    "inclusive_exclusive": "Inclusive",
+                    "contract_number": "10"
+                }
+            ],
+            "businessVolumeSales": [
+                {
+                    "inclusive_exclusive": "Inclusive",
+                    "contract_number": "10"
+                }
+            ],
+            "conditionType": [
+                {
+                    "brand_name": "บริษัท เอ็ม. เอส. ฮานาโซโน",
+                    "valid_from": "09.09.2026",
+                    "valid_to": "30.09.2026",
+                    "scale_unit": "EA",
+                    "contract_number": "10"
+                }
+            ],
+            "settlementCalendar": [],
+            "combineCheck": [],
+            "allocation": []
+        }
+    ],
+    "MATERIALS": [
+        {
+            "line_number": 0,
+            "number_of_promotion": "1",
+            "number_of_material_grouping": "1",
+            "mch": "HBA",
+            "purchasing_group": "C01",
+            "material": "1000728050",
+            "barcode": "4901008314037",
+            "material_description_th": "แคนเมค มาร์ชเมลโลว์พาวเดอร์อะบลูม#01",
+            "material_description_en": "CANMAKE MARSHMALLOW POWDER ABLOOM #01",
+            "vendor": "BTG07",
+            "vendor_description": "บริษัท เบทาโกรเกษตรอุตสาหกรรม",
+            "flow_type": "DS",
+            "pack_size": "1",
+            "sales_unit": "EA",
+            "sales_tax": "V",
+            "cost_price_case_excl_vat_normal": "329.72",
+            "cost_price_unit_inc_vat_normal": "352.8",
+            "cost_price_unit_inc_vat_promo": "352.8",
+            "sales_price_normal": "490",
+            "bonus_buy_profile": "F001",
+            "mechanic": "B1G1",
+            "gross_profit_normal": "28%",
+            "gross_profit_promotion": "-44%",
+            "forecast_quantity": "-",
+            "forecast_amount": "-",
+            "sales_quantity_1_month_ago": "8",
+            "sales_quantity_2_months_ago": "4",
+            "sales_quantity_3_months_ago": "7",
+            "display_promotion_m_price_category": "Skincare",
+            "stores": [
+                "13KA",
+                "14KA",
+                "15KA",
+                "16KA",
+                "17KA",
+                "30KA",
+                "31KA",
+                "32KA",
+                "33KA",
+                "34KA",
+                "60KA",
+                "61KA",
+                "64KA",
+                "65KA",
+                "66KA",
+                "67KA",
+                "91KA",
+                "92KA"
+            ],
+            "planogramStore": [
+                {
+                    "storeCode": "16KA",
+                    "store_code": "16KA",
+                    "quantity": "6"
+                },
+                {
+                    "storeCode": "17KA",
+                    "store_code": "17KA",
+                    "quantity": "6"
+                },
+                {
+                    "storeCode": "30KA",
+                    "store_code": "30KA",
+                    "quantity": "6"
+                },
+                {
+                    "storeCode": "32KA",
+                    "store_code": "32KA",
+                    "quantity": "6"
+                },
+                {
+                    "storeCode": "34KA",
+                    "store_code": "34KA",
+                    "quantity": "6"
+                }
+            ]
+        },
+        {
+            "line_number": 1,
+            "number_of_promotion": "1",
+            "number_of_material_grouping": "1",
+            "mch": "HBA",
+            "purchasing_group": "C01",
+            "material": "1000728050",
+            "barcode": "4901008314037",
+            "material_description_th": "แคนเมค มาร์ชเมลโลว์พาวเดอร์อะบลูม#01",
+            "material_description_en": "CANMAKE MARSHMALLOW POWDER ABLOOM #01",
+            "vendor": "BTG07",
+            "vendor_description": "บริษัท เบทาโกรเกษตรอุตสาหกรรม",
+            "flow_type": "DS",
+            "pack_size": "1",
+            "sales_unit": "EA",
+            "sales_tax": "V",
+            "cost_price_case_excl_vat_normal": "329.72",
+            "cost_price_unit_inc_vat_normal": "352.8",
+            "cost_price_unit_inc_vat_promo": "352.8",
+            "sales_price_normal": "490",
+            "bonus_buy_profile": "F001",
+            "mechanic": "B1G1",
+            "gross_profit_normal": "28%",
+            "gross_profit_promotion": "-44%",
+            "forecast_quantity": "-",
+            "forecast_amount": "-",
+            "sales_quantity_1_month_ago": "8",
+            "sales_quantity_2_months_ago": "4",
+            "sales_quantity_3_months_ago": "7",
+            "display_promotion_m_price_category": "Skincare",
+            "stores": [
+                "13KA",
+                "14KA",
+                "15KA",
+                "16KA",
+                "17KA",
+                "30KA",
+                "31KA",
+                "32KA",
+                "33KA",
+                "34KA",
+                "60KA",
+                "61KA",
+                "64KA",
+                "65KA",
+                "66KA",
+                "67KA",
+                "91KA",
+                "92KA"
+            ],
+            "planogramStore": [
+                {
+                    "storeCode": "16KA",
+                    "store_code": "16KA",
+                    "quantity": "6"
+                },
+                {
+                    "storeCode": "17KA",
+                    "store_code": "17KA",
+                    "quantity": "6"
+                },
+                {
+                    "storeCode": "30KA",
+                    "store_code": "30KA",
+                    "quantity": "6"
+                },
+                {
+                    "storeCode": "32KA",
+                    "store_code": "32KA",
+                    "quantity": "6"
+                },
+                {
+                    "storeCode": "34KA",
+                    "store_code": "34KA",
+                    "quantity": "6"
+                }
+            ]
+        },
+        {
+            "line_number": 2,
+            "number_of_promotion": "1",
+            "number_of_material_grouping": "1",
+            "mch": "HBA",
+            "purchasing_group": "C01",
+            "material": "1000728050",
+            "barcode": "4901008314037",
+            "material_description_th": "แคนเมค มาร์ชเมลโลว์พาวเดอร์อะบลูม#01",
+            "material_description_en": "CANMAKE MARSHMALLOW POWDER ABLOOM #01",
+            "vendor": "BTG07",
+            "vendor_description": "บริษัท เบทาโกรเกษตรอุตสาหกรรม",
+            "flow_type": "DS",
+            "pack_size": "1",
+            "sales_unit": "EA",
+            "sales_tax": "V",
+            "cost_price_case_excl_vat_normal": "329.72",
+            "cost_price_unit_inc_vat_normal": "352.8",
+            "cost_price_unit_inc_vat_promo": "352.8",
+            "sales_price_normal": "490",
+            "bonus_buy_profile": "F001",
+            "mechanic": "B1G1",
+            "gross_profit_normal": "28%",
+            "gross_profit_promotion": "-44%",
+            "forecast_quantity": "-",
+            "forecast_amount": "-",
+            "sales_quantity_1_month_ago": "8",
+            "sales_quantity_2_months_ago": "4",
+            "sales_quantity_3_months_ago": "7",
+            "display_promotion_m_price_category": "Skincare",
+            "stores": [
+                "13KA",
+                "14KA",
+                "15KA",
+                "16KA",
+                "17KA",
+                "30KA",
+                "31KA",
+                "32KA",
+                "33KA",
+                "34KA",
+                "60KA",
+                "61KA",
+                "64KA",
+                "65KA",
+                "66KA",
+                "67KA",
+                "91KA",
+                "92KA"
+            ],
+            "planogramStore": [
+                {
+                    "storeCode": "16KA",
+                    "store_code": "16KA",
+                    "quantity": "6"
+                },
+                {
+                    "storeCode": "17KA",
+                    "store_code": "17KA",
+                    "quantity": "6"
+                },
+                {
+                    "storeCode": "30KA",
+                    "store_code": "30KA",
+                    "quantity": "6"
+                },
+                {
+                    "storeCode": "32KA",
+                    "store_code": "32KA",
+                    "quantity": "6"
+                },
+                {
+                    "storeCode": "34KA",
+                    "store_code": "34KA",
+                    "quantity": "6"
+                }
+            ]
+        },
+        {
+            "line_number": 3,
+            "number_of_promotion": 2,
+            "number_of_material_grouping": 2,
+            "mch": "HBA",
+            "purchasing_group": "C01",
+            "material": "1000728050",
+            "barcode": "4901008314037",
+            "material_description_th": "แคนเมค มาร์ชเมลโลว์พาวเดอร์อะบลูม#01",
+            "material_description_en": "CANMAKE MARSHMALLOW POWDER ABLOOM #01",
+            "vendor": "DHJ61",
+            "vendor_description": "บริษัท ดีเคเอสเอช (ประเทศไทย) จำกัด",
+            "flow_type": "DS",
+            "pack_size": 1,
+            "sales_unit": "EA",
+            "sales_tax": "V",
+            "cost_price_case_excl_vat_normal": 329.72,
+            "cost_price_unit_inc_vat_normal": 352.8,
+            "cost_price_unit_inc_vat_promo": "352.8",
+            "sales_price_normal": 490,
+            "bonus_buy_profile": "F001",
+            "mechanic": "B1G1",
+            "gross_profit_normal": "28%",
+            "gross_profit_promotion": "-44%",
+            "forecast_quantity": "-",
+            "forecast_amount": "-",
+            "sales_quantity_1_month_ago": 8,
+            "sales_quantity_2_months_ago": 4,
+            "sales_quantity_3_months_ago": 7,
+            "display_promotion_m_price_category": "Skincare",
+            "stores": [
+                "13KA",
+                "14KA",
+                "15KA",
+                "16KA",
+                "17KA",
+                "30KA",
+                "31KA",
+                "32KA",
+                "33KA",
+                "34KA",
+                "60KA",
+                "61KA",
+                "64KA",
+                "65KA",
+                "66KA",
+                "67KA",
+                "91KA",
+                "92KA"
+            ],
+            "planogramStore": [
+                {
+                    "storeCode": "16KA",
+                    "store_code": "16KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "17KA",
+                    "store_code": "17KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "30KA",
+                    "store_code": "30KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "32KA",
+                    "store_code": "32KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "34KA",
+                    "store_code": "34KA",
+                    "quantity": 6
+                }
+            ]
+        },
+        {
+            "line_number": 4,
+            "number_of_promotion": 2,
+            "number_of_material_grouping": 2,
+            "mch": "HBA",
+            "purchasing_group": "C01",
+            "material": "1000728050",
+            "barcode": "4901008314037",
+            "material_description_th": "แคนเมค มาร์ชเมลโลว์พาวเดอร์อะบลูม#01",
+            "material_description_en": "CANMAKE MARSHMALLOW POWDER ABLOOM #01",
+            "vendor": "DHJ61",
+            "vendor_description": "บริษัท ดีเคเอสเอช (ประเทศไทย) จำกัด",
+            "flow_type": "DS",
+            "pack_size": 1,
+            "sales_unit": "EA",
+            "sales_tax": "V",
+            "cost_price_case_excl_vat_normal": 329.72,
+            "cost_price_unit_inc_vat_normal": 352.8,
+            "cost_price_unit_inc_vat_promo": "352.8",
+            "sales_price_normal": 490,
+            "bonus_buy_profile": "F001",
+            "mechanic": "B1G1",
+            "gross_profit_normal": "28%",
+            "gross_profit_promotion": "-44%",
+            "forecast_quantity": "-",
+            "forecast_amount": "-",
+            "sales_quantity_1_month_ago": 8,
+            "sales_quantity_2_months_ago": 4,
+            "sales_quantity_3_months_ago": 7,
+            "display_promotion_m_price_category": "Skincare",
+            "stores": [
+                "13KA",
+                "14KA",
+                "15KA",
+                "16KA",
+                "17KA",
+                "30KA",
+                "31KA",
+                "32KA",
+                "33KA",
+                "34KA",
+                "60KA",
+                "61KA",
+                "64KA",
+                "65KA",
+                "66KA",
+                "67KA",
+                "91KA",
+                "92KA"
+            ],
+            "planogramStore": [
+                {
+                    "storeCode": "16KA",
+                    "store_code": "16KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "17KA",
+                    "store_code": "17KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "30KA",
+                    "store_code": "30KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "32KA",
+                    "store_code": "32KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "34KA",
+                    "store_code": "34KA",
+                    "quantity": 6
+                }
+            ]
+        },
+        {
+            "line_number": 5,
+            "number_of_promotion": 3,
+            "number_of_material_grouping": 3,
+            "mch": "HBA",
+            "purchasing_group": "C01",
+            "material": "1000728050",
+            "barcode": "4901008314037",
+            "material_description_th": "แคนเมค มาร์ชเมลโลว์พาวเดอร์อะบลูม#01",
+            "material_description_en": "CANMAKE MARSHMALLOW POWDER ABLOOM #01",
+            "vendor": "KBL00",
+            "vendor_description": "บริษัท คิมเบอร์ลี่ย์-คล๊าค",
+            "flow_type": "DS",
+            "pack_size": 1,
+            "sales_unit": "EA",
+            "sales_tax": "V",
+            "cost_price_case_excl_vat_normal": 329.72,
+            "cost_price_unit_inc_vat_normal": 352.8,
+            "cost_price_unit_inc_vat_promo": "352.8",
+            "sales_price_normal": 490,
+            "bonus_buy_profile": "F001",
+            "mechanic": "B1G1",
+            "gross_profit_normal": "28%",
+            "gross_profit_promotion": "-44%",
+            "forecast_quantity": "-",
+            "forecast_amount": "-",
+            "sales_quantity_1_month_ago": 8,
+            "sales_quantity_2_months_ago": 4,
+            "sales_quantity_3_months_ago": 7,
+            "display_promotion_m_price_category": "Skincare",
+            "stores": [
+                "13KA",
+                "14KA",
+                "15KA",
+                "16KA",
+                "17KA",
+                "30KA",
+                "31KA",
+                "32KA",
+                "33KA",
+                "34KA",
+                "60KA",
+                "61KA",
+                "64KA",
+                "65KA",
+                "66KA",
+                "67KA",
+                "91KA",
+                "92KA"
+            ],
+            "planogramStore": [
+                {
+                    "storeCode": "16KA",
+                    "store_code": "16KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "17KA",
+                    "store_code": "17KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "30KA",
+                    "store_code": "30KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "32KA",
+                    "store_code": "32KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "34KA",
+                    "store_code": "34KA",
+                    "quantity": 6
+                }
+            ]
+        },
+        {
+            "line_number": 6,
+            "number_of_promotion": 3,
+            "number_of_material_grouping": 3,
+            "mch": "HBA",
+            "purchasing_group": "C01",
+            "material": "1000728050",
+            "barcode": "4901008314037",
+            "material_description_th": "แคนเมค มาร์ชเมลโลว์พาวเดอร์อะบลูม#01",
+            "material_description_en": "CANMAKE MARSHMALLOW POWDER ABLOOM #01",
+            "vendor": "KBL00",
+            "vendor_description": "บริษัท คิมเบอร์ลี่ย์-คล๊าค",
+            "flow_type": "DS",
+            "pack_size": 1,
+            "sales_unit": "EA",
+            "sales_tax": "V",
+            "cost_price_case_excl_vat_normal": 329.72,
+            "cost_price_unit_inc_vat_normal": 352.8,
+            "cost_price_unit_inc_vat_promo": "352.8",
+            "sales_price_normal": 490,
+            "bonus_buy_profile": "F001",
+            "mechanic": "B1G1",
+            "gross_profit_normal": "28%",
+            "gross_profit_promotion": "-44%",
+            "forecast_quantity": "-",
+            "forecast_amount": "-",
+            "sales_quantity_1_month_ago": 8,
+            "sales_quantity_2_months_ago": 4,
+            "sales_quantity_3_months_ago": 7,
+            "display_promotion_m_price_category": "Skincare",
+            "stores": [
+                "13KA",
+                "14KA",
+                "15KA",
+                "16KA",
+                "17KA",
+                "30KA",
+                "31KA",
+                "32KA",
+                "33KA",
+                "34KA",
+                "60KA",
+                "61KA",
+                "64KA",
+                "65KA",
+                "66KA",
+                "67KA",
+                "91KA",
+                "92KA"
+            ],
+            "planogramStore": [
+                {
+                    "storeCode": "16KA",
+                    "store_code": "16KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "17KA",
+                    "store_code": "17KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "30KA",
+                    "store_code": "30KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "32KA",
+                    "store_code": "32KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "34KA",
+                    "store_code": "34KA",
+                    "quantity": 6
+                }
+            ]
+        },
+        {
+            "line_number": 7,
+            "number_of_promotion": 3,
+            "number_of_material_grouping": 3,
+            "mch": "HBA",
+            "purchasing_group": "C01",
+            "material": "1000728050",
+            "barcode": "4901008314037",
+            "material_description_th": "แคนเมค มาร์ชเมลโลว์พาวเดอร์อะบลูม#01",
+            "material_description_en": "CANMAKE MARSHMALLOW POWDER ABLOOM #01",
+            "vendor": "KBL00",
+            "vendor_description": "บริษัท คิมเบอร์ลี่ย์-คล๊าค",
+            "flow_type": "DS",
+            "pack_size": 1,
+            "sales_unit": "EA",
+            "sales_tax": "V",
+            "cost_price_case_excl_vat_normal": 329.72,
+            "cost_price_unit_inc_vat_normal": 352.8,
+            "cost_price_unit_inc_vat_promo": "352.8",
+            "sales_price_normal": 490,
+            "bonus_buy_profile": "F001",
+            "mechanic": "B1G1",
+            "gross_profit_normal": "28%",
+            "gross_profit_promotion": "-44%",
+            "forecast_quantity": "-",
+            "forecast_amount": "-",
+            "sales_quantity_1_month_ago": 8,
+            "sales_quantity_2_months_ago": 4,
+            "sales_quantity_3_months_ago": 7,
+            "display_promotion_m_price_category": "Skincare",
+            "stores": [
+                "13KA",
+                "14KA",
+                "15KA",
+                "16KA",
+                "17KA",
+                "30KA",
+                "31KA",
+                "32KA",
+                "33KA",
+                "34KA",
+                "60KA",
+                "61KA",
+                "64KA",
+                "65KA",
+                "66KA",
+                "67KA",
+                "91KA",
+                "92KA"
+            ],
+            "planogramStore": [
+                {
+                    "storeCode": "16KA",
+                    "store_code": "16KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "17KA",
+                    "store_code": "17KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "30KA",
+                    "store_code": "30KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "32KA",
+                    "store_code": "32KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "34KA",
+                    "store_code": "34KA",
+                    "quantity": 6
+                }
+            ]
+        },
+        {
+            "line_number": 8,
+            "number_of_promotion": 3,
+            "number_of_material_grouping": 3,
+            "mch": "HBA",
+            "purchasing_group": "C01",
+            "material": "1000728050",
+            "barcode": "4901008314037",
+            "material_description_th": "แคนเมค มาร์ชเมลโลว์พาวเดอร์อะบลูม#01",
+            "material_description_en": "CANMAKE MARSHMALLOW POWDER ABLOOM #01",
+            "vendor": "KBL00",
+            "vendor_description": "บริษัท คิมเบอร์ลี่ย์-คล๊าค",
+            "flow_type": "DS",
+            "pack_size": 1,
+            "sales_unit": "EA",
+            "sales_tax": "V",
+            "cost_price_case_excl_vat_normal": 329.72,
+            "cost_price_unit_inc_vat_normal": 352.8,
+            "cost_price_unit_inc_vat_promo": "352.8",
+            "sales_price_normal": 490,
+            "bonus_buy_profile": "F001",
+            "mechanic": "B1G1",
+            "gross_profit_normal": "28%",
+            "gross_profit_promotion": "-44%",
+            "forecast_quantity": "-",
+            "forecast_amount": "-",
+            "sales_quantity_1_month_ago": 8,
+            "sales_quantity_2_months_ago": 4,
+            "sales_quantity_3_months_ago": 7,
+            "display_promotion_m_price_category": "Skincare",
+            "stores": [
+                "13KA",
+                "14KA",
+                "15KA",
+                "16KA",
+                "17KA",
+                "30KA",
+                "31KA",
+                "32KA",
+                "33KA",
+                "34KA",
+                "60KA",
+                "61KA",
+                "64KA",
+                "65KA",
+                "66KA",
+                "67KA",
+                "91KA",
+                "92KA"
+            ],
+            "planogramStore": [
+                {
+                    "storeCode": "16KA",
+                    "store_code": "16KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "17KA",
+                    "store_code": "17KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "30KA",
+                    "store_code": "30KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "32KA",
+                    "store_code": "32KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "34KA",
+                    "store_code": "34KA",
+                    "quantity": 6
+                }
+            ]
+        },
+        {
+            "line_number": 9,
+            "number_of_promotion": 3,
+            "number_of_material_grouping": 1,
+            "mch": "HBA",
+            "purchasing_group": "C01",
+            "material": "1000728050",
+            "barcode": "4901008314037",
+            "material_description_th": "แคนเมค มาร์ชเมลโลว์พาวเดอร์อะบลูม#01",
+            "material_description_en": "CANMAKE MARSHMALLOW POWDER ABLOOM #01",
+            "vendor": "KBL00",
+            "vendor_description": "บริษัท คิมเบอร์ลี่ย์-คล๊าค",
+            "flow_type": "DS",
+            "pack_size": 1,
+            "sales_unit": "EA",
+            "sales_tax": "V",
+            "cost_price_case_excl_vat_normal": 329.72,
+            "cost_price_unit_inc_vat_normal": 352.8,
+            "cost_price_unit_inc_vat_promo": "352.8",
+            "sales_price_normal": 490,
+            "bonus_buy_profile": "F001",
+            "mechanic": "B1G1",
+            "gross_profit_normal": "28%",
+            "gross_profit_promotion": "-44%",
+            "forecast_quantity": "-",
+            "forecast_amount": "-",
+            "sales_quantity_1_month_ago": 8,
+            "sales_quantity_2_months_ago": 4,
+            "sales_quantity_3_months_ago": 7,
+            "display_promotion_m_price_category": "Skincare",
+            "stores": [
+                "13KA",
+                "14KA",
+                "15KA",
+                "16KA",
+                "17KA",
+                "30KA",
+                "31KA",
+                "32KA",
+                "33KA",
+                "34KA",
+                "60KA",
+                "61KA",
+                "64KA",
+                "65KA",
+                "66KA",
+                "67KA",
+                "91KA",
+                "92KA"
+            ],
+            "planogramStore": [
+                {
+                    "storeCode": "16KA",
+                    "store_code": "16KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "17KA",
+                    "store_code": "17KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "30KA",
+                    "store_code": "30KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "32KA",
+                    "store_code": "32KA",
+                    "quantity": 6
+                },
+                {
+                    "storeCode": "34KA",
+                    "store_code": "34KA",
+                    "quantity": 6
+                }
+            ]
+        }
+    ],
+    "MATERIALGROUPINGS": [
+        {
+            "line_number": 0,
+            "running_number": "1",
+            "grouping_name": "MM8D0908D1",
+            "description": "MM8D0908D1",
+            "category": "1 - Material No.",
+            "component": "1000728050"
+        },
+        {
+            "line_number": 1,
+            "running_number": "1",
+            "grouping_name": "MM8D0908D1",
+            "description": "MM8D0908D1",
+            "category": "1 - Material No.",
+            "component": "1000728050"
+        },
+        {
+            "line_number": 2,
+            "running_number": "1",
+            "grouping_name": "MM8D0908D1",
+            "description": "MM8D0908D1",
+            "category": "1 - Material No.",
+            "component": "1000728050"
+        },
+        {
+            "line_number": 3,
+            "running_number": "2",
+            "grouping_name": "MM8D0908D2",
+            "description": "MM8D0908D2",
+            "category": "1 - Material No.",
+            "component": "1000728050"
+        },
+        {
+            "line_number": 4,
+            "running_number": "2",
+            "grouping_name": "MM8D0908D2",
+            "description": "MM8D0908D2",
+            "category": "1 - Material No.",
+            "component": "1000728050"
+        },
+        {
+            "line_number": 5,
+            "running_number": "3",
+            "grouping_name": "MM8D0908D3",
+            "description": "MM8D0908D3",
+            "category": "1 - Material No.",
+            "component": "1000728050"
+        },
+        {
+            "line_number": 6,
+            "running_number": "3",
+            "grouping_name": "MM8D0908D3",
+            "description": "MM8D0908D3",
+            "category": "1 - Material No.",
+            "component": "1000728050"
+        },
+        {
+            "line_number": 7,
+            "running_number": "3",
+            "grouping_name": "MM8D0908D3",
+            "description": "MM8D0908D3",
+            "category": "1 - Material No.",
+            "component": "1000728050"
+        },
+        {
+            "line_number": 8,
+            "running_number": "3",
+            "grouping_name": "MM8D0908D3",
+            "description": "MM8D0908D3",
+            "category": "1 - Material No.",
+            "component": "1000728050"
+        },
+        {
+            "line_number": 9,
+            "running_number": "1",
+            "grouping_name": "MM8D0908D1",
+            "description": "MM8D0908D1",
+            "category": "1 - Material No.",
+            "component": "1000728050"
+        }
+    ],
+    "STATUS": "PENDING_VERIFICATION"
+}
