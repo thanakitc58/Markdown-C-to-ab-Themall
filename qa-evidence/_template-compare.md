@@ -1,30 +1,28 @@
 # {PROFILE} / {MECHANIC} / {CASE_DESCRIPTION}
 
-<table>
-  <thead>
-    <tr>
-      <th width="50%">AB JSON</th>
-      <th width="50%">C JSON</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td valign="top">
-<pre><code>{
-  "LAYOUT": "AB",
-  "STATUS": "DRAFT",
-  "HEADER": {},
-  "BONUSBUYS": []
-}</code></pre>
-      </td>
-      <td valign="top">
-<pre><code>{
-  "LAYOUT": "C",
-  "STATUS": "DRAFT",
-  "HEADER": {},
-  "MATERIALS": []
-}</code></pre>
-      </td>
-    </tr>
-  </tbody>
-</table>
+## ดูซ้าย-ขวาเต็มจอ (แนะนำ)
+
+เปิดไฟล์ HTML คู่กันในโฟลเดอร์เดียวกัน เช่น `{CaseFile}.html`
+
+## ไฟล์ดิบ
+
+- AB: `{CaseFile}.ab.json`
+- C: `{CaseFile}.c.json`
+
+## อ่านใน GitHub แบบเต็มความกว้าง (เรียงบน-ล่าง)
+
+### AB JSON
+
+```json
+{
+  "LAYOUT": "AB"
+}
+```
+
+### C JSON
+
+```json
+{
+  "LAYOUT": "C"
+}
+```
