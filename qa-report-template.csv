@@ -10,7 +10,7 @@ B1G1 (On Pack),F001,Free Type 1,1,1,Skip BBY case,Depending,https://github.com/t
 B2G1,F001,Free Type 1,2,1,Promo baseline,Done,https://github.com/thanakitc58/Markdown-C-to-ab-Themall/blob/main/qa-evidence/F001/B2G1-Promo-baseline.md,
 B2G1 (On Pack),F001,Free Type 1,2,1,Skip BBY case,Depending,,
 B3G1,F001,Free Type 1,3,1,Promo baseline,Done,https://github.com/thanakitc58/Markdown-C-to-ab-Themall/blob/main/qa-evidence/F001/B3G1-Promo-baseline.md,
-B4G1,F001,Free Type 1,4,1,Promo baseline,Depending,,
+B4G1,F001,Free Type 1,4,1,Promo baseline,Done,https://github.com/thanakitc58/Markdown-C-to-ab-Themall/blob/main/qa-evidence/F001/B4G1-Promo-baseline.md,C missing sales_price_promotion; get has no promotion_price_thb
 B5G1,F001,Free Type 1,5,1,Promo baseline,Depending,,
 B6G1,F001,Free Type 1,6,1,Promo baseline,Depending,,
 2For,D001,Deal Type 1,2,2,Promo baseline,Depending,,
