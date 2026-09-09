@@ -7,7 +7,7 @@ Staff Discount,P015,Line markdown,,1,Discount percent case,Depending,https://git
 Time Sale,P001,Promotion,,1,Promo baseline,Depending,https://github.com/thanakitc58/Markdown-C-to-ab-Themall/blob/main/qa-evidence/P001/TimeSale-Promo-baseline.md,Pass promo wins over leftover %
 B1G1,F001,Free Type 1,1,1,Promo baseline,Depending,https://github.com/thanakitc58/Markdown-C-to-ab-Themall/blob/main/qa-evidence/F001/B1G1-Promo-baseline.md,Pass buy+get qty 1/1
 B1G1 (On Pack),F001,Free Type 1,1,1,Skip BBY case,Depending,https://github.com/thanakitc58/Markdown-C-to-ab-Themall/blob/main/qa-evidence/F001/B1G1-OnPack-SkipBBY.md,Pass BONUSBUYS=[]
-B2G1,F001,Free Type 1,2,1,Promo baseline,Depending,,
+B2G1,F001,Free Type 1,2,1,Promo baseline,Done,https://github.com/thanakitc58/Markdown-C-to-ab-Themall/blob/main/qa-evidence/F001/B2G1-Promo-baseline.md,
 B2G1 (On Pack),F001,Free Type 1,2,1,Skip BBY case,Depending,,
 B3G1,F001,Free Type 1,3,1,Promo baseline,Depending,,
 B4G1,F001,Free Type 1,4,1,Promo baseline,Depending,,
