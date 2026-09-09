@@ -1,7 +1,5 @@
 # P010 / Price Off / Promo baseline
 
-> Tip: เปิดแบบ Wide ได้ที่ปุ่ม `Blame` ข้างๆ หรือซูมหน้าจอ — ตารางด้านล่างจัดชิดบนซ้าย-ขวาแล้ว
-
 <table>
   <thead>
     <tr>
