@@ -1,6 +1,6 @@
 Mechanic,Bonus Buy Profile,Bonus Buy Profile Description,Buy,Get,CaseDescription,QA Status,JSON Ref,Remark
 Price Off,P010,Member price,,1,Promo baseline,Depending,https://github.com/thanakitc58/Markdown-C-to-ab-Themall/blob/main/qa-evidence/P010/PriceOff-Promo-baseline.md,Left AB / Right C .md only
-PWP,P011,Lower price,,1,Valid Time case,Depending,,
+PWP,P011,Lower price,,1,Valid Time case,Depending,https://github.com/thanakitc58/Markdown-C-to-ab-Themall/blob/main/qa-evidence/P011/PWP-ValidTime.md,ValidTime mapped; LAYOUT fixed to AB in evidence
 Farmhouse/Cook Fee,P011,Lower price,,1,Promo baseline,Depending,,
 Last Chance,P011,Lower price,,1,Promo baseline,Depending,,
 Staff Discount,P015,Line markdown,,1,Discount percent case,Depending,,
