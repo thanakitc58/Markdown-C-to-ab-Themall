@@ -2,7 +2,7 @@ Mechanic,Bonus Buy Profile,Bonus Buy Profile Description,Buy,Get,CaseDescription
 Price Off,P010,Member price,,1,Promo baseline,Depending,https://github.com/thanakitc58/Markdown-C-to-ab-Themall/blob/main/qa-evidence/P010/PriceOff-Promo-baseline.md,Left AB / Right C .md only
 PWP,P011,Lower price,,1,Valid Time case,Depending,https://github.com/thanakitc58/Markdown-C-to-ab-Themall/blob/main/qa-evidence/P011/PWP-ValidTime.md,ValidTime mapped; LAYOUT fixed to AB in evidence
 Farmhouse/Cook Fee,P011,Lower price,,1,Promo baseline,Depending,https://github.com/thanakitc58/Markdown-C-to-ab-Themall/blob/main/qa-evidence/P011/FarmhouseCookFee-Promo-baseline.md,Pass promo baseline
-Last Chance,P011,Lower price,,1,Promo baseline,Depending,,
+Last Chance,P011,Lower price,,1,Promo baseline,Depending,https://github.com/thanakitc58/Markdown-C-to-ab-Themall/blob/main/qa-evidence/P011/LastChance-Promo-baseline.md,Pass promo baseline
 Staff Discount,P015,Line markdown,,1,Discount percent case,Depending,,
 Time Sale,P001,Promotion,,1,Promo baseline,Depending,,
 B1G1,F001,Free Type 1,1,1,Promo baseline,Depending,,
