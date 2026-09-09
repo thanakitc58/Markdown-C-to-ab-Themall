@@ -1,33 +1,16 @@
 # {PROFILE} / {MECHANIC} / {CASE_DESCRIPTION}
 
 <!--
-1 เคส = 1 ไฟล์ .md
-ซ้าย = AB JSON ทั้งก้อน | ขวา = C JSON ทั้งก้อน
+แบบตอนแรก (RTF-style):
+- 1 เคส = 1 ไฟล์ .md
+- ตารางหลายแถว
+- แต่ละแถว = 1 บรรทัด AB | 1 บรรทัด C
+- ห้ามยัด JSON ทั้งก้อนลง cell เดียว
 -->
 
 <table>
-  <thead>
-    <tr>
-      <th width="50%">AB JSON</th>
-      <th width="50%">C JSON</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td valign="top">
-
-<pre><code>{
-  "LAYOUT": "AB"
-}</code></pre>
-
-      </td>
-      <td valign="top">
-
-<pre><code>{
-  "LAYOUT": "C"
-}</code></pre>
-
-      </td>
-    </tr>
-  </tbody>
+<tr><th>AB JSON</th><th>C JSON</th></tr>
+<tr><td><code>{</code></td><td><code>{</code></td></tr>
+<tr><td><code>  "LAYOUT": "AB",</code></td><td><code>  "LAYOUT": "C",</code></td></tr>
+<tr><td><code>}</code></td><td><code>}</code></td></tr>
 </table>
