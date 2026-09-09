@@ -1,0 +1,75 @@
+Type,Value,Label,SortOrder,Notes
+Status,Not Started,Not Started,1,Initial state
+Status,Testing,Testing,2,Actively testing
+Status,Passed,Passed,3,Case passed
+Status,Failed,Failed,4,Case failed
+Status,Blocked,Blocked,5,Cannot proceed
+Status,Retest,Retest,6,Needs retest
+Status,Done,Done,7,Closed case
+QA Status,Depending,Depending,1,Waiting on dependency or next action
+QA Status,Pending,Pending,2,Waiting for QA review
+QA Status,In Review,In Review,3,QA is checking
+QA Status,QA Passed,QA Passed,4,QA accepted
+QA Status,QA Failed,QA Failed,5,QA found issue
+QA Status,Need Retest,Need Retest,6,Developer fix required
+QA Status,Done,Done,7,Completed
+QA Status,Closed,Closed,8,QA closed
+Group,A,A,1,Get-only family
+Group,B,B,2,Buy+Get family
+Group,C,C,3,Split or C-like-B family
+Scenario,Structure,Structure,1,Validate buy/get structure
+Scenario,Promo,Promo,2,Promo price mapping
+Scenario,Discount Amt,Discount Amt,3,Discount amount mapping
+Scenario,Discount %,Discount %,4,Discount percent mapping
+Scenario,Percent Normalize,Percent Normalize,5,Percent scale conversion
+Scenario,Vendor Blank,Vendor Blank,6,Vendor default to NOBP
+Scenario,Sales Price Normal,Sales Price Normal,7,Normal price mapping
+Scenario,Material Group,Material Group,8,Material grouping behavior
+Scenario,P4 Online,P4 Online,9,Online description fields
+Scenario,Valid Time,Valid Time,10,Time field behavior
+Scenario,Reference Code,Reference Code,11,Reference code behavior
+Scenario,Promo vs Discount Amt Priority,Promo vs Discount Amt Priority,12,Promo should win over amount
+Scenario,Skip BBY,Skip BBY,13,No BONUSBUYS should be generated
+Profile,P001,P001,1,Group A
+Profile,P010,P010,2,Group A
+Profile,P011,P011,3,Group A
+Profile,P015,P015,4,Group A
+Profile,D001,D001,5,Group B
+Profile,F001,F001,6,Group B
+Profile,D002,D002,7,Group C
+Profile,D003,D003,8,Group C
+Profile,F003,F003,9,Group C
+Mechanic,Price Off,Price Off,1,P010
+Mechanic,PWP,PWP,2,P011
+Mechanic,Farmhouse/Cook Fee,Farmhouse/Cook Fee,3,P011
+Mechanic,Last Chance,Last Chance,4,P011
+Mechanic,Staff Discount,Staff Discount,5,P015
+Mechanic,Time Sale,Time Sale,6,P001
+Mechanic,B1G1,B1G1,7,F001
+Mechanic,B1G1 (On Pack),B1G1 (On Pack),8,F001 skip
+Mechanic,B2G1,B2G1,9,F001
+Mechanic,B2G1 (On Pack),B2G1 (On Pack),10,F001 skip
+Mechanic,B3G1,B3G1,11,F001
+Mechanic,B4G1,B4G1,12,F001
+Mechanic,B5G1,B5G1,13,F001
+Mechanic,B6G1,B6G1,14,F001
+Mechanic,2For,2For,15,D001
+Mechanic,3For,3For,16,D001
+Mechanic,4For,4For,17,D001
+Mechanic,5For,5For,18,D001
+Mechanic,6For,6For,19,D001
+Mechanic,15For,15For,20,D001
+Mechanic,1A+1B (A),1A+1B (A),21,D002
+Mechanic,1A+1B (B),1A+1B (B),22,D002
+Mechanic,2A+1B (A),2A+1B (A),23,D002
+Mechanic,2A+1B (B),2A+1B (B),24,D002
+Mechanic,2A+2B (A),2A+2B (A),25,D002
+Mechanic,2A+2B (B),2A+2B (B),26,D002
+Mechanic,1A Get 1B (A),1A Get 1B (A),27,F003
+Mechanic,1A Get 1B (B),1A Get 1B (B),28,F003
+Mechanic,1A Get 2B (A),1A Get 2B (A),29,F003
+Mechanic,1A Get 2B (B),1A Get 2B (B),30,F003
+Mechanic,2A Get 1B (A),2A Get 1B (A),31,F003
+Mechanic,2A Get 1B (B),2A Get 1B (B),32,F003
+Mechanic,A (Coupon)+B (A),A (Coupon)+B (A),33,D003
+Mechanic,A (Coupon)+B (B),A (Coupon)+B (B),34,D003
