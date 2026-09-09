@@ -1,238 +1,239 @@
 # P010 / Price Off / Promo baseline
 
-<table>
-<tr><th>AB JSON</th><th>C JSON</th></tr>
-<tr><td><code>{</code></td><td><code>{</code></td></tr>
-<tr><td><code>  &quot;LAYOUT&quot;: &quot;AB&quot;,</code></td><td><code>  &quot;LAYOUT&quot;: &quot;C&quot;,</code></td></tr>
-<tr><td><code>  &quot;HEADER&quot;: {</code></td><td><code>  &quot;HEADER&quot;: {</code></td></tr>
-<tr><td><code>    &quot;group&quot;: &quot;MERCHANDISE SUPERMARKET(GROCERY FOOD)&quot;,</code></td><td><code>    &quot;theme&quot;: &quot;C011&quot;,</code></td></tr>
-<tr><td><code>    &quot;promotionName&quot;: &quot;M Price 09/2026&quot;,</code></td><td><code>    &quot;promotionName&quot;: &quot;M Price 09/2026&quot;,</code></td></tr>
-<tr><td><code>    &quot;purchasingGroup&quot;: &quot;C02&quot;,</code></td><td><code>    &quot;group&quot;: &quot;MERCHANDISE SUPERMARKET(GROCERY FOOD)&quot;,</code></td></tr>
-<tr><td><code>    &quot;theme&quot;: &quot;C011&quot;,</code></td><td><code>    &quot;purchasingGroup&quot;: &quot;C02&quot;,</code></td></tr>
-<tr><td><code>    &quot;bonusBuyProfile&quot;: &quot;D002&quot;,</code></td><td><code>    &quot;contractType&quot;: &quot;&quot;,</code></td></tr>
-<tr><td><code>    &quot;rebateChargeback&quot;: &quot;&quot;,</code></td><td><code>    &quot;bonusBuyProfile&quot;: &quot;D002&quot;,</code></td></tr>
-<tr><td><code>    &quot;contractType&quot;: &quot;&quot;,</code></td><td><code>    &quot;rebateChargeback&quot;: &quot;&quot;,</code></td></tr>
-<tr><td><code>    &quot;wbsNumber&quot;: &quot;AP.26.8883.10.CP.01&quot;,</code></td><td><code>    &quot;singleMultiple&quot;: &quot;Multiple&quot;,</code></td></tr>
-<tr><td><code>    &quot;vendorCode&quot;: &quot;NOBP&quot;,</code></td><td><code>    &quot;wbsNumber&quot;: &quot;AP.26.8883.10.CP.01&quot;,</code></td></tr>
-<tr><td><code>    &quot;vendorName&quot;: &quot;&quot;,</code></td><td><code>    &quot;volume&quot;: &quot;&quot;,</code></td></tr>
-<tr><td><code>    &quot;periodFrom&quot;: &quot;2026-09-19&quot;,</code></td><td><code>    &quot;vendorCode&quot;: &quot;&quot;,</code></td></tr>
-<tr><td><code>    &quot;periodTo&quot;: &quot;2026-09-29&quot;,</code></td><td><code>    &quot;vendorName&quot;: &quot;&quot;,</code></td></tr>
-<tr><td><code>    &quot;days&quot;: [</code></td><td><code>    &quot;periodFrom&quot;: &quot;2026-09-19&quot;,</code></td></tr>
-<tr><td><code>      &quot;All&quot;</code></td><td><code>    &quot;periodTo&quot;: &quot;2026-09-29&quot;,</code></td></tr>
-<tr><td><code>    ],</code></td><td><code>    &quot;timeFrom&quot;: &quot;&quot;,</code></td></tr>
-<tr><td><code>    &quot;singleMultiple&quot;: &quot;Multiple&quot;,</code></td><td><code>    &quot;timeTo&quot;: &quot;&quot;,</code></td></tr>
-<tr><td><code>    &quot;volume&quot;: &quot;&quot;,</code></td><td><code>    &quot;days&quot;: [</code></td></tr>
-<tr><td><code>    &quot;timeFrom&quot;: &quot;&quot;,</code></td><td><code>      &quot;All&quot;</code></td></tr>
-<tr><td><code>    &quot;timeTo&quot;: &quot;&quot;</code></td><td><code>    ],</code></td></tr>
-<tr><td><code>  },</code></td><td><code>    &quot;status&quot;: &quot;draft&quot;,</code></td></tr>
-<tr><td><code>  &quot;BONUSBUYS&quot;: [</code></td><td><code>    &quot;createdBy&quot;: &quot;pornpat.pp@gmail.com&quot;,</code></td></tr>
-<tr><td><code>    {</code></td><td><code>    &quot;created_by&quot;: &quot;pornpat.pp@gmail.com&quot;,</code></td></tr>
-<tr><td><code>      &quot;line_number&quot;: 1,</code></td><td><code>    &quot;updatedBy&quot;: &quot;pornpat.pp@gmail.com&quot;,</code></td></tr>
-<tr><td><code>      &quot;bonus_buy_number&quot;: &quot;1&quot;,</code></td><td><code>    &quot;updated_by&quot;: &quot;pornpat.pp@gmail.com&quot;</code></td></tr>
-<tr><td><code>      &quot;bonusBuyHeader&quot;: {</code></td><td><code>  },</code></td></tr>
-<tr><td><code>        &quot;bonus_buy_number&quot;: &quot;1&quot;,</code></td><td><code>  &quot;BONUSBUYS&quot;: [],</code></td></tr>
-<tr><td><code>        &quot;bonus_buy_profile&quot;: &quot;P010&quot;,</code></td><td><code>  &quot;CONDITIONS&quot;: [</code></td></tr>
-<tr><td><code>        &quot;mechanic&quot;: &quot;Price Off&quot;,</code></td><td><code>    {</code></td></tr>
-<tr><td><code>        &quot;wbs_number&quot;: &quot;AP.26.8883.10.CP.01&quot;,</code></td><td><code>      &quot;line_number&quot;: 0,</code></td></tr>
-<tr><td><code>        &quot;reference_code&quot;: &quot;&quot;,</code></td><td><code>      &quot;contract_number&quot;: &quot;1&quot;,</code></td></tr>
-<tr><td><code>        &quot;promotion_area&quot;: &quot;P1&quot;</code></td><td><code>      &quot;conditionHeader&quot;: {</code></td></tr>
-<tr><td><code>      },</code></td><td><code>        &quot;reason&quot;: &quot;X&quot;,</code></td></tr>
-<tr><td><code>      &quot;buy&quot;: [],</code></td><td><code>        &quot;contract_type&quot;: &quot;Z200&quot;,</code></td></tr>
-<tr><td><code>      &quot;get&quot;: [</code></td><td><code>        &quot;vendor&quot;: &quot;MSH02&quot;,</code></td></tr>
-<tr><td><code>        {</code></td><td><code>        &quot;vendor_name&quot;: &quot;บริษัท เอ็ม. เอส. ฮานาโซโน&quot;,</code></td></tr>
-<tr><td><code>          &quot;bonus_buy_number&quot;: &quot;1&quot;,</code></td><td><code>        &quot;department_mer&quot;: &quot;Mer C&quot;,</code></td></tr>
-<tr><td><code>          &quot;material_or_group_type&quot;: &quot;Material Group&quot;,</code></td><td><code>        &quot;start&quot;: &quot;19.09.2026&quot;,</code></td></tr>
-<tr><td><code>          &quot;material_or_group_code&quot;: &quot;MM8D1C22C1&quot;,</code></td><td><code>        &quot;end&quot;: &quot;29.09.2026&quot;,</code></td></tr>
-<tr><td><code>          &quot;get_quantity&quot;: 1,</code></td><td><code>        &quot;payment_method&quot;: &quot;M&quot;,</code></td></tr>
-<tr><td><code>          &quot;material_or_group_description&quot;: &quot;แคนเมค มาร์ชเมลโลว์พาวเดอร์อะบลูม#01&quot;,</code></td><td><code>        &quot;sales_organization&quot;: &quot;2009&quot;,</code></td></tr>
-<tr><td><code>          &quot;sap_master_description&quot;: &quot;CANMAKE MARSHMALLOW POWDER ABLOOM #01&quot;,</code></td><td><code>        &quot;settlement_option&quot;: &quot;1&quot;,</code></td></tr>
-<tr><td><code>          &quot;normal_cost_price_excluding_vat&quot;: &quot;329.72&quot;,</code></td><td><code>        &quot;header_text&quot;: &quot;M-Price&quot;,</code></td></tr>
-<tr><td><code>          &quot;normal_sales_price&quot;: &quot;490&quot;,</code></td><td><code>        &quot;additional_text&quot;: &quot;M-Price&quot;,</code></td></tr>
-<tr><td><code>          &quot;promotion_cost_price_excluding_vat&quot;: &quot;352.8&quot;,</code></td><td><code>        &quot;department&quot;: &quot;DEP033&quot;</code></td></tr>
-<tr><td><code>          &quot;promotion_price_thb&quot;: &quot;500&quot;,</code></td><td><code>      },</code></td></tr>
-<tr><td><code>          &quot;ean&quot;: &quot;4901008314037&quot;,</code></td><td><code>      &quot;businessVolumePurchase&quot;: [</code></td></tr>
-<tr><td><code>          &quot;unit&quot;: &quot;EA&quot;</code></td><td><code>        {</code></td></tr>
-<tr><td><code>        }</code></td><td><code>          &quot;set_of_field_combination&quot;: &quot;BVCU&quot;,</code></td></tr>
-<tr><td><code>      ],</code></td><td><code>          &quot;field_combination&quot;: &quot;Z256&quot;,</code></td></tr>
-<tr><td><code>      &quot;stores&quot;: [</code></td><td><code>          &quot;text_field_combination&quot;: &quot;Vendor, Material, Cond. Type, Sales Unit&quot;,</code></td></tr>
-<tr><td><code>        &quot;13KA&quot;,</code></td><td><code>          &quot;inclusive_exclusive&quot;: &quot;Inclusive&quot;,</code></td></tr>
-<tr><td><code>        &quot;14KA&quot;,</code></td><td><code>          &quot;contract_number&quot;: &quot;1&quot;</code></td></tr>
-<tr><td><code>        &quot;15KA&quot;,</code></td><td><code>        }</code></td></tr>
-<tr><td><code>        &quot;16KA&quot;,</code></td><td><code>      ],</code></td></tr>
-<tr><td><code>        &quot;17KA&quot;,</code></td><td><code>      &quot;businessVolumeSales&quot;: [</code></td></tr>
-<tr><td><code>        &quot;30KA&quot;,</code></td><td><code>        {</code></td></tr>
-<tr><td><code>        &quot;31KA&quot;,</code></td><td><code>          &quot;set_of_field_combination&quot;: &quot;BVCU&quot;,</code></td></tr>
-<tr><td><code>        &quot;32KA&quot;,</code></td><td><code>          &quot;field_combination&quot;: &quot;Z256&quot;,</code></td></tr>
-<tr><td><code>        &quot;33KA&quot;,</code></td><td><code>          &quot;text_field_combination&quot;: &quot;Vendor, Material, Cond. Type, Sales Unit&quot;,</code></td></tr>
-<tr><td><code>        &quot;34KA&quot;,</code></td><td><code>          &quot;inclusive_exclusive&quot;: &quot;Inclusive&quot;,</code></td></tr>
-<tr><td><code>        &quot;60KA&quot;,</code></td><td><code>          &quot;selection_group&quot;: &quot;Z001&quot;,</code></td></tr>
-<tr><td><code>        &quot;61KA&quot;,</code></td><td><code>          &quot;vendor&quot;: &quot;MSH02&quot;,</code></td></tr>
-<tr><td><code>        &quot;64KA&quot;,</code></td><td><code>          &quot;vendor_name&quot;: &quot;บริษัท เอ็ม. เอส. ฮานาโซโน&quot;,</code></td></tr>
-<tr><td><code>        &quot;65KA&quot;,</code></td><td><code>          &quot;bonus_buy&quot;: &quot;1&quot;,</code></td></tr>
-<tr><td><code>        &quot;66KA&quot;,</code></td><td><code>          &quot;contract_number&quot;: &quot;1&quot;</code></td></tr>
-<tr><td><code>        &quot;67KA&quot;,</code></td><td><code>        }</code></td></tr>
-<tr><td><code>        &quot;91KA&quot;,</code></td><td><code>      ],</code></td></tr>
-<tr><td><code>        &quot;92KA&quot;</code></td><td><code>      &quot;conditionType&quot;: [</code></td></tr>
-<tr><td><code>      ],</code></td><td><code>        {</code></td></tr>
-<tr><td><code>      &quot;card&quot;: [],</code></td><td><code>          &quot;condition_table&quot;: &quot;V 163&quot;,</code></td></tr>
-<tr><td><code>      &quot;tender&quot;: [],</code></td><td><code>          &quot;condition_type&quot;: &quot;1&quot;,</code></td></tr>
-<tr><td><code>      &quot;installment&quot;: [],</code></td><td><code>          &quot;brand_name&quot;: &quot;บริษัท เอ็ม. เอส. ฮานาโซโน&quot;,</code></td></tr>
-<tr><td><code>      &quot;posTerminal&quot;: [],</code></td><td><code>          &quot;valid_from&quot;: &quot;19.09.2026&quot;,</code></td></tr>
-<tr><td><code>      &quot;premium&quot;: [],</code></td><td><code>          &quot;valid_to&quot;: &quot;29.09.2026&quot;,</code></td></tr>
-<tr><td><code>      &quot;coupon&quot;: [],</code></td><td><code>          &quot;condition_rate&quot;: 1,</code></td></tr>
-<tr><td><code>      &quot;limitControl&quot;: []</code></td><td><code>          &quot;condition_unit&quot;: &quot;1&quot;,</code></td></tr>
-<tr><td><code>    }</code></td><td><code>          &quot;scale_unit&quot;: &quot;EA&quot;,</code></td></tr>
-<tr><td><code>  ],</code></td><td><code>          &quot;contract_number&quot;: &quot;1&quot;</code></td></tr>
-<tr><td><code>  &quot;CONDITIONS&quot;: [</code></td><td><code>        }</code></td></tr>
-<tr><td><code>    {</code></td><td><code>      ],</code></td></tr>
-<tr><td><code>      &quot;line_number&quot;: 0,</code></td><td><code>      &quot;settlementCalendar&quot;: [],</code></td></tr>
-<tr><td><code>      &quot;contract_number&quot;: &quot;1&quot;,</code></td><td><code>      &quot;combineCheck&quot;: [],</code></td></tr>
-<tr><td><code>      &quot;conditionHeader&quot;: {</code></td><td><code>      &quot;allocation&quot;: []</code></td></tr>
-<tr><td><code>        &quot;reason&quot;: &quot;X&quot;,</code></td><td><code>    }</code></td></tr>
-<tr><td><code>        &quot;contract_type&quot;: &quot;Z200&quot;,</code></td><td><code>  ],</code></td></tr>
-<tr><td><code>        &quot;vendor&quot;: &quot;MSH02&quot;,</code></td><td><code>  &quot;MATERIALS&quot;: [</code></td></tr>
-<tr><td><code>        &quot;vendor_name&quot;: &quot;บริษัท เอ็ม. เอส. ฮานาโซโน&quot;,</code></td><td><code>    {</code></td></tr>
-<tr><td><code>        &quot;department_mer&quot;: &quot;Mer C&quot;,</code></td><td><code>      &quot;line_number&quot;: 0,</code></td></tr>
-<tr><td><code>        &quot;start&quot;: &quot;19.09.2026&quot;,</code></td><td><code>      &quot;number_of_promotion&quot;: 1,</code></td></tr>
-<tr><td><code>        &quot;end&quot;: &quot;29.09.2026&quot;,</code></td><td><code>      &quot;number_of_material_grouping&quot;: 1,</code></td></tr>
-<tr><td><code>        &quot;payment_method&quot;: &quot;M&quot;,</code></td><td><code>      &quot;mch&quot;: &quot;HBA&quot;,</code></td></tr>
-<tr><td><code>        &quot;sales_organization&quot;: &quot;2009&quot;,</code></td><td><code>      &quot;purchasing_group&quot;: &quot;C05&quot;,</code></td></tr>
-<tr><td><code>        &quot;settlement_option&quot;: &quot;1&quot;,</code></td><td><code>      &quot;material&quot;: &quot;1000728050&quot;,</code></td></tr>
-<tr><td><code>        &quot;header_text&quot;: &quot;M-Price&quot;,</code></td><td><code>      &quot;barcode&quot;: &quot;4901008314037&quot;,</code></td></tr>
-<tr><td><code>        &quot;additional_text&quot;: &quot;M-Price&quot;,</code></td><td><code>      &quot;material_description_th&quot;: &quot;แคนเมค มาร์ชเมลโลว์พาวเดอร์อะบลูม#01&quot;,</code></td></tr>
-<tr><td><code>        &quot;department&quot;: &quot;DEP033&quot;</code></td><td><code>      &quot;material_description_en&quot;: &quot;CANMAKE MARSHMALLOW POWDER ABLOOM #01&quot;,</code></td></tr>
-<tr><td><code>      },</code></td><td><code>      &quot;vendor&quot;: &quot;MSH02&quot;,</code></td></tr>
-<tr><td><code>      &quot;businessVolumePurchase&quot;: [</code></td><td><code>      &quot;vendor_description&quot;: &quot;บริษัท เอ็ม. เอส. ฮานาโซโน&quot;,</code></td></tr>
-<tr><td><code>        {</code></td><td><code>      &quot;flow_type&quot;: &quot;DS&quot;,</code></td></tr>
-<tr><td><code>          &quot;set_of_field_combination&quot;: &quot;BVCU&quot;,</code></td><td><code>      &quot;pack_size&quot;: 1,</code></td></tr>
-<tr><td><code>          &quot;field_combination&quot;: &quot;Z256&quot;,</code></td><td><code>      &quot;sales_unit&quot;: &quot;EA&quot;,</code></td></tr>
-<tr><td><code>          &quot;text_field_combination&quot;: &quot;Vendor, Material, Cond. Type, Sales Unit&quot;,</code></td><td><code>      &quot;sales_tax&quot;: &quot;V&quot;,</code></td></tr>
-<tr><td><code>          &quot;inclusive_exclusive&quot;: &quot;Inclusive&quot;,</code></td><td><code>      &quot;cost_price_case_excl_vat_normal&quot;: 329.72,</code></td></tr>
-<tr><td><code>          &quot;contract_number&quot;: &quot;1&quot;</code></td><td><code>      &quot;cost_price_unit_inc_vat_normal&quot;: 352.8,</code></td></tr>
-<tr><td><code>        }</code></td><td><code>      &quot;cost_price_unit_inc_vat_promo&quot;: &quot;352.8&quot;,</code></td></tr>
-<tr><td><code>      ],</code></td><td><code>      &quot;sales_price_normal&quot;: 490,</code></td></tr>
-<tr><td><code>      &quot;businessVolumeSales&quot;: [</code></td><td><code>      &quot;sales_price_promotion&quot;: 500,</code></td></tr>
-<tr><td><code>        {</code></td><td><code>      &quot;bonus_buy_profile&quot;: &quot;P010&quot;,</code></td></tr>
-<tr><td><code>          &quot;set_of_field_combination&quot;: &quot;BVCU&quot;,</code></td><td><code>      &quot;mechanic&quot;: &quot;Price Off&quot;,</code></td></tr>
-<tr><td><code>          &quot;field_combination&quot;: &quot;Z256&quot;,</code></td><td><code>      &quot;discount_percent_deal&quot;: &quot;2.04%&quot;,</code></td></tr>
-<tr><td><code>          &quot;text_field_combination&quot;: &quot;Vendor, Material, Cond. Type, Sales Unit&quot;,</code></td><td><code>      &quot;gross_profit_normal&quot;: &quot;28%&quot;,</code></td></tr>
-<tr><td><code>          &quot;inclusive_exclusive&quot;: &quot;Inclusive&quot;,</code></td><td><code>      &quot;gross_profit_promotion&quot;: &quot;29.44%&quot;,</code></td></tr>
-<tr><td><code>          &quot;selection_group&quot;: &quot;Z001&quot;,</code></td><td><code>      &quot;forecast_quantity&quot;: &quot;-&quot;,</code></td></tr>
-<tr><td><code>          &quot;vendor&quot;: &quot;MSH02&quot;,</code></td><td><code>      &quot;forecast_amount&quot;: &quot;-&quot;,</code></td></tr>
-<tr><td><code>          &quot;vendor_name&quot;: &quot;บริษัท เอ็ม. เอส. ฮานาโซโน&quot;,</code></td><td><code>      &quot;sales_quantity_1_month_ago&quot;: 8,</code></td></tr>
-<tr><td><code>          &quot;bonus_buy&quot;: &quot;1&quot;,</code></td><td><code>      &quot;sales_quantity_2_months_ago&quot;: 4,</code></td></tr>
-<tr><td><code>          &quot;contract_number&quot;: &quot;1&quot;</code></td><td><code>      &quot;sales_quantity_3_months_ago&quot;: 7,</code></td></tr>
-<tr><td><code>        }</code></td><td><code>      &quot;stores&quot;: [</code></td></tr>
-<tr><td><code>      ],</code></td><td><code>        &quot;13KA&quot;,</code></td></tr>
-<tr><td><code>      &quot;conditionType&quot;: [</code></td><td><code>        &quot;14KA&quot;,</code></td></tr>
-<tr><td><code>        {</code></td><td><code>        &quot;15KA&quot;,</code></td></tr>
-<tr><td><code>          &quot;condition_table&quot;: &quot;V 163&quot;,</code></td><td><code>        &quot;16KA&quot;,</code></td></tr>
-<tr><td><code>          &quot;condition_type&quot;: &quot;1&quot;,</code></td><td><code>        &quot;17KA&quot;,</code></td></tr>
-<tr><td><code>          &quot;brand_name&quot;: &quot;บริษัท เอ็ม. เอส. ฮานาโซโน&quot;,</code></td><td><code>        &quot;30KA&quot;,</code></td></tr>
-<tr><td><code>          &quot;valid_from&quot;: &quot;19.09.2026&quot;,</code></td><td><code>        &quot;31KA&quot;,</code></td></tr>
-<tr><td><code>          &quot;valid_to&quot;: &quot;29.09.2026&quot;,</code></td><td><code>        &quot;32KA&quot;,</code></td></tr>
-<tr><td><code>          &quot;condition_rate&quot;: 1,</code></td><td><code>        &quot;33KA&quot;,</code></td></tr>
-<tr><td><code>          &quot;condition_unit&quot;: &quot;1&quot;,</code></td><td><code>        &quot;34KA&quot;,</code></td></tr>
-<tr><td><code>          &quot;scale_unit&quot;: &quot;EA&quot;,</code></td><td><code>        &quot;60KA&quot;,</code></td></tr>
-<tr><td><code>          &quot;contract_number&quot;: &quot;1&quot;</code></td><td><code>        &quot;61KA&quot;,</code></td></tr>
-<tr><td><code>        }</code></td><td><code>        &quot;64KA&quot;,</code></td></tr>
-<tr><td><code>      ],</code></td><td><code>        &quot;65KA&quot;,</code></td></tr>
-<tr><td><code>      &quot;settlementCalendar&quot;: [],</code></td><td><code>        &quot;66KA&quot;,</code></td></tr>
-<tr><td><code>      &quot;combineCheck&quot;: [],</code></td><td><code>        &quot;67KA&quot;,</code></td></tr>
-<tr><td><code>      &quot;allocation&quot;: []</code></td><td><code>        &quot;91KA&quot;,</code></td></tr>
-<tr><td><code>    }</code></td><td><code>        &quot;92KA&quot;</code></td></tr>
-<tr><td><code>  ],</code></td><td><code>      ],</code></td></tr>
-<tr><td><code>  &quot;MATERIALS&quot;: [</code></td><td><code>      &quot;planogramStore&quot;: [</code></td></tr>
-<tr><td><code>    {</code></td><td><code>        {</code></td></tr>
-<tr><td><code>      &quot;number_of_promotion&quot;: 1,</code></td><td><code>          &quot;storeCode&quot;: &quot;16KA&quot;,</code></td></tr>
-<tr><td><code>      &quot;number_of_material_grouping&quot;: 1,</code></td><td><code>          &quot;store_code&quot;: &quot;16KA&quot;,</code></td></tr>
-<tr><td><code>      &quot;mch&quot;: &quot;HBA&quot;,</code></td><td><code>          &quot;quantity&quot;: 6</code></td></tr>
-<tr><td><code>      &quot;purchasing_group&quot;: &quot;C05&quot;,</code></td><td><code>        },</code></td></tr>
-<tr><td><code>      &quot;material&quot;: &quot;1000728050&quot;,</code></td><td><code>        {</code></td></tr>
-<tr><td><code>      &quot;barcode&quot;: &quot;4901008314037&quot;,</code></td><td><code>          &quot;storeCode&quot;: &quot;17KA&quot;,</code></td></tr>
-<tr><td><code>      &quot;material_description_th&quot;: &quot;แคนเมค มาร์ชเมลโลว์พาวเดอร์อะบลูม#01&quot;,</code></td><td><code>          &quot;store_code&quot;: &quot;17KA&quot;,</code></td></tr>
-<tr><td><code>      &quot;material_description_en&quot;: &quot;CANMAKE MARSHMALLOW POWDER ABLOOM #01&quot;,</code></td><td><code>          &quot;quantity&quot;: 6</code></td></tr>
-<tr><td><code>      &quot;vendor&quot;: &quot;MSH02&quot;,</code></td><td><code>        },</code></td></tr>
-<tr><td><code>      &quot;vendor_description&quot;: &quot;บริษัท เอ็ม. เอส. ฮานาโซโน&quot;,</code></td><td><code>        {</code></td></tr>
-<tr><td><code>      &quot;flow_type&quot;: &quot;DS&quot;,</code></td><td><code>          &quot;storeCode&quot;: &quot;30KA&quot;,</code></td></tr>
-<tr><td><code>      &quot;pack_size&quot;: 1,</code></td><td><code>          &quot;store_code&quot;: &quot;30KA&quot;,</code></td></tr>
-<tr><td><code>      &quot;sales_unit&quot;: &quot;EA&quot;,</code></td><td><code>          &quot;quantity&quot;: 6</code></td></tr>
-<tr><td><code>      &quot;sales_tax&quot;: &quot;V&quot;,</code></td><td><code>        },</code></td></tr>
-<tr><td><code>      &quot;cost_price_case_excl_vat_normal&quot;: 329.72,</code></td><td><code>        {</code></td></tr>
-<tr><td><code>      &quot;cost_price_unit_inc_vat_normal&quot;: 352.8,</code></td><td><code>          &quot;storeCode&quot;: &quot;32KA&quot;,</code></td></tr>
-<tr><td><code>      &quot;cost_price_unit_inc_vat_promo&quot;: &quot;352.8&quot;,</code></td><td><code>          &quot;store_code&quot;: &quot;32KA&quot;,</code></td></tr>
-<tr><td><code>      &quot;sales_price_normal&quot;: 490,</code></td><td><code>          &quot;quantity&quot;: 6</code></td></tr>
-<tr><td><code>      &quot;sales_price_promotion&quot;: 500,</code></td><td><code>        },</code></td></tr>
-<tr><td><code>      &quot;bonus_buy_profile&quot;: &quot;P010&quot;,</code></td><td><code>        {</code></td></tr>
-<tr><td><code>      &quot;mechanic&quot;: &quot;Price Off&quot;,</code></td><td><code>          &quot;storeCode&quot;: &quot;34KA&quot;,</code></td></tr>
-<tr><td><code>      &quot;discount_percent_deal&quot;: &quot;2.04%&quot;,</code></td><td><code>          &quot;store_code&quot;: &quot;34KA&quot;,</code></td></tr>
-<tr><td><code>      &quot;gross_profit_normal&quot;: &quot;28%&quot;,</code></td><td><code>          &quot;quantity&quot;: 6</code></td></tr>
-<tr><td><code>      &quot;gross_profit_promotion&quot;: &quot;29.44%&quot;,</code></td><td><code>        }</code></td></tr>
-<tr><td><code>      &quot;forecast_quantity&quot;: &quot;-&quot;,</code></td><td><code>      ]</code></td></tr>
-<tr><td><code>      &quot;forecast_amount&quot;: &quot;-&quot;,</code></td><td><code>    }</code></td></tr>
-<tr><td><code>      &quot;sales_quantity_1_month_ago&quot;: 8,</code></td><td><code>  ],</code></td></tr>
-<tr><td><code>      &quot;sales_quantity_2_months_ago&quot;: 4,</code></td><td><code>  &quot;MATERIALGROUPINGS&quot;: [],</code></td></tr>
-<tr><td><code>      &quot;sales_quantity_3_months_ago&quot;: 7,</code></td><td><code>  &quot;STATUS&quot;: &quot;PENDING_VERIFICATION&quot;</code></td></tr>
-<tr><td><code>      &quot;stores&quot;: [</code></td><td><code>}</code></td></tr>
-<tr><td><code>        &quot;13KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        &quot;14KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        &quot;15KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        &quot;16KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        &quot;17KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        &quot;30KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        &quot;31KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        &quot;32KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        &quot;33KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        &quot;34KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        &quot;60KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        &quot;61KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        &quot;64KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        &quot;65KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        &quot;66KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        &quot;67KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        &quot;91KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        &quot;92KA&quot;</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>      ],</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>      &quot;planogramStore&quot;: [</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        {</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>          &quot;storeCode&quot;: &quot;16KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>          &quot;store_code&quot;: &quot;16KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>          &quot;quantity&quot;: 6</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        },</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        {</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>          &quot;storeCode&quot;: &quot;17KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>          &quot;store_code&quot;: &quot;17KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>          &quot;quantity&quot;: 6</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        },</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        {</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>          &quot;storeCode&quot;: &quot;30KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>          &quot;store_code&quot;: &quot;30KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>          &quot;quantity&quot;: 6</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        },</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        {</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>          &quot;storeCode&quot;: &quot;32KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>          &quot;store_code&quot;: &quot;32KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>          &quot;quantity&quot;: 6</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        },</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        {</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>          &quot;storeCode&quot;: &quot;34KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>          &quot;store_code&quot;: &quot;34KA&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>          &quot;quantity&quot;: 6</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>        }</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>      ],</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>      &quot;line_number&quot;: 1</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>    }</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>  ],</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>  &quot;MATERIALGROUPINGS&quot;: [</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>    {</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>      &quot;line_number&quot;: 1,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>      &quot;running_number&quot;: &quot;1&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>      &quot;grouping_name&quot;: &quot;MM8D1C22C1&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>      &quot;description&quot;: &quot;MM8D1C22C1&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>      &quot;category&quot;: &quot;1 - Material No.&quot;,</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>      &quot;component&quot;: &quot;1000728050&quot;</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>    }</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>  ],</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>  &quot;STATUS&quot;: &quot;PENDING_VERIFICATION&quot;</code></td><td><code>&nbsp;</code></td></tr>
-<tr><td><code>}</code></td><td><code>&nbsp;</code></td></tr>
-</table>
+```text
+AB JSON                                                                            | C JSON
+-----------------------------------------------------------------------------------+-----------------------------------------
+{                                                                                  | {
+  "LAYOUT": "AB",                                                                  |   "LAYOUT": "C",
+  "HEADER": {                                                                      |   "HEADER": {
+    "group": "MERCHANDISE SUPERMARKET(GROCERY FOOD)",                              |     "theme": "C011",
+    "promotionName": "M Price 09/2026",                                            |     "promotionName": "M Price 09/2026",
+    "purchasingGroup": "C02",                                                      |     "group": "MERCHANDISE SUPERMARKET(GROCERY FOOD)",
+    "theme": "C011",                                                               |     "purchasingGroup": "C02",
+    "bonusBuyProfile": "D002",                                                     |     "contractType": "",
+    "rebateChargeback": "",                                                        |     "bonusBuyProfile": "D002",
+    "contractType": "",                                                            |     "rebateChargeback": "",
+    "wbsNumber": "AP.26.8883.10.CP.01",                                            |     "singleMultiple": "Multiple",
+    "vendorCode": "NOBP",                                                          |     "wbsNumber": "AP.26.8883.10.CP.01",
+    "vendorName": "",                                                              |     "volume": "",
+    "periodFrom": "2026-09-19",                                                    |     "vendorCode": "",
+    "periodTo": "2026-09-29",                                                      |     "vendorName": "",
+    "days": [                                                                      |     "periodFrom": "2026-09-19",
+      "All"                                                                        |     "periodTo": "2026-09-29",
+    ],                                                                             |     "timeFrom": "",
+    "singleMultiple": "Multiple",                                                  |     "timeTo": "",
+    "volume": "",                                                                  |     "days": [
+    "timeFrom": "",                                                                |       "All"
+    "timeTo": ""                                                                   |     ],
+  },                                                                               |     "status": "draft",
+  "BONUSBUYS": [                                                                   |     "createdBy": "pornpat.pp@gmail.com",
+    {                                                                              |     "created_by": "pornpat.pp@gmail.com",
+      "line_number": 1,                                                            |     "updatedBy": "pornpat.pp@gmail.com",
+      "bonus_buy_number": "1",                                                     |     "updated_by": "pornpat.pp@gmail.com"
+      "bonusBuyHeader": {                                                          |   },
+        "bonus_buy_number": "1",                                                   |   "BONUSBUYS": [],
+        "bonus_buy_profile": "P010",                                               |   "CONDITIONS": [
+        "mechanic": "Price Off",                                                   |     {
+        "wbs_number": "AP.26.8883.10.CP.01",                                       |       "line_number": 0,
+        "reference_code": "",                                                      |       "contract_number": "1",
+        "promotion_area": "P1"                                                     |       "conditionHeader": {
+      },                                                                           |         "reason": "X",
+      "buy": [],                                                                   |         "contract_type": "Z200",
+      "get": [                                                                     |         "vendor": "MSH02",
+        {                                                                          |         "vendor_name": "บริษัท เอ็ม. เอส. ฮานาโซโน",
+          "bonus_buy_number": "1",                                                 |         "department_mer": "Mer C",
+          "material_or_group_type": "Material Group",                              |         "start": "19.09.2026",
+          "material_or_group_code": "MM8D1C22C1",                                  |         "end": "29.09.2026",
+          "get_quantity": 1,                                                       |         "payment_method": "M",
+          "material_or_group_description": "แคนเมค มาร์ชเมลโลว์พาวเดอร์อะบลูม#01", |         "sales_organization": "2009",
+          "sap_master_description": "CANMAKE MARSHMALLOW POWDER ABLOOM #01",       |         "settlement_option": "1",
+          "normal_cost_price_excluding_vat": "329.72",                             |         "header_text": "M-Price",
+          "normal_sales_price": "490",                                             |         "additional_text": "M-Price",
+          "promotion_cost_price_excluding_vat": "352.8",                           |         "department": "DEP033"
+          "promotion_price_thb": "500",                                            |       },
+          "ean": "4901008314037",                                                  |       "businessVolumePurchase": [
+          "unit": "EA"                                                             |         {
+        }                                                                          |           "set_of_field_combination": "BVCU",
+      ],                                                                           |           "field_combination": "Z256",
+      "stores": [                                                                  |           "text_field_combination": "Vendor, Material, Cond. Type, Sales Unit",
+        "13KA",                                                                    |           "inclusive_exclusive": "Inclusive",
+        "14KA",                                                                    |           "contract_number": "1"
+        "15KA",                                                                    |         }
+        "16KA",                                                                    |       ],
+        "17KA",                                                                    |       "businessVolumeSales": [
+        "30KA",                                                                    |         {
+        "31KA",                                                                    |           "set_of_field_combination": "BVCU",
+        "32KA",                                                                    |           "field_combination": "Z256",
+        "33KA",                                                                    |           "text_field_combination": "Vendor, Material, Cond. Type, Sales Unit",
+        "34KA",                                                                    |           "inclusive_exclusive": "Inclusive",
+        "60KA",                                                                    |           "selection_group": "Z001",
+        "61KA",                                                                    |           "vendor": "MSH02",
+        "64KA",                                                                    |           "vendor_name": "บริษัท เอ็ม. เอส. ฮานาโซโน",
+        "65KA",                                                                    |           "bonus_buy": "1",
+        "66KA",                                                                    |           "contract_number": "1"
+        "67KA",                                                                    |         }
+        "91KA",                                                                    |       ],
+        "92KA"                                                                     |       "conditionType": [
+      ],                                                                           |         {
+      "card": [],                                                                  |           "condition_table": "V 163",
+      "tender": [],                                                                |           "condition_type": "1",
+      "installment": [],                                                           |           "brand_name": "บริษัท เอ็ม. เอส. ฮานาโซโน",
+      "posTerminal": [],                                                           |           "valid_from": "19.09.2026",
+      "premium": [],                                                               |           "valid_to": "29.09.2026",
+      "coupon": [],                                                                |           "condition_rate": 1,
+      "limitControl": []                                                           |           "condition_unit": "1",
+    }                                                                              |           "scale_unit": "EA",
+  ],                                                                               |           "contract_number": "1"
+  "CONDITIONS": [                                                                  |         }
+    {                                                                              |       ],
+      "line_number": 0,                                                            |       "settlementCalendar": [],
+      "contract_number": "1",                                                      |       "combineCheck": [],
+      "conditionHeader": {                                                         |       "allocation": []
+        "reason": "X",                                                             |     }
+        "contract_type": "Z200",                                                   |   ],
+        "vendor": "MSH02",                                                         |   "MATERIALS": [
+        "vendor_name": "บริษัท เอ็ม. เอส. ฮานาโซโน",                               |     {
+        "department_mer": "Mer C",                                                 |       "line_number": 0,
+        "start": "19.09.2026",                                                     |       "number_of_promotion": 1,
+        "end": "29.09.2026",                                                       |       "number_of_material_grouping": 1,
+        "payment_method": "M",                                                     |       "mch": "HBA",
+        "sales_organization": "2009",                                              |       "purchasing_group": "C05",
+        "settlement_option": "1",                                                  |       "material": "1000728050",
+        "header_text": "M-Price",                                                  |       "barcode": "4901008314037",
+        "additional_text": "M-Price",                                              |       "material_description_th": "แคนเมค มาร์ชเมลโลว์พาวเดอร์อะบลูม#01",
+        "department": "DEP033"                                                     |       "material_description_en": "CANMAKE MARSHMALLOW POWDER ABLOOM #01",
+      },                                                                           |       "vendor": "MSH02",
+      "businessVolumePurchase": [                                                  |       "vendor_description": "บริษัท เอ็ม. เอส. ฮานาโซโน",
+        {                                                                          |       "flow_type": "DS",
+          "set_of_field_combination": "BVCU",                                      |       "pack_size": 1,
+          "field_combination": "Z256",                                             |       "sales_unit": "EA",
+          "text_field_combination": "Vendor, Material, Cond. Type, Sales Unit",    |       "sales_tax": "V",
+          "inclusive_exclusive": "Inclusive",                                      |       "cost_price_case_excl_vat_normal": 329.72,
+          "contract_number": "1"                                                   |       "cost_price_unit_inc_vat_normal": 352.8,
+        }                                                                          |       "cost_price_unit_inc_vat_promo": "352.8",
+      ],                                                                           |       "sales_price_normal": 490,
+      "businessVolumeSales": [                                                     |       "sales_price_promotion": 500,
+        {                                                                          |       "bonus_buy_profile": "P010",
+          "set_of_field_combination": "BVCU",                                      |       "mechanic": "Price Off",
+          "field_combination": "Z256",                                             |       "discount_percent_deal": "2.04%",
+          "text_field_combination": "Vendor, Material, Cond. Type, Sales Unit",    |       "gross_profit_normal": "28%",
+          "inclusive_exclusive": "Inclusive",                                      |       "gross_profit_promotion": "29.44%",
+          "selection_group": "Z001",                                               |       "forecast_quantity": "-",
+          "vendor": "MSH02",                                                       |       "forecast_amount": "-",
+          "vendor_name": "บริษัท เอ็ม. เอส. ฮานาโซโน",                             |       "sales_quantity_1_month_ago": 8,
+          "bonus_buy": "1",                                                        |       "sales_quantity_2_months_ago": 4,
+          "contract_number": "1"                                                   |       "sales_quantity_3_months_ago": 7,
+        }                                                                          |       "stores": [
+      ],                                                                           |         "13KA",
+      "conditionType": [                                                           |         "14KA",
+        {                                                                          |         "15KA",
+          "condition_table": "V 163",                                              |         "16KA",
+          "condition_type": "1",                                                   |         "17KA",
+          "brand_name": "บริษัท เอ็ม. เอส. ฮานาโซโน",                              |         "30KA",
+          "valid_from": "19.09.2026",                                              |         "31KA",
+          "valid_to": "29.09.2026",                                                |         "32KA",
+          "condition_rate": 1,                                                     |         "33KA",
+          "condition_unit": "1",                                                   |         "34KA",
+          "scale_unit": "EA",                                                      |         "60KA",
+          "contract_number": "1"                                                   |         "61KA",
+        }                                                                          |         "64KA",
+      ],                                                                           |         "65KA",
+      "settlementCalendar": [],                                                    |         "66KA",
+      "combineCheck": [],                                                          |         "67KA",
+      "allocation": []                                                             |         "91KA",
+    }                                                                              |         "92KA"
+  ],                                                                               |       ],
+  "MATERIALS": [                                                                   |       "planogramStore": [
+    {                                                                              |         {
+      "number_of_promotion": 1,                                                    |           "storeCode": "16KA",
+      "number_of_material_grouping": 1,                                            |           "store_code": "16KA",
+      "mch": "HBA",                                                                |           "quantity": 6
+      "purchasing_group": "C05",                                                   |         },
+      "material": "1000728050",                                                    |         {
+      "barcode": "4901008314037",                                                  |           "storeCode": "17KA",
+      "material_description_th": "แคนเมค มาร์ชเมลโลว์พาวเดอร์อะบลูม#01",           |           "store_code": "17KA",
+      "material_description_en": "CANMAKE MARSHMALLOW POWDER ABLOOM #01",          |           "quantity": 6
+      "vendor": "MSH02",                                                           |         },
+      "vendor_description": "บริษัท เอ็ม. เอส. ฮานาโซโน",                          |         {
+      "flow_type": "DS",                                                           |           "storeCode": "30KA",
+      "pack_size": 1,                                                              |           "store_code": "30KA",
+      "sales_unit": "EA",                                                          |           "quantity": 6
+      "sales_tax": "V",                                                            |         },
+      "cost_price_case_excl_vat_normal": 329.72,                                   |         {
+      "cost_price_unit_inc_vat_normal": 352.8,                                     |           "storeCode": "32KA",
+      "cost_price_unit_inc_vat_promo": "352.8",                                    |           "store_code": "32KA",
+      "sales_price_normal": 490,                                                   |           "quantity": 6
+      "sales_price_promotion": 500,                                                |         },
+      "bonus_buy_profile": "P010",                                                 |         {
+      "mechanic": "Price Off",                                                     |           "storeCode": "34KA",
+      "discount_percent_deal": "2.04%",                                            |           "store_code": "34KA",
+      "gross_profit_normal": "28%",                                                |           "quantity": 6
+      "gross_profit_promotion": "29.44%",                                          |         }
+      "forecast_quantity": "-",                                                    |       ]
+      "forecast_amount": "-",                                                      |     }
+      "sales_quantity_1_month_ago": 8,                                             |   ],
+      "sales_quantity_2_months_ago": 4,                                            |   "MATERIALGROUPINGS": [],
+      "sales_quantity_3_months_ago": 7,                                            |   "STATUS": "PENDING_VERIFICATION"
+      "stores": [                                                                  | }
+        "13KA",                                                                    | 
+        "14KA",                                                                    | 
+        "15KA",                                                                    | 
+        "16KA",                                                                    | 
+        "17KA",                                                                    | 
+        "30KA",                                                                    | 
+        "31KA",                                                                    | 
+        "32KA",                                                                    | 
+        "33KA",                                                                    | 
+        "34KA",                                                                    | 
+        "60KA",                                                                    | 
+        "61KA",                                                                    | 
+        "64KA",                                                                    | 
+        "65KA",                                                                    | 
+        "66KA",                                                                    | 
+        "67KA",                                                                    | 
+        "91KA",                                                                    | 
+        "92KA"                                                                     | 
+      ],                                                                           | 
+      "planogramStore": [                                                          | 
+        {                                                                          | 
+          "storeCode": "16KA",                                                     | 
+          "store_code": "16KA",                                                    | 
+          "quantity": 6                                                            | 
+        },                                                                         | 
+        {                                                                          | 
+          "storeCode": "17KA",                                                     | 
+          "store_code": "17KA",                                                    | 
+          "quantity": 6                                                            | 
+        },                                                                         | 
+        {                                                                          | 
+          "storeCode": "30KA",                                                     | 
+          "store_code": "30KA",                                                    | 
+          "quantity": 6                                                            | 
+        },                                                                         | 
+        {                                                                          | 
+          "storeCode": "32KA",                                                     | 
+          "store_code": "32KA",                                                    | 
+          "quantity": 6                                                            | 
+        },                                                                         | 
+        {                                                                          | 
+          "storeCode": "34KA",                                                     | 
+          "store_code": "34KA",                                                    | 
+          "quantity": 6                                                            | 
+        }                                                                          | 
+      ],                                                                           | 
+      "line_number": 1                                                             | 
+    }                                                                              | 
+  ],                                                                               | 
+  "MATERIALGROUPINGS": [                                                           | 
+    {                                                                              | 
+      "line_number": 1,                                                            | 
+      "running_number": "1",                                                       | 
+      "grouping_name": "MM8D1C22C1",                                               | 
+      "description": "MM8D1C22C1",                                                 | 
+      "category": "1 - Material No.",                                              | 
+      "component": "1000728050"                                                    | 
+    }                                                                              | 
+  ],                                                                               | 
+  "STATUS": "PENDING_VERIFICATION"                                                 | 
+}                                                                                  | 
+```
