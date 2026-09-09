@@ -1,37 +1,25 @@
 # {PROFILE} / {MECHANIC} / {CASE_DESCRIPTION}
 
 <!--
-กฎไฟล์ evidence:
-- 1 เคส = 1 ไฟล์ .md เท่านั้น
-- แยกโฟลเดอร์ตามโปรไฟล์ เช่น qa-evidence/P010/
-- ในไฟล์เดียวกัน ซ้าย = AB, ขวา = C
-- ตั้งชื่อไฟล์: {Mechanic}-{CaseDescription}.md
-  ตัวอย่าง: PriceOff-Promo-baseline.md
+1 เคส = 1 ไฟล์ .md
+ซ้าย AB / ขวา C แบบเทียบทีละบรรทัด (ไม่ยัด JSON ทั้งก้อนลง cell เดียว)
 -->
 
 <table>
-  <thead>
-    <tr>
-      <th width="50%">AB JSON</th>
-      <th width="50%">C JSON</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td valign="top">
-
-<pre><code>{
-  "LAYOUT": "AB"
-}</code></pre>
-
-      </td>
-      <td valign="top">
-
-<pre><code>{
-  "LAYOUT": "C"
-}</code></pre>
-
-      </td>
-    </tr>
-  </tbody>
+<thead>
+<tr>
+<th width="50%">AB JSON</th>
+<th width="50%">C JSON</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="top"><pre style="margin:0">{</pre></td>
+<td valign="top"><pre style="margin:0">{</pre></td>
+</tr>
+<tr>
+<td valign="top"><pre style="margin:0">  "LAYOUT": "AB",</pre></td>
+<td valign="top"><pre style="margin:0">  "LAYOUT": "C",</pre></td>
+</tr>
+</tbody>
 </table>
