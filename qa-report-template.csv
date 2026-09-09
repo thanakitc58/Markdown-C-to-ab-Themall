@@ -4,7 +4,7 @@ PWP,P011,Lower price,,1,Valid Time case,Depending,https://github.com/thanakitc58
 Farmhouse/Cook Fee,P011,Lower price,,1,Promo baseline,Depending,https://github.com/thanakitc58/Markdown-C-to-ab-Themall/blob/main/qa-evidence/P011/FarmhouseCookFee-Promo-baseline.md,Pass promo baseline
 Last Chance,P011,Lower price,,1,Promo baseline,Depending,https://github.com/thanakitc58/Markdown-C-to-ab-Themall/blob/main/qa-evidence/P011/LastChance-Promo-baseline.md,Pass promo baseline
 Staff Discount,P015,Line markdown,,1,Discount percent case,Depending,https://github.com/thanakitc58/Markdown-C-to-ab-Themall/blob/main/qa-evidence/P015/StaffDiscount-DiscountPct.md,Pass discount_percent=10
-Time Sale,P001,Promotion,,1,Promo baseline,Depending,,
+Time Sale,P001,Promotion,,1,Promo baseline,Depending,https://github.com/thanakitc58/Markdown-C-to-ab-Themall/blob/main/qa-evidence/P001/TimeSale-Promo-baseline.md,Pass promo wins over leftover %
 B1G1,F001,Free Type 1,1,1,Promo baseline,Depending,,
 B1G1 (On Pack),F001,Free Type 1,1,1,Skip BBY case,Depending,,
 B2G1,F001,Free Type 1,2,1,Promo baseline,Depending,,
