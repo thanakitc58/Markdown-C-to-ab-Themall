@@ -1,34 +1,30 @@
 # {PROFILE} / {MECHANIC} / {CASE_DESCRIPTION}
 
 <table>
-<tr>
-<th width="50%">AB JSON</th>
-<th width="50%">C JSON</th>
-</tr>
-<tr>
-<td>
-
-```json
-{
+  <thead>
+    <tr>
+      <th width="50%">AB JSON</th>
+      <th width="50%">C JSON</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td valign="top">
+<pre><code>{
   "LAYOUT": "AB",
   "STATUS": "DRAFT",
   "HEADER": {},
   "BONUSBUYS": []
-}
-```
-
-</td>
-<td>
-
-```json
-{
+}</code></pre>
+      </td>
+      <td valign="top">
+<pre><code>{
   "LAYOUT": "C",
   "STATUS": "DRAFT",
   "HEADER": {},
   "MATERIALS": []
-}
-```
-
-</td>
-</tr>
+}</code></pre>
+      </td>
+    </tr>
+  </tbody>
 </table>
