@@ -1,22 +1,6 @@
 # P010 / Price Off / Promo baseline
 
-## ดูซ้าย-ขวาเต็มจอ (แนะนำ)
-
-เปิดไฟล์ HTML นี้:
-
-- [`PriceOff-Promo-baseline.html`](./PriceOff-Promo-baseline.html)
-- Preview เต็มจอ: [htmlpreview](https://htmlpreview.github.io/?https://github.com/thanakitc58/Markdown-C-to-ab-Themall/blob/main/qa-evidence/P010/PriceOff-Promo-baseline.html)
-
-> หน้า GitHub `.md` บีบความกว้างตาราง ทำให้ต้องเลื่อนซ้ายขวา จึงย้ายการเทียบแบบเต็มจอไปที่ HTML
-
-## ไฟล์ดิบ
-
-- [AB JSON](./PriceOff-Promo-baseline.ab.json)
-- [C JSON](./PriceOff-Promo-baseline.c.json)
-
-## อ่านใน GitHub แบบเต็มความกว้าง (เรียงบน-ล่าง)
-
-### AB JSON
+## AB JSON
 
 ```json
 {
@@ -254,7 +238,7 @@
 }
 ```
 
-### C JSON
+## C JSON
 
 ```json
 {
