@@ -32,4 +32,4 @@ B6G1,F001,Free Type 1,6,1,Promo baseline,Done,https://github.com/thanakitc58/Mar
 2A Get 1B (A),F003,Free Type 3,2,,Structure case,Done,https://github.com/thanakitc58/Markdown-C-to-ab-Themall/blob/main/qa-evidence/F003/2AGet1B-A-Structure.md,
 2A Get 1B (B),F003,Free Type 3,,1,Structure case,Done,https://github.com/thanakitc58/Markdown-C-to-ab-Themall/blob/main/qa-evidence/F003/2AGet1B-B-Structure.md,
 A (Coupon)+B (A),D003,Deal Type 3,1,,Structure case,Done,https://github.com/thanakitc58/Markdown-C-to-ab-Themall/blob/main/qa-evidence/D003/ACouponPlusB-A-Structure.md,Pass buy-only qty 1
-A (Coupon)+B (B),D003,Deal Type 3,,1,Structure case,Depending,,
+A (Coupon)+B (B),D003,Deal Type 3,,1,Structure case,Done,https://github.com/thanakitc58/Markdown-C-to-ab-Themall/blob/main/qa-evidence/D003/ACouponPlusB-B-Structure.md,Pass get-only qty 1 promo 1000
