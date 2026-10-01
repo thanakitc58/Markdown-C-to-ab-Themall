@@ -1,0 +1,39 @@
+{
+  "name": "stores",
+  "description": "สาขา offline 18 สาขา, รหัสสาขาพิเศษ และค่าคงที่ material_or_group_type",
+  "source": "template Convert_C_to_AB_Template_V2.xlsb ชีต Plant (แถว ALL Offline) · macro GetPlant / Gen_DC_File / Generate_Online_File",
+  "used_for": [
+    { "field": "BONUSBUYS[].stores", "autofill_first": false, "rule": "lookup เองเสมอ · ดู 02-BBY.md ข้อ 3.1" },
+    { "field": "BONUSBUYS[].buy[] / get[] .material_or_group_type", "autofill_first": false, "rule": "BBY มี Material Grouping → MGPNew · ไม่มี → MAT" }
+  ],
+  "offline_stores": [
+    { "store": "13KA", "name": "ราม 3", "group": "The Mall" },
+    { "store": "14KA", "name": "ท่าพระ", "group": "The Mall" },
+    { "store": "15KA", "name": "งามวงศ์วาน", "group": "The Mall" },
+    { "store": "16KA", "name": "บางแค", "group": "The Mall" },
+    { "store": "17KA", "name": "บางกะปิ", "group": "The Mall" },
+    { "store": "33KA", "name": "โคราช", "group": "The Mall" },
+    { "store": "30KA", "name": "เอ็มโพเรียม", "group": "Flagship" },
+    { "store": "31KA", "name": "เอ็มควอเทียร์", "group": "Flagship" },
+    { "store": "32KA", "name": "เอ็มสเฟียร์", "group": "Flagship" },
+    { "store": "34KA", "name": "พารากอน", "group": "Flagship" },
+    { "store": "35KA", "name": "บลูพอร์ต", "group": "Stand Alone" },
+    { "store": "60KA", "name": "เทอมินอล 21", "group": "Stand Alone" },
+    { "store": "61KA", "name": "พรอมานาด", "group": "Stand Alone" },
+    { "store": "64KA", "name": "ราชพฤกษ์", "group": "Stand Alone" },
+    { "store": "65KA", "name": "MRT ลาดพร้าว", "group": "Stand Alone" },
+    { "store": "67KA", "name": "ดีไซน์ วิลเลจ", "group": "Stand Alone" },
+    { "store": "68KA", "name": "พีเพิล พาร์ค", "group": "Stand Alone" },
+    { "store": "66KA", "name": "Design Village Bangna", "group": "Stand Alone" }
+  ],
+  "special_codes": [
+    { "value": "KA_EXCEPT_ONLINE", "when": "MATERIALS[].stores มีครบทั้ง 18 สาขาใน offline_stores" },
+    { "value": "22KA", "when": "Online · promotion_area = P4" },
+    { "value": "91KA", "when": "ใช้เฉพาะ BBY ของ DC · ตัดออกจาก BBY ปกติเสมอ" },
+    { "value": "92KA", "when": "FDC · ตัดออกเสมอ" }
+  ],
+  "material_or_group_type": [
+    { "value": "MGPNew", "when": "BBY มี Material Grouping", "excel": "MGP" },
+    { "value": "MAT", "when": "สินค้ารายตัว", "excel": "MAT" }
+  ]
+}

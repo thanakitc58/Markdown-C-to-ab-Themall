@@ -1,0 +1,20 @@
+{
+  "name": "plant-sales-org",
+  "description": "Plant → Sales Organization",
+  "source": "template Convert_C_to_AB_Template_V2.xlsb ชีต Sub_condition (DV = Plant, DW = Sale.org)",
+  "key": "plants",
+  "used_for": [
+    { "field": "CONDITIONS[].conditionHeader.sales_organization", "autofill_first": true, "autofill_from": "CONDITIONS[].conditionHeader.sales_organization", "rule": "Settlement Option 1: ใช้ค่า autofill ก่อน · ถ้าว่างค่อย lookup ด้วย settlement plant · Settlement Option 2 (แตกสัญญาตาม Sales Org): lookup เสมอ" },
+    { "field": "CONDITIONS[].businessVolumeSales[].bonus_buy_plant", "autofill_first": false, "rule": "Field Combination Z265 + Option 2: ใช้สาขาที่อยู่ใน Sales Org ของสัญญานั้น ไม่รวม 22KA, 68KA" }
+  ],
+  "ka_except_online": "เลือกครบ 18 สาขา (KA_EXCEPT_ONLINE) = ครบทั้ง 7 Sales Org ด้านล่าง",
+  "data": [
+    { "sales_org": "3010", "label": "3010 - THE MALL GROUP CO.,", "plants": ["13KA", "14KA", "15KA", "16KA", "17KA", "22KA", "64KA", "65KA", "66KA", "67KA", "68KA", "91KA", "92KA"] },
+    { "sales_org": "3029", "label": "3029 - CITY MALL GROUP CO.,", "plants": ["30KA", "31KA", "32KA"] },
+    { "sales_org": "3035", "label": "3035 - THE MALL RATCHASIMA", "plants": ["33KA"] },
+    { "sales_org": "3037", "label": "3037 - SIAM PARAGON RETAIL", "plants": ["34KA"] },
+    { "sales_org": "3042", "label": "3042 - HUAHIN RETAIL CO., L", "plants": ["35KA"] },
+    { "sales_org": "3052", "label": "3052 - EMPORIUM FOOD GALLER", "plants": ["60KA"] },
+    { "sales_org": "3053", "label": "3053 - PROMENADE HOME FRESH", "plants": ["61KA"] }
+  ]
+}

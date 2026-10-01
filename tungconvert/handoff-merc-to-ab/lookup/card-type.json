@@ -1,0 +1,29 @@
+{
+  "name": "card-type",
+  "description": "Card Type ที่ต้องใส่ให้ทุก BBY",
+  "source": "template Convert_C_to_AB_Template_V2.xlsb ชีต Sub_condition!DZ2:DZ20 · macro Fill_Card_Type ใส่ทั้ง 19 ค่าให้ทุก Bonus Buy No.",
+  "used_for": [
+    { "field": "BONUSBUYS[].card[]", "autofill_first": false, "rule": "lookup เองเสมอ · สร้าง 1 แถวต่อ 1 card_type ต่อ 1 BBY: { \"bonus_buy_number\": \"<BBY No>\", \"card_type\": \"<ค่า>\" } · รวม BBY DC และ BBY online" }
+  ],
+  "data": [
+    "00001",
+    "00002",
+    "00003",
+    "00004",
+    "00005",
+    "00006",
+    "00007",
+    "00008",
+    "00009",
+    "00010",
+    "00011",
+    "00012",
+    "00013",
+    "00014",
+    "00015",
+    "00016",
+    "00017",
+    "00018",
+    "01045"
+  ]
+}
