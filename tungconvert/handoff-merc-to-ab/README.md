@@ -15,6 +15,7 @@
 | [01-HEADER.md](01-HEADER.md) | `HEADER` ส่งต่อตามที่ user กรอก (ไม่แก้) + ค่าที่ดึงจาก `HEADER` ไปใช้ convert | – |
 | [02-BBY.md](02-BBY.md) | `BONUSBUYS[]` — `bonusBuyHeader`, `stores`, `card`, `material_or_group_type`, แยก BBY DC / online | [purchasing-group.json](lookup/purchasing-group.json) · [mechanic.json](lookup/mechanic.json) · [card-type.json](lookup/card-type.json) · [stores.json](lookup/stores.json) |
 | [03-CONDITIONS.md](03-CONDITIONS.md) | `CONDITIONS[]` — สร้างสัญญาตาม macro | [plant-sales-org.json](lookup/plant-sales-org.json) · [mechanic.json](lookup/mechanic.json) |
+| [04-MARCO-GAP.md](04-MARCO-GAP.md) | งานที่ตกหล่นจาก marco — ส่งต่อให้ทำ | – |
 | `lookup/*.json` | ตาราง lookup ทั้งหมด (โหลดเข้าโค้ดได้ตรงๆ) | – |
 
 ---
